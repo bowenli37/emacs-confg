@@ -1,4 +1,4 @@
 emacs-confg
 ===========
 
-My emacs configuration
+So it has come to this...
