@@ -5,6 +5,16 @@
 (add-to-list 'load-path "~/.emacs.d/lib/geben-0.26/")
 (autoload 'geben "geben" "PHP Debugger on Emacs" t)
 
+;; interactively kill geben if we exit
+(add-hook 'geben-mode-hook 'kill-proxy)
+(defun kill-proxy()
+    (add-hook 'kill-emacs-hook
+        (lambda ()
+                (interactive "P")               
+                (call-interactively 'geben-proxy-end))))
+
+
+
 ;;;;
 ;;;;    Helm Support
 ;;;;
@@ -20,9 +30,20 @@
 ;;;;    W3m support
 ;;;;
 
- (add-to-list 'load-path "~/.emacs.d/lib/w3m/")
- (require 'w3m-load)
- (setq browse-url-browser-function 'w3m-browse-url)
+(add-to-list 'load-path "~/.emacs.d/lib/w3m/")
+(require 'w3m-load)
+(setq browse-url-browser-function 'w3m-browse-url)
+
+
+;;;;
+;;;;   PHP Support
+;;;;
+
+(add-to-list 'load-path "~/.emacs.d/lib/php/")
+(autoload 'php-mode "php-mode" "Major mode for PHP files." t)
+(add-to-list 'auto-mode-alist '("\\.php\\'" . php-mode))
+
+
 
 ;;;;
 ;;;;   Python Support
@@ -58,6 +79,10 @@
 (autoload 'pylookup-lookup "pylookup")
 (autoload 'pylookup-update "pylookup")
 (setq pylookup-program "~/.emacs.d/lib/python/pylookup/pylookup.py")
+
+;; BUG:  pylookup.db  doesn't use relative paths,  need to regen
+;;       the database on each system (is there a script or git hook
+;;       we can use to fix this?
 (setq pylookup-db-file "~/.emacs.d/lib/python/docs/pylookup.db")
 
 (global-set-key "\C-cd" 'pylookup-lookup)
