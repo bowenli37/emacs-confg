@@ -1,4 +1,13 @@
 ;;;;
+;;;;   Some default config changes
+;;;;
+
+(setq inhibit-startup-message t)
+(show-paren-mode t)
+(menu-bar-mode -1)
+(column-number-mode t)
+
+;;;;
 ;;;;   Geben support
 ;;;;
 
