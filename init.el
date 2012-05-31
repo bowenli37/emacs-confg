@@ -14,15 +14,6 @@
 (add-to-list 'load-path "~/.emacs.d/lib/geben-0.26/")
 (autoload 'geben "geben" "PHP Debugger on Emacs" t)
 
-;; interactively kill geben if we exit
-(add-hook 'geben-mode-hook 'kill-proxy)
-(defun kill-proxy()
-    (add-hook 'kill-emacs-hook
-        (lambda ()
-                (interactive "P")               
-                (call-interactively 'geben-proxy-end))))
-
-
 
 ;;;;
 ;;;;    Helm Support
