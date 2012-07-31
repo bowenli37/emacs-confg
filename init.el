@@ -1,9 +1,19 @@
 ;;;;
+;;;;   Some default config changes
+;;;;
+
+(setq inhibit-startup-message t)
+(show-paren-mode t)
+(menu-bar-mode -1)
+(column-number-mode t)
+
+;;;;
 ;;;;   Geben support
 ;;;;
 
 (add-to-list 'load-path "~/.emacs.d/lib/geben-0.26/")
 (autoload 'geben "geben" "PHP Debugger on Emacs" t)
+
 
 ;;;;
 ;;;;    Helm Support
@@ -20,9 +30,20 @@
 ;;;;    W3m support
 ;;;;
 
- (add-to-list 'load-path "~/.emacs.d/lib/w3m/")
- (require 'w3m-load)
- (setq browse-url-browser-function 'w3m-browse-url)
+(add-to-list 'load-path "~/.emacs.d/lib/w3m/")
+(require 'w3m-load)
+(setq browse-url-browser-function 'w3m-browse-url)
+
+
+;;;;
+;;;;   PHP Support
+;;;;
+
+(add-to-list 'load-path "~/.emacs.d/lib/php/")
+(autoload 'php-mode "php-mode" "Major mode for PHP files." t)
+(add-to-list 'auto-mode-alist '("\\.php\\'" . php-mode))
+
+
 
 ;;;;
 ;;;;   Python Support
@@ -63,9 +84,7 @@
 		      (setq pylookup-db-file "~/.emacs.d/lib/python/docs/pylookup.db")
 					;
 		      (global-set-key "\C-cd" 'pylookup-lookup)
-))
-
-	  
+))	  
 ;;;;
 ;;;;   Manage Autosave
 ;;;;
