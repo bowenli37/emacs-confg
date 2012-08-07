@@ -8,6 +8,32 @@
 (column-number-mode t)
 
 ;;;;
+;;;;   Adding ELPA Package support
+;;;;
+
+(setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
+			 ("marmalade" . "http://marmalade-repo.org/packages")
+			 ("melpa" . "http://melpa.milkbox.net/packages/")))
+
+;;;;
+;;;;  Bitlbee support
+;;;;
+
+(add-to-list 'load-path "~/.emacs.d/lib/bitlbee/")
+(require 'bitlbee)
+
+(defun my-reformat-jabber-backlog ()
+  "Fix \"unkown participant\" backlog messages from bitlbee."
+  (save-excursion
+    (goto-char (point-min))
+    (if (looking-at
+	 "^<root> Message from unknown participant \\([^:]+\\):")
+	(replace-match "<\\1>"))))
+(add-hook 'erc-insert-modify-hook 'my-reformat-jabber-backlog)
+
+
+
+;;;;
 ;;;;   Geben support
 ;;;;
 
@@ -70,3 +96,5 @@
   ;; Your init file should contain only one such instance.
   ;; If there is more than one, they won't work right.
  )
+
+
