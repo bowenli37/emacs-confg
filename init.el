@@ -45,8 +45,8 @@
 ;;;;
 
 ;(add-to-list 'load-path "~/.emacs.d/elpa/color-theme-20070910") 
-(add-to-list 'load-path "~/.emacs.d/elpa/color-theme-sanityinc-tomorrow-20120720") 
-(require 'color-theme-sanityinc-tomorrow-autoloads)
+;(add-to-list 'load-path "~/.emacs.d/elpa/color-theme-sanityinc-tomorrow-20120720") 
+;(require 'color-theme-sanityinc-tomorrow-autoloads)
 ;
 ;(require 'color-theme)
 ;(require 'color-theme-sanityinc-tomorrow-autoloads)
