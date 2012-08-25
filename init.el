@@ -111,10 +111,10 @@
 (slime-setup '(slime-fancy))
 (setq inferior-lisp-program (executable-find "sbcl"))
 
-(load (expand-file-name "~/quicklisp/slime-helper.el"))
+;(load (expand-file-name "~/quicklisp/slime-helper.el"))
 
-;(if (file-exists-p (expand-file-name "~/quicklisp/slime-helper.el"))
-;    (load (expand-file-name "~/quicklisp/slime-helper.el")))
+(if (file-exists-p (expand-file-name "~/quicklisp/slime-helper.el"))
+    (load (expand-file-name "~/quicklisp/slime-helper.el")))
 
 
 ;;;;
