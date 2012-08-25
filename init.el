@@ -1,3 +1,4 @@
+
 ;;;;
 ;;;;   Some default config changes
 ;;;;
@@ -45,8 +46,8 @@
 ;;;;
 
 ;(add-to-list 'load-path "~/.emacs.d/elpa/color-theme-20070910") 
-(add-to-list 'load-path "~/.emacs.d/elpa/color-theme-sanityinc-tomorrow-20120720") 
-(require 'color-theme-sanityinc-tomorrow-autoloads)
+;(add-to-list 'load-path "~/.emacs.d/elpa/color-theme-sanityinc-tomorrow-20120720") 
+;(require 'color-theme-sanityinc-tomorrow-autoloads)
 ;
 ;(require 'color-theme)
 ;(require 'color-theme-sanityinc-tomorrow-autoloads)
@@ -68,7 +69,12 @@
 	(replace-match "<\\1>"))))
 (add-hook 'erc-insert-modify-hook 'my-reformat-jabber-backlog)
 
-
+(defun social ()
+  "Connect to fearthecloud.net with erc"
+  (interactive)
+  (let ((pw (read-passwd "Password:")))
+    (erc :server "fearthecloud.net" :port 6667 :nick "kotfic"
+	 :password pw )))
 
 ;;;;
 ;;;;   Geben support
@@ -95,6 +101,20 @@
 (autoload 'php-mode "php-mode" "Major mode for PHP files." t)
 (add-to-list 'auto-mode-alist '("\\.php\\'" . php-mode))
 
+;;;;
+;;;;   LISP/SLIME Support
+;;;;
+
+
+(add-to-list 'load-path "~/.emacs.d/lib/slime/")  
+(require 'slime)
+(slime-setup '(slime-fancy))
+(setq inferior-lisp-program (executable-find "sbcl"))
+
+(load (expand-file-name "~/quicklisp/slime-helper.el"))
+
+;(if (file-exists-p (expand-file-name "~/quicklisp/slime-helper.el"))
+;    (load (expand-file-name "~/quicklisp/slime-helper.el")))
 
 
 ;;;;
