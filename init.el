@@ -37,6 +37,7 @@
 (global-set-key "\C-ca" 'org-agenda)
 (global-set-key "\C-cb" 'org-iswitchb)
 
+
 ;;;;
 ;;;;   IDO config
 ;;;;
@@ -121,6 +122,15 @@
 (setq browse-url-browser-function 'w3m-browse-url)
 
 
+(add-hook 'w3m-mode-hook
+	  (lambda ()
+	    (local-set-key "\C-n" 'w3m-next-anchor)
+	    (local-set-key "\C-p" 'w3m-previous-anchor)
+	    (local-set-key '[up] 'previous-line)
+	    (local-set-key '[down] 'next-line)
+	    (local-set-key '[right] 'forward-char)
+	    (local-set-key '[left] 'backward-char)))
+
 ;;;;
 ;;;;   PHP Support
 ;;;;
@@ -164,29 +174,28 @@
 
 
 ;;;;
-;;;;   Third party vendor defcustoms
+;;;;   defcustoms
 ;;;;
 
 (custom-set-variables
-  ;; custom-set-variables was added by Custom.
-  ;; If you edit it by hand, you could mess it up, so be careful.
-  ;; Your init file should contain only one such instance.
-  ;; If there is more than one, they won't work right.
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
  '(ansi-color-faces-vector [default bold shadow italic underline bold bold-italic bold])
  '(ansi-color-names-vector (vector "#c5c8c6" "#cc6666" "#b5bd68" "#f0c674" "#81a2be" "#b294bb" "#8abeb7" "#1d1f21"))
- '(custom-enabled-themes nil)
+ '(custom-enabled-themes (quote (wombat)))
  '(custom-safe-themes (quote ("82d2cac368ccdec2fcc7573f24c3f79654b78bf133096f9b40c20d97ec1d8016" "4aee8551b53a43a883cb0b7f3255d6859d766b6c5e14bcb01bed572fcbef4328" "06f0b439b62164c6f8f84fdda32b62fb50b6d00e8b01c2208e55543a6337433a" default)))
  '(fci-rule-color "#282a2e")
  '(geben-dbgp-feature-list (quote ((:set max_data 32768) (:set max_depth 2) (:set max_children 32) (:get breakpoint_types geben-dbgp-breakpoint-store-types))))
- '(org-agenda-files (quote ("~/classes/IIST669/notes.org" "~/classes/IIST617/notes.org")))
  '(org-file-apps (quote ((auto-mode . emacs) ("\\.mm\\'" . default) ("\\.x?html?\\'" . default) ("\\.pdf\\'" . "/usr/bin/evince"))))
  '(py-shell-name "ipython"))
 
 (custom-set-faces
-  ;; custom-set-faces was added by Custom.
-  ;; If you edit it by hand, you could mess it up, so be careful.
-  ;; Your init file should contain only one such instance.
-  ;; If there is more than one, they won't work right.
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
  )
 
 
