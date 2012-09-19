@@ -14,12 +14,12 @@
 ;;;;    Modeline
 ;;;;
 
-(set-face-background 'mode-line nil)
-(set-face-background 'mode-line-inactive nil)
+; (set-face-background 'mode-line nil)
+; (set-face-background 'mode-line-inactive nil)
 
 
-(set-face-foreground 'mode-line "#ffff87")
-(set-face-foreground 'mode-line-inactive "#ffff87")
+; (set-face-foreground 'mode-line "#ffff87")
+; (set-face-foreground 'mode-line-inactive "#ffff87")
 
 
 ;;;;
