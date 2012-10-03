@@ -1,0 +1,2 @@
+* TODO checkout string library
+  https://github.com/magnars/s.el
