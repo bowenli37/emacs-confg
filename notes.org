@@ -1,2 +1,4 @@
 * TODO checkout string library
   https://github.com/magnars/s.el
+* TODO get uniquify.el to unique buffers
+  Check Dan's configs for legit setup
