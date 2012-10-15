@@ -37,6 +37,18 @@
 (global-set-key "\C-ca" 'org-agenda)
 (global-set-key "\C-cb" 'org-iswitchb)
 
+; log when we mark a todo as DONE
+(setq org-log-done 'time)
+
+(if (file-exists-p (expand-file-name "~/classes/.agenda-files"))
+    (setq org-agenda-files "~/classes/.agenda-files" ))
+
+;;;;
+;;;;  Uniqueify
+;;;;
+
+(require 'uniquify)
+(setq uniquify-buffer-name-style 'forward)
 
 ;;;;
 ;;;;   IDO config
