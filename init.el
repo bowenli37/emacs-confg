@@ -8,7 +8,7 @@
 (menu-bar-mode -1)
 (column-number-mode t)
 
-
+(setq fill-column 120)
 
 ;;;;
 ;;;;    Modeline
@@ -45,6 +45,18 @@
 (global-set-key "\C-ca" 'org-agenda)
 (global-set-key "\C-cb" 'org-iswitchb)
 
+; log when we mark a todo as DONE
+(setq org-log-done 'time)
+
+(if (file-exists-p (expand-file-name "~/classes/.agenda-files"))
+    (setq org-agenda-files "~/classes/.agenda-files" ))
+
+;;;;
+;;;;  Uniqueify
+;;;;
+
+(require 'uniquify)
+(setq uniquify-buffer-name-style 'forward)
 
 ;;;;
 ;;;;   IDO config
@@ -190,11 +202,8 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(ansi-color-faces-vector [default bold shadow italic underline bold bold-italic bold])
- '(ansi-color-names-vector (vector "#c5c8c6" "#cc6666" "#b5bd68" "#f0c674" "#81a2be" "#b294bb" "#8abeb7" "#1d1f21"))
+ '(ansi-color-names-vector ["#2e3436" "#a40000" "#4e9a06" "#c4a000" "#204a87" "#5c3566" "#729fcf" "#eeeeec"])
  '(custom-enabled-themes (quote (wombat)))
- '(custom-safe-themes (quote ("82d2cac368ccdec2fcc7573f24c3f79654b78bf133096f9b40c20d97ec1d8016" "4aee8551b53a43a883cb0b7f3255d6859d766b6c5e14bcb01bed572fcbef4328" "06f0b439b62164c6f8f84fdda32b62fb50b6d00e8b01c2208e55543a6337433a" default)))
- '(fci-rule-color "#282a2e")
  '(geben-dbgp-feature-list (quote ((:set max_data 32768) (:set max_depth 2) (:set max_children 32) (:get breakpoint_types geben-dbgp-breakpoint-store-types))))
  '(org-file-apps (quote ((auto-mode . emacs) ("\\.mm\\'" . default) ("\\.x?html?\\'" . default) ("\\.pdf\\'" . "/usr/bin/evince"))))
  '(py-shell-name "ipython"))
