@@ -1,4 +1,6 @@
 * TODO checkout string library
   https://github.com/magnars/s.el
-* TODO get uniquify.el to unique buffers
+* DONE get uniquify.el to unique buffers
+  CLOSED: [2012-11-01 Thu 09:31]
   Check Dan's configs for legit setup
+* TODO read magit docs [[http://philjackson.github.com/magit/magit.html][here]]
