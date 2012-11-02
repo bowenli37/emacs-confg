@@ -24,6 +24,14 @@
 ; (set-face-foreground 'mode-line-inactive "#ffff87")
 
 
+
+;;;;
+;;;;    Magit
+;;;;
+
+(add-to-list 'load-path "~/.emacs.d/lib/magit")
+(require 'magit)
+
 ;;;;
 ;;;;    Org-Mode Configs
 ;;;;
