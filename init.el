@@ -5,7 +5,9 @@
 
 (setq inhibit-startup-message t)
 (show-paren-mode t)
-(menu-bar-mode -1)
+(menu-bar-mode 0)
+(tool-bar-mode 0)
+(scroll-bar-mode 0)
 (column-number-mode t)
 
 (setq fill-column 120)
@@ -81,7 +83,8 @@
 (setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
 			 ("marmalade" . "http://marmalade-repo.org/packages/")
 			 ("melpa" . "http://melpa.milkbox.net/packages/")))
-
+(require 'package)
+(package-initialize)
 ;;;;
 ;;;;   Custom Theme Support
 ;;;;
@@ -196,6 +199,9 @@
  ;; If there is more than one, they won't work right.
  '(ansi-color-names-vector ["#2e3436" "#a40000" "#4e9a06" "#c4a000" "#204a87" "#5c3566" "#729fcf" "#eeeeec"])
  '(custom-enabled-themes (quote (wombat)))
+ '(doc-view-continuous t)
+ '(doc-view-ghostscript-options (quote ("-dSAFER" "-dNOPAUSE" "-sDEVICE=png16m" "-dTextAlphaBits=4" "-dBATCH" "-dGraphicsAlphaBits=4" "-dQUIET" "-dNOPLATFONTS")))
+ '(doc-view-resolution 300)
  '(geben-dbgp-feature-list (quote ((:set max_data 32768) (:set max_depth 2) (:set max_children 32) (:get breakpoint_types geben-dbgp-breakpoint-store-types))))
  '(org-file-apps (quote ((auto-mode . emacs) ("\\.mm\\'" . default) ("\\.x?html?\\'" . default) ("\\.pdf\\'" . "/usr/bin/evince"))))
  '(py-shell-name "ipython"))
