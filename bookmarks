@@ -1,0 +1,25 @@
+;;;; Emacs Bookmark Format Version 1 ;;;;
+;;; This format is meant to be slightly human-readable;
+;;; nevertheless, you probably don't want to edit it.
+;;; -*- End Of Bookmark File Format Version Stamp -*-
+(("current"
+ (filename . "~/doc/successful_lisp/successful_lisp.org")
+ (front-context-string . "*** Binding crea")
+ (rear-context-string . "sus Assignment\n\n")
+ (position . 66879))
+("sec"
+ (filename . "~/doc/successful_lisp/successful_lisp.org")
+ (front-context-string . "*** A value can ")
+ (rear-context-string . " read by Lisp.\n\n")
+ (position . 64965))
+("chap"
+ (filename . "~/doc/successful_lisp/successful_lisp.org")
+ (front-context-string . "* Chapter 3 - Es")
+ (rear-context-string . "ter 3, Lesson 1\n")
+ (position . 33768))
+("successful_lisp.org"
+ (filename . "~/doc/successful_lisp/successful_lisp.org")
+ (front-context-string . "*** A function c")
+ (rear-context-string . "erent message.\n\n")
+ (position . 44179))
+)
