@@ -1,5 +1,4 @@
-* TODO checkout string library
-  https://github.com/magnars/s.el
+* TODO checkout string library [[https://github.com/magnars/s.el][here]]
 * DONE get uniquify.el to unique buffers
   CLOSED: [2012-11-01 Thu 09:31]
   Check Dan's configs for legit setup
@@ -7,5 +6,5 @@
 * TODO Checkout hexl-mode for example of mode working with binary/fixed field data - possible emacs extension for working with marc records?
 * TODO read magit docs [[http://philjackson.github.com/magit/magit.html][here]]
 * TODO docview: link does not export to html well - need this to follow similar format as file:
-
-
+* TODO checkout Emacs Cookbook: [[http://emacswiki.org/emacs/ElispCookbook][here]]
+* TODO furl.el  for URL & API stuff [[http://code.google.com/p/furl-el/source/browse/furl.el][here]]
