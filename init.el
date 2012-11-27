@@ -9,28 +9,35 @@
 (tool-bar-mode 0)
 (scroll-bar-mode 0)
 (column-number-mode t)
+(global-auto-revert-mode t)
 
-(setq fill-column 120)
 
 ;;;;
-;;;;    Modeline
+;;;;    Tramp
 ;;;;
 
-; (set-face-background 'mode-line nil)
-; (set-face-background 'mode-line-inactive nil)
+(require 'tramp)
+(setq tramp-default-method "ssh")
 
 
-; (set-face-foreground 'mode-line "#ffff87")
-; (set-face-foreground 'mode-line-inactive "#ffff87")
-
-
-
+;;;;
+;;;;    Chromium support
+;;;;
+(setq browse-url-browser-function 'browse-url-generic
+      browse-url-generic-program "chromium-browser")
 ;;;;
 ;;;;    Magit
 ;;;;
 
 (add-to-list 'load-path "~/.emacs.d/lib/magit")
 (require 'magit)
+
+;;;;
+;;;;   Pandoc-Mode
+;;;;
+
+(add-to-list 'load-path "~/.emacs.d/lib/pandoc")
+(require 'pandoc-mode)
 
 ;;;;
 ;;;;    Org-Mode Configs
@@ -142,7 +149,7 @@
 
 (add-to-list 'load-path "~/.emacs.d/lib/w3m/")
 (require 'w3m-load)
-(setq browse-url-browser-function 'w3m-browse-url)
+;(setq browse-url-browser-function 'w3m-browse-url)
 
 
 (add-hook 'w3m-mode-hook
@@ -166,7 +173,6 @@
 ;;;;   LISP/SLIME Support
 ;;;;
 
-
 (add-to-list 'load-path "~/.emacs.d/lib/slime/")  
 (require 'slime)
 (slime-setup '(slime-fancy))
@@ -177,10 +183,10 @@
 (if (file-exists-p (expand-file-name "~/quicklisp/slime-helper.el"))
     (load (expand-file-name "~/quicklisp/slime-helper.el")))
 
-
 ;;;;
 ;;;;   Python Support
 ;;;;
+
 (add-to-list 'load-path "~/.emacs.d/lib/python/")
 
 (autoload 'python-mode "python-init" "init python" t)
@@ -194,7 +200,6 @@
       `((".*" . ,temporary-file-directory)))
 (setq auto-save-file-name-transforms
       `((".*" ,temporary-file-directory t)))
-
 
 ;;;;
 ;;;;   defcustoms
