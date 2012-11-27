@@ -12,6 +12,19 @@
 
 (setq fill-column 120)
 
+
+;;;;
+;;;;    Fullscreen
+;;;;
+(defun fullscreen ()
+       (interactive)
+       (x-send-client-message nil 0 nil "_NET_WM_STATE" 32
+                 '(2 "_NET_WM_STATE_FULLSCREEN" 0)))
+
+
+(global-set-key [f11] 'fullscreen)
+(global-set-key [XF86Save] 'fullscreen)1;2802;0c
+
 ;;;;
 ;;;;    Modeline
 ;;;;
@@ -223,3 +236,4 @@
 
 
 (put 'scroll-left 'disabled nil)
+(fullscreen)
