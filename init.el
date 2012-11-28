@@ -23,7 +23,7 @@
 
 
 (global-set-key [f11] 'fullscreen)
-(global-set-key [XF86Save] 'fullscreen)1;2802;0c
+(global-set-key [XF86Save] 'fullscreen)
 
 ;;;;
 ;;;;    Tramp
