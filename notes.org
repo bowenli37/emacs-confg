@@ -8,3 +8,4 @@
 * TODO docview: link does not export to html well - need this to follow similar format as file:
 * TODO checkout Emacs Cookbook: [[http://emacswiki.org/emacs/ElispCookbook][here]]
 * TODO furl.el  for URL & API stuff [[http://code.google.com/p/furl-el/source/browse/furl.el][here]]
+* TODO IDO and ssh issues - ssh as ckotfila & edit files as root,  also shortcuts for IDO to places like ckotfila@imladris:~/
