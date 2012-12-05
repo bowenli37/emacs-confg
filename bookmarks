@@ -2,7 +2,17 @@
 ;;; This format is meant to be slightly human-readable;
 ;;; nevertheless, you probably don't want to edit it.
 ;;; -*- End Of Bookmark File Format Version Stamp -*-
-(("current"
+(("bar"
+ (filename . "/ssh:ckotfila@imladris:/home/ckotfila/projects/blast/httpdocs/application/controllers/auth.php")
+ (front-context-string . "	\n\n\n\n        $th")
+ (rear-context-string . "on_groups_data;\n")
+ (position . 19182))
+("foo"
+ (filename . "/ssh:ckotfila@imladris:/home/ckotfila/projects/blast/httpdocs/application/controllers/auth.php")
+ (front-context-string . "$user = new Blas")
+ (rear-context-string . "l_data);\n\n      ")
+ (position . 18269))
+("current"
  (filename . "~/doc/successful_lisp/successful_lisp.org")
  (front-context-string . "*** Binding crea")
  (rear-context-string . "sus Assignment\n\n")
