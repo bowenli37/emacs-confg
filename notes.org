@@ -10,3 +10,4 @@
 * TODO furl.el  for URL & API stuff [[http://code.google.com/p/furl-el/source/browse/furl.el][here]]
 * TODO IDO and ssh issues - ssh as ckotfila & edit files as root,  also shortcuts for IDO to places like ckotfila@imladris:~/
 * TODO Watch dired video [[http://emacsmovies.org/blog/2012/12/04/dired/][here]]
+* TODO learn M^X re-builder for learning regular expressions in emacs 

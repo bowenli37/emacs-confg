@@ -145,7 +145,7 @@
   "Connect to fearthecloud.net with erc"
   (interactive)
   (let ((pw (read-passwd "Password:")))
-    (erc :server "fearthecloud.net" :port 6667 :nick "kotfic"
+    (erc :server "96.126.106.68" :port 6667 :nick "kotfic"
 	 :password pw )))
 
 ;;;;
