@@ -1,5 +1,7 @@
 auto-save-list
 lib/python/docs/pylookup.db
 geben
-cache
+cache/*
 tramp
+session*
+eshell

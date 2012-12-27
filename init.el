@@ -11,7 +11,96 @@
 (column-number-mode t)
 (global-auto-revert-mode t)
 
+; "fuck tabs, use spaces" - dan
+(setq indent-tabs-mode nil)
 
+
+;;;;
+;;;;   Mu4e
+;;;;
+
+(add-to-list 'load-path "~/.emacs.d/lib/mu4e")
+
+(require 'mu4e)
+(require 'org-mu4e)
+
+; fix weird html2text is out of range error 'error in process filter: Args out of range: "Email\"", 7, 6'
+; see: https://github.com/djcb/mu/issues/73
+(setq mu4e-html2text-command "html2text -utf8 -width 72")
+;(setq mu4e-view-prefer-html t)              ;; prefer html
+
+(setq
+ mu4e-use-fancy-chars t
+ mu4e-get-mail-command "offlineimap"   ;; or fetchmail, or ...
+ mu4e-update-interval 180)              ;; update every 3 minutes
+
+
+;; these are actually the defaults
+(setq
+ mu4e-maildir       "~/mail"   ;; top-level Maildir
+; mu4e-sent-folder   "/sent"       ;; folder for sent messages
+; mu4e-drafts-folder "/drafts"     ;; unfinished messages
+; mu4e-trash-folder  "/trash"      ;; trashed messages
+; mu4e-refile-folder "/archive"   ;; saved messages
+)
+
+
+;; stuff from the internet,  yay!
+
+(setq mu4e-account-alist 
+      '(("burstmarketing" 
+         (mu4e-sent-folder "/burstmarketing/Sent Items") 
+         (mu4e-drafts-folder "/burstmarketing/Drafts") 
+	 (mu4e-trash-folder "/burstmarketing/Trash")
+         (user-mail-address "ckotfila@burstmarketing.net") 
+	 (smtpmail-smtp-user "chris@intellisites.com")
+         (smtpmail-smtp-server "mail.thoughtbus.com")
+         ;; add other variables here 
+         ) 
+        ("gmail" 
+         (mu4e-sent-folder "/gmail/[Gmail].Sent") 
+         (mu4e-drafts-folder "/gmail/[Gmail].Draft") 
+	 (mu4e-trash-folder "/gmail/[Gmail].Trash")
+         (user-mail-address "kotfic@gmail.com") 
+	 (smtpmail-smtp-user "kotfic@gmail.com")
+         (smtpmail-smtp-server "smtp.gmail.com")
+	 (mu4e-sent-messages-behavior delete)
+         ;; add other variables here 
+         ) 
+        ("ualbany" 
+         (mu4e-sent-folder "/ualbany/Sent Items") 
+         (mu4e-drafts-folder "/ualbany/Drafts") 
+	 (mu4e-trash-folder "/ualbany/Trash")
+         (user-mail-address "ckotfila@albany.edu") 
+	 (smtpmail-smtp-user "ckotfila@albany.edu")
+;         (smtpmail-local-domain "pod51009.outlook.com")
+         (smtpmail-smtp-server "pod51009.outlook.com")
+         ;; add other variables here 
+         )))
+
+(defun mu4e-set-account () 
+  "Set the account for composing a message." 
+  (let* ((account 
+          (if mu4e-compose-parent-message 
+              (let ((maildir (mu4e-msg-field mu4e-compose-parent-message :maildir))) 
+                (string-match "/\\(.*?\\)/" maildir) 
+                (match-string 1 maildir)) 
+            (completing-read (format "Compose with account: (%s) " 
+                                     (mapconcat #'(lambda (var) (car var)) mu4e-account-alist "/")) 
+                             (mapcar #'(lambda (var) (car var)) mu4e-account-alist) 
+                             nil t nil nil (caar mu4e-account-alist)))) 
+         (account-vars (cdr (assoc account mu4e-account-alist)))) 
+    (if account-vars 
+        (mapc #'(lambda (var) 
+                  (set (car var) (cadr var))) 
+              account-vars))))
+
+(add-hook 'mu4e-compose-pre-hook 'mu4e-set-account) 
+
+
+
+;; don't save messages to Sent Messages, Gmail/IMAP takes care of this
+; (setq mu4e-sent-messages-behavior 'delete)
 
 ;;;;
 ;;;;    Fullscreen
@@ -230,7 +319,8 @@
  '(doc-view-resolution 300)
  '(geben-dbgp-feature-list (quote ((:set max_data 32768) (:set max_depth 2) (:set max_children 32) (:get breakpoint_types geben-dbgp-breakpoint-store-types))))
  '(org-file-apps (quote ((auto-mode . emacs) ("\\.mm\\'" . default) ("\\.x?html?\\'" . default) ("\\.pdf\\'" . "/usr/bin/evince"))))
- '(py-shell-name "ipython"))
+ '(py-shell-name "ipython")
+ '(send-mail-function (quote smtpmail-send-it)))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.

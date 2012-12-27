@@ -1,13 +1,17 @@
-* TODO checkout string library [[https://github.com/magnars/s.el][here]]
-* DONE get uniquify.el to unique buffers
-  CLOSED: [2012-11-01 Thu 09:31]
-  Check Dan's configs for legit setup
+* Investigate
+** TODO checkout string library [[https://github.com/magnars/s.el][here]]
+** DONE get uniquify.el to unique buffers
+   CLOSED: [2012-11-01 Thu 09:31]
+   Check Dan's configs for legit setup
 
-* TODO Checkout hexl-mode for example of mode working with binary/fixed field data - possible emacs extension for working with marc records?
-* TODO read magit docs [[http://philjackson.github.com/magit/magit.html][here]]
-* TODO docview: link does not export to html well - need this to follow similar format as file:
-* TODO checkout Emacs Cookbook: [[http://emacswiki.org/emacs/ElispCookbook][here]]
-* TODO furl.el  for URL & API stuff [[http://code.google.com/p/furl-el/source/browse/furl.el][here]]
-* TODO IDO and ssh issues - ssh as ckotfila & edit files as root,  also shortcuts for IDO to places like ckotfila@imladris:~/
-* TODO Watch dired video [[http://emacsmovies.org/blog/2012/12/04/dired/][here]]
-* TODO learn M^X re-builder for learning regular expressions in emacs 
+** TODO Checkout hexl-mode for example of mode working with binary/fixed field data - possible emacs extension for working with marc records?
+** TODO read magit docs [[http://philjackson.github.com/magit/magit.html][here]]
+** TODO docview: link does not export to html well - need this to follow similar format as file:
+** TODO checkout Emacs Cookbook: [[http://emacswiki.org/emacs/ElispCookbook][here]]
+** TODO furl.el  for URL & API stuff [[http://code.google.com/p/furl-el/source/browse/furl.el][here]]
+** TODO IDO and ssh issues - ssh as ckotfila & edit files as root,  also shortcuts for IDO to places like ckotfila@imladris:~/
+** TODO Watch dired video [[http://emacsmovies.org/blog/2012/12/04/dired/][here]]
+** TODO learn M^X re-builder for learning regular expressions in emacs 
+
+* mu4e
+** TODO configure mu4e header mode to not require confirmation on applying marks
