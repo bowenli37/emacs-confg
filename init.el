@@ -29,11 +29,42 @@
 (setq mu4e-html2text-command "html2text -utf8 -width 72")
 ;(setq mu4e-view-prefer-html t)              ;; prefer html
 
+
+
+
+
 (setq
  mu4e-use-fancy-chars t
  mu4e-get-mail-command "offlineimap"   ;; or fetchmail, or ...
  mu4e-update-interval 180)              ;; update every 3 minutes
 
+
+(defun gmail ()  
+  (interactive)
+  (setq
+   mu4e-sent-folder   "/gmail/[Gmail].Sent"       ;; folder for sent messages
+   mu4e-drafts-folder "/gmail/[Gmail].Drafts"     ;; unfinished messages
+   mu4e-trash-folder  "/gmail/[Gmail].Trash"      ;; trashed messages
+   mu4e-refile-folder "/gmail/[Gmail]."   ;; saved messages
+   ))
+
+(defun burst ()  
+  (interactive)
+  (setq
+   mu4e-sent-folder   "/burstmarketing/Sent"       ;; folder for sent messages
+   mu4e-drafts-folder "/burstmarketing/Drafts"     ;; unfinished messages
+   mu4e-trash-folder  "/burstmarketing/Trash"      ;; trashed messages
+   mu4e-refile-folder "/burstmarketing/Archives"   ;; saved messages
+   ))
+
+(defun ualbany ()  
+  (interactive)
+  (setq
+   mu4e-sent-folder   "/ualbany/Sent"       ;; folder for sent messages
+   mu4e-drafts-folder "/ualbany/Drafts"     ;; unfinished messages
+   mu4e-trash-folder  "/ualbany/Trash"      ;; trashed messages
+   mu4e-refile-folder "/ualbany/Archives"   ;; saved messages
+   ))
 
 ;; these are actually the defaults
 (setq
