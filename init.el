@@ -15,6 +15,24 @@
 (setq indent-tabs-mode nil)
 
 
+
+
+
+;;;;
+;;;;   Websocket
+;;;;
+
+(add-to-list 'load-path "~/.emacs.d/lib/websocket")
+(require 'websocket)
+
+;;;;
+;;;;   Emacs-Ipython-Notebook
+;;;;
+
+(add-to-list 'load-path "~/.emacs.d/lib/ein")
+(add-to-list 'load-path "~/.emacs.d/lib/ein/lisp")
+(require 'ein)
+
 ;;;;
 ;;;;   Mu4e
 ;;;;
