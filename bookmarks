@@ -13,10 +13,12 @@
  (rear-context-string . "l_data);\n\n      ")
  (position . 18269))
 ("current"
- (filename . "~/doc/successful_lisp/successful_lisp.org")
- (front-context-string . "*** Binding crea")
- (rear-context-string . "sus Assignment\n\n")
- (position . 66879))
+ (front-context-string . "\nSo far, our lit")
+ (rear-context-string . " Taking Control\n")
+ (position . 64163)
+ (filename . "file:///home/kotfic/org/school/classes/IIST669/NLTK_Book/book/book/ch01.html")
+ (url . "file:///home/kotfic/org/school/classes/IIST669/NLTK_Book/book/book/ch01.html")
+ (handler . bookmark-w3m-bookmark-jump))
 ("sec"
  (filename . "~/doc/successful_lisp/successful_lisp.org")
  (front-context-string . "*** A value can ")

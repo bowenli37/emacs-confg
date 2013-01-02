@@ -208,8 +208,8 @@
 ; log when we mark a todo as DONE
 (setq org-log-done 'time)
 
-(if (file-exists-p (expand-file-name "~/classes/.agenda-files"))
-    (setq org-agenda-files "~/classes/.agenda-files" ))
+(if (file-exists-p (expand-file-name "~/org/.agenda-files"))
+    (setq org-agenda-files "~/org/.agenda-files" ))
 
 ;;;;
 ;;;;  Uniqueify
