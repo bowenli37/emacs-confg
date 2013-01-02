@@ -15,8 +15,12 @@
 (setq indent-tabs-mode nil)
 
 
+;;;;
+;;;;   Winner Mode
+;;;;
 
-
+(when (fboundp 'winner-mode)
+  (winner-mode 1))
 
 ;;;;
 ;;;;   Websocket
