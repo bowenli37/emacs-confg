@@ -61,7 +61,7 @@
  mu4e-update-interval 180)              ;; update every 3 minutes
 
 
-(defun gmail ()  
+(defun gmail ()
   (interactive)
   (setq
    mu4e-sent-folder   "/gmail/[Gmail].Sent"       ;; folder for sent messages
@@ -70,7 +70,7 @@
    mu4e-refile-folder "/gmail/[Gmail]."   ;; saved messages
    ))
 
-(defun burst ()  
+(defun burst ()
   (interactive)
   (setq
    mu4e-sent-folder   "/burstmarketing/Sent"       ;; folder for sent messages
@@ -79,7 +79,7 @@
    mu4e-refile-folder "/burstmarketing/Archives"   ;; saved messages
    ))
 
-(defun ualbany ()  
+(defun ualbany ()
   (interactive)
   (setq
    mu4e-sent-folder   "/ualbany/Sent"       ;; folder for sent messages
@@ -100,55 +100,68 @@
 
 ;; stuff from the internet,  yay!
 
-(setq mu4e-account-alist 
-      '(("burstmarketing" 
-         (mu4e-sent-folder "/burstmarketing/Sent Items") 
-         (mu4e-drafts-folder "/burstmarketing/Drafts") 
+(setq mu4e-account-alist
+      '(("burstmarketing"
+	 (mu4e-sent-folder "/burstmarketing/Sent Items")
+	 (mu4e-drafts-folder "/burstmarketing/Drafts")
 	 (mu4e-trash-folder "/burstmarketing/Trash")
-         (user-mail-address "ckotfila@burstmarketing.net") 
+	 (user-mail-address "ckotfila@burstmarketing.net")
 	 (smtpmail-smtp-user "chris@intellisites.com")
-         (smtpmail-smtp-server "mail.thoughtbus.com")
-         ;; add other variables here 
-         ) 
-        ("gmail" 
-         (mu4e-sent-folder "/gmail/[Gmail].Sent") 
-         (mu4e-drafts-folder "/gmail/[Gmail].Draft") 
+	 (smtpmail-smtp-server "mail.thoughtbus.com")
+	 ;; add other variables here
+	 )
+	("gmail"
+	 (mu4e-sent-folder "/gmail/[Gmail].Sent")
+	 (mu4e-drafts-folder "/gmail/[Gmail].Draft")
 	 (mu4e-trash-folder "/gmail/[Gmail].Trash")
-         (user-mail-address "kotfic@gmail.com") 
+	 (user-mail-address "kotfic@gmail.com")
 	 (smtpmail-smtp-user "kotfic@gmail.com")
-         (smtpmail-smtp-server "smtp.gmail.com")
+	 (smtpmail-smtp-server "smtp.gmail.com")
 	 (mu4e-sent-messages-behavior delete)
-         ;; add other variables here 
-         ) 
-        ("ualbany" 
-         (mu4e-sent-folder "/ualbany/Sent Items") 
-         (mu4e-drafts-folder "/ualbany/Drafts") 
+	 ;; add other variables here
+	 )
+	("ualbany"
+	 (mu4e-sent-folder "/ualbany/Sent Items")
+	 (mu4e-drafts-folder "/ualbany/Drafts")
 	 (mu4e-trash-folder "/ualbany/Trash")
-         (user-mail-address "ckotfila@albany.edu") 
+	 (user-mail-address "ckotfila@albany.edu")
 	 (smtpmail-smtp-user "ckotfila@albany.edu")
 ;         (smtpmail-local-domain "pod51009.outlook.com")
-         (smtpmail-smtp-server "pod51009.outlook.com")
-         ;; add other variables here 
-         )))
+	 (smtpmail-smtp-server "pod51009.outlook.com")
+	 ;; add other variables here
+	 )))
 
-(defun mu4e-set-account () 
-  "Set the account for composing a message." 
-  (let* ((account 
-          (if mu4e-compose-parent-message 
-              (let ((maildir (mu4e-msg-field mu4e-compose-parent-message :maildir))) 
-                (string-match "/\\(.*?\\)/" maildir) 
-                (match-string 1 maildir)) 
-            (completing-read (format "Compose with account: (%s) " 
-                                     (mapconcat #'(lambda (var) (car var)) mu4e-account-alist "/")) 
-                             (mapcar #'(lambda (var) (car var)) mu4e-account-alist) 
-                             nil t nil nil (caar mu4e-account-alist)))) 
-         (account-vars (cdr (assoc account mu4e-account-alist)))) 
-    (if account-vars 
-        (mapc #'(lambda (var) 
-                  (set (car var) (cadr var))) 
-              account-vars))))
+(defun mu4e-set-account ()
+  "Set the account for composing a message."
+  (let* ((account
+	  (if mu4e-compose-parent-message
+	      (let ((maildir (mu4e-msg-field mu4e-compose-parent-message :maildir)))
+		(string-match "/\\(.*?\\)/" maildir)
+		(match-string 1 maildir))
+	    (completing-read (format "Compose with account: (%s) "
+				     (mapconcat #'(lambda (var) (car var)) mu4e-account-alist "/"))
+			     (mapcar #'(lambda (var) (car var)) mu4e-account-alist)
+			     nil t nil nil (caar mu4e-account-alist))))
+	 (account-vars (cdr (assoc account mu4e-account-alist))))
+    (if account-vars
+	(mapc #'(lambda (var)
+		  (set (car var) (cadr var)))
+	      account-vars))))
 
-(add-hook 'mu4e-compose-pre-hook 'mu4e-set-account) 
+(add-hook 'mu4e-compose-pre-hook 'mu4e-set-account)
+
+
+;; overwrite mu4e function to force marking to push the current line
+;; backwards instead of forwards
+
+(defun mu4e-headers-next (&optional n)
+  "Move point to the next message header.
+If this succeeds, return the new docid. Otherwise, return nil.
+Optionally, takes an integer N (prefix argument), to the Nth next
+header."
+  (interactive "P")
+  (mu4e~headers-move (or n -1)))
+
 
 
 
@@ -161,7 +174,7 @@
 (defun fullscreen ()
        (interactive)
        (x-send-client-message nil 0 nil "_NET_WM_STATE" 32
-                 '(2 "_NET_WM_STATE_FULLSCREEN" 0)))
+		 '(2 "_NET_WM_STATE_FULLSCREEN" 0)))
 
 
 (global-set-key [f11] 'fullscreen)
@@ -226,9 +239,9 @@
 ;;;;   IDO config
 ;;;;
 
-(require 'ido)                                            
+(require 'ido)
 (ido-mode 'both) ; for buffers and files
-(setq 
+(setq
  ido-save-directory-list-file "~/.emacs.d/cache/ido.last"
  ido-ignore-buffers '("\\` " "^\*Mess" "^\*Back" ".*Completion" "^\*Ido" "^\*trace" "^\*compilation" "^\*GTAGS" "^session\.*" "^\*")
  ido-work-directory-list '("~/" "~/Desktop" "~/Documents" "~src")
@@ -259,8 +272,8 @@
 ;;;;   Custom Theme Support
 ;;;;
 
-;(add-to-list 'load-path "~/.emacs.d/elpa/color-theme-20070910") 
-;(add-to-list 'load-path "~/.emacs.d/elpa/color-theme-sanityinc-tomorrow-20120720") 
+;(add-to-list 'load-path "~/.emacs.d/elpa/color-theme-20070910")
+;(add-to-list 'load-path "~/.emacs.d/elpa/color-theme-sanityinc-tomorrow-20120720")
 ;(require 'color-theme-sanityinc-tomorrow-autoloads)
 ;
 ;(require 'color-theme)
@@ -321,14 +334,52 @@
 ;;;;
 
 (add-to-list 'load-path "~/.emacs.d/lib/php/")
-(autoload 'php-mode "php-mode" "Major mode for PHP files." t)
-(add-to-list 'auto-mode-alist '("\\.php\\'" . php-mode))
+(autoload 'php-mode "php-mode" "Major mode for PHP." t)
+(add-to-list 'auto-mode-alist '("\\.\\(php\\|phtml\\)\\'" . php-mode))
+
+(defun buffer-cleanup()
+  (interactive)
+  (buffer-cleanup-safe)
+  (indent-region (point-min) (point-max)))
+
+(defun buffer-cleanup-safe()
+  "Unless its a markdown file, do some cleaning up."
+  (interactive)
+  (unless (and (buffer-file-name)
+	       (string-equal (file-name-extension (buffer-file-name)) "md"))
+    (whitespace-cleanup)
+    (untabify (point-min) (point-max))
+    (set-buffer-file-coding-system 'utf-8)))
+
+(global-set-key (kbd "C-c n") 'buffer-cleanup)
+
+(add-hook 'before-save-hook 'buffer-cleanup-safe)
+
+
+(add-hook 'php-mode-hook (lambda()
+			   (setq indent-tabs-mode nil)
+			   (setq tab-width 2)
+			   (setq c-basic-offset 2)))
+
+(require 'flymake)
+(add-hook 'php-mode-hook 'flymake-mode-on)
+
+(require 'align)
+(add-to-list 'align-rules-list
+	     `(php-array-keys
+	       (regexp	. "\\(\\s-*\\)=")
+	       (justify	. nil)
+	       (repeat	. nil)
+	       (modes	. '(php-mode))
+	       (tab-stop)))
+
+
 
 ;;;;
 ;;;;   LISP/SLIME Support
 ;;;;
 
-(add-to-list 'load-path "~/.emacs.d/lib/slime/")  
+(add-to-list 'load-path "~/.emacs.d/lib/slime/")
 (require 'slime)
 (slime-setup '(slime-fancy))
 (setq inferior-lisp-program (executable-find "sbcl"))
@@ -350,7 +401,7 @@
 ;;;;
 ;;;;   Manage Autosave
 ;;;;
-	  
+
 (setq backup-directory-alist
       `((".*" . ,temporary-file-directory)))
 (setq auto-save-file-name-transforms
@@ -381,6 +432,28 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
+
+
+;;;;
+;;  That Thing from that time
+;;;;
+;;
+;; (defun rusz-fix()
+;; (interactive)
+;;        (fix-hackz0rs "\\(<\\)cfhttp .*rusztiko.com.* />\\s-+<cfset html = cfhttp.FileContent />\\s-+<cfoutput>#html#</cfoutput>"))
+;;
+;; (define-key global-map (kbd "<f1>") 'rusz-fix)
+;;
+;; (defun fix-hackz0rs(regex)
+;;   (interactive)
+;;   (require 'ffap)
+;;   (window-configuration-to-register :hackz0rs)
+;;   (find-file-other-window (ffap-file-at-point))
+;;   (goto-char (point-min))
+;;   (query-replace-regexp regex "")
+;;   (save-buffer)
+;;   (jump-to-register :hackz0rs)
+;;   (next-line))
 
 
 (put 'scroll-left 'disabled nil)
