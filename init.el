@@ -102,51 +102,51 @@
 
 (setq mu4e-account-alist
       '(("burstmarketing"
-	 (mu4e-sent-folder "/burstmarketing/Sent Items")
-	 (mu4e-drafts-folder "/burstmarketing/Drafts")
-	 (mu4e-trash-folder "/burstmarketing/Trash")
-	 (user-mail-address "ckotfila@burstmarketing.net")
-	 (smtpmail-smtp-user "chris@intellisites.com")
-	 (smtpmail-smtp-server "mail.thoughtbus.com")
-	 ;; add other variables here
-	 )
-	("gmail"
-	 (mu4e-sent-folder "/gmail/[Gmail].Sent")
-	 (mu4e-drafts-folder "/gmail/[Gmail].Draft")
-	 (mu4e-trash-folder "/gmail/[Gmail].Trash")
-	 (user-mail-address "kotfic@gmail.com")
-	 (smtpmail-smtp-user "kotfic@gmail.com")
-	 (smtpmail-smtp-server "smtp.gmail.com")
-	 (mu4e-sent-messages-behavior delete)
-	 ;; add other variables here
-	 )
-	("ualbany"
-	 (mu4e-sent-folder "/ualbany/Sent Items")
-	 (mu4e-drafts-folder "/ualbany/Drafts")
-	 (mu4e-trash-folder "/ualbany/Trash")
-	 (user-mail-address "ckotfila@albany.edu")
-	 (smtpmail-smtp-user "ckotfila@albany.edu")
+         (mu4e-sent-folder "/burstmarketing/Sent Items")
+         (mu4e-drafts-folder "/burstmarketing/Drafts")
+         (mu4e-trash-folder "/burstmarketing/Trash")
+         (user-mail-address "ckotfila@burstmarketing.net")
+         (smtpmail-smtp-user "chris@intellisites.com")
+         (smtpmail-smtp-server "mail.thoughtbus.com")
+         ;; add other variables here
+         )
+        ("gmail"
+         (mu4e-sent-folder "/gmail/[Gmail].Sent")
+         (mu4e-drafts-folder "/gmail/[Gmail].Draft")
+         (mu4e-trash-folder "/gmail/[Gmail].Trash")
+         (user-mail-address "kotfic@gmail.com")
+         (smtpmail-smtp-user "kotfic@gmail.com")
+         (smtpmail-smtp-server "smtp.gmail.com")
+         (mu4e-sent-messages-behavior delete)
+         ;; add other variables here
+         )
+        ("ualbany"
+         (mu4e-sent-folder "/ualbany/Sent Items")
+         (mu4e-drafts-folder "/ualbany/Drafts")
+         (mu4e-trash-folder "/ualbany/Trash")
+         (user-mail-address "ckotfila@albany.edu")
+         (smtpmail-smtp-user "ckotfila@albany.edu")
 ;         (smtpmail-local-domain "pod51009.outlook.com")
-	 (smtpmail-smtp-server "pod51009.outlook.com")
-	 ;; add other variables here
-	 )))
+         (smtpmail-smtp-server "pod51009.outlook.com")
+         ;; add other variables here
+         )))
 
 (defun mu4e-set-account ()
   "Set the account for composing a message."
   (let* ((account
-	  (if mu4e-compose-parent-message
-	      (let ((maildir (mu4e-msg-field mu4e-compose-parent-message :maildir)))
-		(string-match "/\\(.*?\\)/" maildir)
-		(match-string 1 maildir))
-	    (completing-read (format "Compose with account: (%s) "
-				     (mapconcat #'(lambda (var) (car var)) mu4e-account-alist "/"))
-			     (mapcar #'(lambda (var) (car var)) mu4e-account-alist)
-			     nil t nil nil (caar mu4e-account-alist))))
-	 (account-vars (cdr (assoc account mu4e-account-alist))))
+          (if mu4e-compose-parent-message
+              (let ((maildir (mu4e-msg-field mu4e-compose-parent-message :maildir)))
+                (string-match "/\\(.*?\\)/" maildir)
+                (match-string 1 maildir))
+            (completing-read (format "Compose with account: (%s) "
+                                     (mapconcat #'(lambda (var) (car var)) mu4e-account-alist "/"))
+                             (mapcar #'(lambda (var) (car var)) mu4e-account-alist)
+                             nil t nil nil (caar mu4e-account-alist))))
+         (account-vars (cdr (assoc account mu4e-account-alist))))
     (if account-vars
-	(mapc #'(lambda (var)
-		  (set (car var) (cadr var)))
-	      account-vars))))
+        (mapc #'(lambda (var)
+                  (set (car var) (cadr var)))
+              account-vars))))
 
 (add-hook 'mu4e-compose-pre-hook 'mu4e-set-account)
 
@@ -174,7 +174,7 @@ header."
 (defun fullscreen ()
        (interactive)
        (x-send-client-message nil 0 nil "_NET_WM_STATE" 32
-		 '(2 "_NET_WM_STATE_FULLSCREEN" 0)))
+                 '(2 "_NET_WM_STATE_FULLSCREEN" 0)))
 
 
 (global-set-key [f11] 'fullscreen)
@@ -215,6 +215,7 @@ header."
 (add-to-list 'load-path "~/.emacs.d/lib/org/contrib/lisp/")
 (require 'org)
 
+
 (add-to-list 'auto-mode-alist '("\\.org\\'" . org-mode))
 
 (global-set-key "\C-cl" 'org-store-link)
@@ -254,7 +255,7 @@ header."
  ido-max-prospects 10             ; don't spam my minibuffer
  ido-confirm-unique-completion nil)
 
-					; when using ido, the confirmation is rather annoying...
+                                        ; when using ido, the confirmation is rather annoying...
 (setq confirm-nonexistent-file-or-buffer nil)
 
 (provide 'ido-config)
@@ -264,8 +265,8 @@ header."
 ;;;;   Adding ELPA Package support
 ;;;;
 (setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
-			 ("marmalade" . "http://marmalade-repo.org/packages/")
-			 ("melpa" . "http://melpa.milkbox.net/packages/")))
+                         ("marmalade" . "http://marmalade-repo.org/packages/")
+                         ("melpa" . "http://melpa.milkbox.net/packages/")))
 (require 'package)
 (package-initialize)
 ;;;;
@@ -292,8 +293,8 @@ header."
   (save-excursion
     (goto-char (point-min))
     (if (looking-at
-	 "^<root> Message from unknown participant \\([^:]+\\):")
-	(replace-match "<\\1>"))))
+         "^<root> Message from unknown participant \\([^:]+\\):")
+        (replace-match "<\\1>"))))
 (add-hook 'erc-insert-modify-hook 'my-reformat-jabber-backlog)
 
 (defun social ()
@@ -301,7 +302,7 @@ header."
   (interactive)
   (let ((pw (read-passwd "Password:")))
     (erc :server "96.126.106.68" :port 6667 :nick "kotfic"
-	 :password pw )))
+         :password pw )))
 
 ;;;;
 ;;;;   Geben support
@@ -321,13 +322,13 @@ header."
 
 
 (add-hook 'w3m-mode-hook
-	  (lambda ()
-	    (local-set-key "\C-n" 'w3m-next-anchor)
-	    (local-set-key "\C-p" 'w3m-previous-anchor)
-	    (local-set-key '[up] 'previous-line)
-	    (local-set-key '[down] 'next-line)
-	    (local-set-key '[right] 'forward-char)
-	    (local-set-key '[left] 'backward-char)))
+          (lambda ()
+            (local-set-key "\C-n" 'w3m-next-anchor)
+            (local-set-key "\C-p" 'w3m-previous-anchor)
+            (local-set-key '[up] 'previous-line)
+            (local-set-key '[down] 'next-line)
+            (local-set-key '[right] 'forward-char)
+            (local-set-key '[left] 'backward-char)))
 
 ;;;;
 ;;;;   PHP Support
@@ -346,32 +347,32 @@ header."
   "Unless its a markdown file, do some cleaning up."
   (interactive)
   (unless (and (buffer-file-name)
-	       (string-equal (file-name-extension (buffer-file-name)) "md"))
+               (string-equal (file-name-extension (buffer-file-name)) "md"))
     (whitespace-cleanup)
     (untabify (point-min) (point-max))
     (set-buffer-file-coding-system 'utf-8)))
 
 (global-set-key (kbd "C-c n") 'buffer-cleanup)
 
-(add-hook 'before-save-hook 'buffer-cleanup-safe)
+; (add-hook 'before-save-hook 'buffer-cleanup-safe) ;; DUBIOUS!
 
 
 (add-hook 'php-mode-hook (lambda()
-			   (setq indent-tabs-mode nil)
-			   (setq tab-width 2)
-			   (setq c-basic-offset 2)))
+                           (setq indent-tabs-mode nil)
+                           (setq tab-width 2)
+                           (setq c-basic-offset 2)))
 
 (require 'flymake)
 (add-hook 'php-mode-hook 'flymake-mode-on)
 
 (require 'align)
 (add-to-list 'align-rules-list
-	     `(php-array-keys
-	       (regexp	. "\\(\\s-*\\)=")
-	       (justify	. nil)
-	       (repeat	. nil)
-	       (modes	. '(php-mode))
-	       (tab-stop)))
+             `(php-array-keys
+               (regexp  . "\\(\\s-*\\)=")
+               (justify . nil)
+               (repeat  . nil)
+               (modes   . '(php-mode))
+               (tab-stop)))
 
 
 
