@@ -1,0 +1,6 @@
+[submodule "lib/burst"]
+	path = lib/burst
+	url = git@github.com:burstmarketing/coding-standards.git
+[submodule "lib/php"]
+	path = lib/php
+	url = https://github.com/ejmr/php-mode.git
