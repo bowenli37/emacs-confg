@@ -311,6 +311,28 @@ header."
 (add-to-list 'load-path "~/.emacs.d/lib/geben-0.26/")
 (autoload 'geben "geben" "PHP Debugger on Emacs" t)
 
+(defun geben-safely-end-proxy()
+  "Tries to call `dbgp-proxy-unregister', but silently
+   returns `nil' if it throws an error."
+  (interactive)
+  (condition-case nil
+      (dbgp-proxy-unregister "chris_cc")
+    (error nil)))
+
+(defun geben-single-or-proxy()
+  "Tries calling geben, if it throws an error because it needs to use
+   `geben-proxy', it tries that.
+   TODO: make it toggle.."
+  (interactive)
+  (condition-case nil
+      (geben)
+    (error (geben-proxy "127.0.0.1" 9001 "chris_cc"))))
+
+(defadvice geben-display-context(before clear-windows-for-vars activate)
+  (delete-other-windows))
+
+(add-hook 'kill-emacs-hook 'geben-safely-end-proxy)
+
 
 ;;;;
 ;;;;    W3m support
