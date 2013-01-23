@@ -1,4 +1,3 @@
-v
 ;;;;
 ;;;;   Some default config changes
 ;;;;
