@@ -1,4 +1,3 @@
-
 ;;;;
 ;;;;   Some default config changes
 ;;;;
@@ -85,10 +84,31 @@
    mu4e-sent-folder   "/ualbany/Sent"       ;; folder for sent messages
    mu4e-drafts-folder "/ualbany/Drafts"     ;; unfinished messages
    mu4e-trash-folder  "/ualbany/Trash"      ;; trashed messages
-   mu4e-refile-folder "/ualbany/Archives"   ;; saved messages
-   ))
+   )
 
-;; these are actually the defaults
+  (setq mu4e-refile-folder
+        (lambda (msg)
+          (cond
+           ;; messages to the mu mailing list go to the /mu folder
+           ((mu4e-message-contact-field-matches msg :to
+                                                "@listserv.albany.edu")
+            "/ualbany/IST-L")
+           ;; messages sent directly to me go to /archive
+           ;; also `mu4e-user-mail-address-regexp' can be used
+           ((mu4e-message-contact-field-matches msg :to "me@example.com")
+            "/private")
+
+           ;; everything else goes to /archive
+           ;; important to have a catch-all at the end!
+           (t "/ualbany/Archives"))))    )
+
+
+(setq mu4e-maildir-shortcuts
+      '( ("/ualbany/INBOX"     . ?a)
+         ("/burstmarketing/INBOX"   . ?b)
+         ("/gmail/INBOX"     . ?g)) )
+
+      ;; these are actually the defaults
 (setq
  mu4e-maildir       "~/mail"   ;; top-level Maildir
 ; mu4e-sent-folder   "/sent"       ;; folder for sent messages
@@ -149,18 +169,6 @@
               account-vars))))
 
 (add-hook 'mu4e-compose-pre-hook 'mu4e-set-account)
-
-
-;; overwrite mu4e function to force marking to push the current line
-;; backwards instead of forwards
-
-(defun mu4e-headers-next (&optional n)
-  "Move point to the next message header.
-If this succeeds, return the new docid. Otherwise, return nil.
-Optionally, takes an integer N (prefix argument), to the Nth next
-header."
-  (interactive "P")
-  (mu4e~headers-move (or n -1)))
 
 
 
