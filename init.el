@@ -5,9 +5,9 @@
 
 (setq inhibit-startup-message t)
 (show-paren-mode t)
-(menu-bar-mode 0)
-(tool-bar-mode 0)
-(scroll-bar-mode 0)
+(if (fboundp 'menu-bar-mode) (menu-bar-mode 0))
+(if (fboundp 'tool-bar-mode) (tool-bar-mode 0) )
+(if (fboundp 'scroll-bar-mode) (scroll-bar-mode 0))
 (column-number-mode t)
 (global-auto-revert-mode t)
 
@@ -171,14 +171,14 @@ header."
 ;;;;
 ;;;;    Fullscreen
 ;;;;
-(defun fullscreen ()
-       (interactive)
-       (x-send-client-message nil 0 nil "_NET_WM_STATE" 32
-                 '(2 "_NET_WM_STATE_FULLSCREEN" 0)))
+(if (fboundp 'x-send-client-message)
+    (defun fullscreen ()
+      (interactive)
+      (x-send-client-message nil 0 nil "_NET_WM_STATE" 32
+                             '(2 "_NET_WM_STATE_FULLSCREEN" 0)))
 
-
-(global-set-key [f11] 'fullscreen)
-(global-set-key [XF86Save] 'fullscreen)
+  (global-set-key [f11] 'fullscreen)
+  (global-set-key [XF86Save] 'fullscreen))
 
 ;;;;
 ;;;;    Tramp
@@ -448,4 +448,4 @@ header."
 
 
 (put 'scroll-left 'disabled nil)
-(fullscreen)
+(if (fboundp 'fullscreen) (fullscreen))
