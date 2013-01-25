@@ -14,6 +14,14 @@
 (setq indent-tabs-mode nil)
 
 
+
+;;;;
+;;;;   Docview Mode
+;;;;
+(add-to-list 'auto-mode-alist '("\\.docx\\'" . doc-view-mode))
+(setq doc-view-continuous t)
+
+
 ;;;;
 ;;;;   Winner Mode
 ;;;;
@@ -397,6 +405,19 @@
 (autoload 'python-mode "python-init" "init python" t)
 (add-to-list 'auto-mode-alist '("\\.py\\'" . python-mode))
 
+(require 'ipython)
+
+(defun py-execute-buffer-return-to-window-config ()
+  (interactive)
+  (window-configuration-to-register :pre-py-execute-buffer)
+  (py-execute-buffer py-shell-name t 'switch)
+  (jump-to-register :pre-py-execute-buffer)
+  (cond ((get-buffer-window "*IPython*")
+         (select-window (get-buffer-window "*IPython*"))
+         (end-of-buffer))))
+
+(define-key python-mode-map (kbd "C-c C-c") 'py-execute-buffer-return-to-window-config)
+
 ;;;;
 ;;;;   Manage Autosave
 ;;;;
@@ -422,7 +443,6 @@
  '(doc-view-resolution 300)
  '(geben-dbgp-feature-list (quote ((:set max_data 32768) (:set max_depth 2) (:set max_children 32) (:get breakpoint_types geben-dbgp-breakpoint-store-types))))
  '(org-file-apps (quote ((auto-mode . emacs) ("\\.mm\\'" . default) ("\\.x?html?\\'" . default) ("\\.pdf\\'" . "/usr/bin/evince"))))
- '(py-shell-name "ipython")
  '(send-mail-function (quote smtpmail-send-it)))
 
 (custom-set-faces
