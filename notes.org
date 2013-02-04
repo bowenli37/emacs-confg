@@ -18,3 +18,5 @@
 ** TODO figure out if [[file:init.el::(defun%20mu4e-headers-next%20(&optional%20n)][this]] function modification is breaking n/p keybindings from mu4e-view buffers
 * python
 ** TODO figure out how to get emacs to give with a virtualenv even if its not run from a commandline with that virtualenv
+* bugs
+** TODO Fix fullscreen keybind to F11

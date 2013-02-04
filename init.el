@@ -240,10 +240,17 @@
 (global-set-key "\C-cb" 'org-iswitchb)
 
 ; log when we mark a todo as DONE
-(setq org-log-done 'time)
+(setq org-log-done 'time
+      org-use-tag-inheritance nil
+      org-agenda-todo-ignore-with-date t
+      )
 
 (if (file-exists-p (expand-file-name "~/org/.agenda-files"))
     (setq org-agenda-files "~/org/.agenda-files" ))
+
+;(setq org-feed-alist '(( "Got Emacs?" "http://feeds.feedburner.com/GotEmacs" "~/org/feed.org" "Emacs")
+;                       ( "Emacs-Fu" "http://emacs-fu.blogspot.com/feeds/posts/default" "~/org/feed.org" "Emacs-Fu")))
+
 
 ;;;;
 ;;;;  Uniqueify
@@ -442,6 +449,8 @@
  '(doc-view-ghostscript-options (quote ("-dSAFER" "-dNOPAUSE" "-sDEVICE=png16m" "-dTextAlphaBits=4" "-dBATCH" "-dGraphicsAlphaBits=4" "-dQUIET" "-dNOPLATFONTS")))
  '(doc-view-resolution 300)
  '(geben-dbgp-feature-list (quote ((:set max_data 32768) (:set max_depth 2) (:set max_children 32) (:get breakpoint_types geben-dbgp-breakpoint-store-types))))
+ '(org-export-odt-preferred-output-format "docx")
+ '(org-export-odt-styles-file nil)
  '(org-file-apps (quote ((auto-mode . emacs) ("\\.mm\\'" . default) ("\\.x?html?\\'" . default) ("\\.pdf\\'" . "/usr/bin/evince"))))
  '(send-mail-function (quote smtpmail-send-it)))
 
