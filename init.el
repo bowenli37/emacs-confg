@@ -16,6 +16,19 @@
 
 
 ;;;;
+;;;;   Tidy Integration
+;;;;
+(add-to-list 'load-path "~/.emacs.d/lib/tidy")
+(require 'tidy)
+
+(defun remove-dos-eol ()
+  "Do not show ^M in files containing mixed UNIX and DOS line endings."
+  (interactive)
+  (setq buffer-display-table (make-display-table))
+  (aset buffer-display-table ?\^M []))
+
+
+;;;;
 ;;;;   Docview Mode
 ;;;;
 (add-to-list 'auto-mode-alist '("\\.docx\\'" . doc-view-mode))
@@ -230,6 +243,9 @@
 (add-to-list 'load-path "~/.emacs.d/lib/org/")
 (add-to-list 'load-path "~/.emacs.d/lib/org/contrib/lisp/")
 (require 'org)
+
+(setq org-clock-persist 'history)
+(org-clock-persistence-insinuate)
 
 
 (add-to-list 'auto-mode-alist '("\\.org\\'" . org-mode))
