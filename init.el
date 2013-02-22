@@ -68,7 +68,7 @@
 
 ; fix weird html2text is out of range error 'error in process filter: Args out of range: "Email\"", 7, 6'
 ; see: https://github.com/djcb/mu/issues/73
-(setq mu4e-html2text-command "html2text -utf8 -width 72")
+(setq mu4e-html2text-command "html2text -width 72")
 ;(setq mu4e-view-prefer-html t)              ;; prefer html
 
 
@@ -218,10 +218,10 @@
 
 
 ;;;;
-;;;;    Chromium support
+;;;;    Browser support
 ;;;;
 (setq browse-url-browser-function 'browse-url-generic
-      browse-url-generic-program "chromium-browser")
+      browse-url-generic-program "conkeror")
 ;;;;
 ;;;;    Magit
 ;;;;

@@ -1,3 +1,5 @@
+url/*
+org-clock-save.el
 auto-save-list
 lib/python/docs/pylookup.db
 geben
