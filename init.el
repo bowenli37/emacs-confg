@@ -66,13 +66,12 @@
 (require 'mu4e)
 (require 'org-mu4e)
 
+(setq mu4e-mu-binary "/usr/bin/mu")
+
 ; fix weird html2text is out of range error 'error in process filter: Args out of range: "Email\"", 7, 6'
 ; see: https://github.com/djcb/mu/issues/73
 (setq mu4e-html2text-command "html2text -width 72")
 ;(setq mu4e-view-prefer-html t)              ;; prefer html
-
-
-
 
 
 (setq
