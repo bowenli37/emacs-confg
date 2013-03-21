@@ -502,3 +502,4 @@
 
 (put 'scroll-left 'disabled nil)
 (if (fboundp 'fullscreen) (fullscreen))
+(put 'downcase-region 'disabled nil)
