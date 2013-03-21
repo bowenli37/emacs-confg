@@ -570,6 +570,11 @@
 
 
 ;;;;
+;;;;    fill-column-indicator
+;;;;
+(require 'fill-column-indicator)
+
+;;;;
 ;;  That Thing from that time
 ;;;;
 ;;
@@ -596,3 +601,5 @@
 (if (and (eq window-system 'X)
          (fboundp 'fullscreen))
     (fullscreen))
+
+(put 'downcase-region 'disabled nil)
