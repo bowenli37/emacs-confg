@@ -14,6 +14,27 @@
 (setq indent-tabs-mode nil)
 
 
+
+
+;;;;
+;;;;   Refmanager Mode
+;;;;
+(add-to-list 'load-path "~/.emacs.d/lib/refmanager")
+(require 'refmanager-mode)
+
+;;;;
+;;;;   Transparency
+;;;;
+
+;; Set transparency of emacs
+(defun transparency (value)
+  "Sets the transparency of the frame window. 0=transparent/100=opaque"
+  (interactive "nTransparency Value 0 - 100 opaque:")
+  (set-frame-parameter (selected-frame) 'alpha value))
+
+(add-to-list 'default-frame-alist '(alpha  . 85))
+
+
 ;;;;
 ;;;;   Lorem Ipsum
 ;;;;
@@ -29,9 +50,47 @@
 (load "auctex.el" nil t t)
 (load "preview-latex.el" nil t t)
 
-(setq TeX-auto-save t)
-(setq TeX-parse-self t)
-(setq-default TeX-master nil)
+
+(eval-after-load "tex"
+  '(push '("latexmk" "latexmk %t" TeX-run-TeX nil t :help "Run Latexmk on file")
+         TeX-command-list))
+
+(eval-after-load "tex"
+  '(push '("latexmk-pdf" "latexmk -print=pdfdvi %t" TeX-run-TeX nil t :help "Run Latexmk on file")
+         TeX-command-list))
+
+
+(setq reftex-plug-into-AUCTeX t)
+(setq reftex-bibliography-commands '("addbibresource" "bibliography"))
+(setq reftex-cite-prompt-optional-args t)
+
+(setq reftex-cite-format '((?t . "\\textcite[]{%l}")
+                           (?a . "\\autocite[]{%l}")
+                           (?A . "\\citeauthor[]{%l}")
+                           (?c . "\\cite[]{%l}")
+                           (?s . "\\smartcite[]{%l}")
+                           (?f . "\\footcite[]{%l}")
+                           (?n . "\\nocite{%l}")
+                           (?b . "\\blockquote[]{%l}{}")))
+
+(eval-after-load 'reftex-vars
+  '(setcdr (assoc 'caption reftex-default-context-regexps) "\\\\\\(rot\\|sub\\)?caption\\*?[[{]"))
+(eval-after-load 'reftex
+  '(progn
+     (define-key reftex-mode-map (kbd "C-c -") nil)))
+
+(add-hook 'LaTeX-mode-hook #'reftex-mode)
+
+(add-hook 'LaTeX-mode-hook (if (locate-library "cdlatex")
+                              'cdlatex-mode
+                             'LaTeX-math-mode))
+
+(setq TeX-auto-save t
+      TeX-save-query nil
+      TeX-parse-self t
+      TeX-newline-function #'reindent-then-newline-and-indent)
+(setq-default TeX-master 'dwim)
+
 
 ;;;;
 ;;;;    RefTex
@@ -61,6 +120,7 @@
 ;;;;   Docview Mode
 ;;;;
 (add-to-list 'auto-mode-alist '("\\.docx\\'" . doc-view-mode))
+(add-to-list 'auto-mode-alist '("\\.odt\\'" . doc-view-mode))
 (setq doc-view-continuous t)
 
 
@@ -439,13 +499,14 @@
 
 (add-to-list 'load-path "~/.emacs.d/lib/slime/")
 (require 'slime)
+
 (slime-setup '(slime-fancy))
 (setq inferior-lisp-program (executable-find "sbcl"))
 
 ;(load (expand-file-name "~/quicklisp/slime-helper.el"))
 
-(if (file-exists-p (expand-file-name "~/quicklisp/slime-helper.el"))
-    (load (expand-file-name "~/quicklisp/slime-helper.el")))
+(if (file-exists-p (expand-file-name "~/lib/slime-helper.el"))
+    (load (expand-file-name "~/lib/slime-helper.el")))
 
 ;;;;
 ;;;;   Python Support
@@ -496,6 +557,7 @@
  '(org-export-odt-preferred-output-format "docx")
  '(org-export-odt-styles-file nil)
  '(org-file-apps (quote ((auto-mode . emacs) ("\\.mm\\'" . default) ("\\.x?html?\\'" . default) ("\\.pdf\\'" . "/usr/bin/evince"))))
+ '(safe-local-variable-values (quote ((org-clock-into-drawer . t) (org-use-property-inheritance . t))))
  '(send-mail-function (quote smtpmail-send-it)))
 
 (custom-set-faces
@@ -503,7 +565,8 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- )
+ '(org-agenda-column-dateline ((t (:inherit default))))
+ '(org-column ((t (:strike-through nil :underline nil :slant normal :weight normal :height 113 :family "DejaVu Sans Mono")))))
 
 
 ;;;;
@@ -529,4 +592,7 @@
 
 
 (put 'scroll-left 'disabled nil)
-(if (fboundp 'fullscreen) (fullscreen))
+
+(if (and (eq window-system 'X)
+         (fboundp 'fullscreen))
+    (fullscreen))
