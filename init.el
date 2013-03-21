@@ -14,6 +14,35 @@
 (setq indent-tabs-mode nil)
 
 
+;;;;
+;;;;   Lorem Ipsum
+;;;;
+(add-to-list 'load-path "~/.emacs.d/lib/lorem-ipsum")
+(require 'lorem-ipsum)
+
+
+;;;;
+;;;;   AucTex
+;;;;
+
+(add-to-list 'load-path "~/.emacs.d/lib/")
+(load "auctex.el" nil t t)
+(load "preview-latex.el" nil t t)
+
+(setq TeX-auto-save t)
+(setq TeX-parse-self t)
+(setq-default TeX-master nil)
+
+;;;;
+;;;;    RefTex
+;;;;
+(add-hook 'LaTeX-mode-hook 'turn-on-reftex)   ; with AUCTeX LaTeX mode
+(add-hook 'latex-mode-hook 'turn-on-reftex)   ; with Emacs latex mode
+
+
+
+(setq reftex-plug-into-AUCTeX t)
+
 
 ;;;;
 ;;;;   Tidy Integration
@@ -66,13 +95,12 @@
 (require 'mu4e)
 (require 'org-mu4e)
 
+(setq mu4e-mu-binary "/usr/bin/mu")
+
 ; fix weird html2text is out of range error 'error in process filter: Args out of range: "Email\"", 7, 6'
 ; see: https://github.com/djcb/mu/issues/73
 (setq mu4e-html2text-command "html2text -width 72")
 ;(setq mu4e-view-prefer-html t)              ;; prefer html
-
-
-
 
 
 (setq

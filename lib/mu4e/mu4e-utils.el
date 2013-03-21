@@ -32,6 +32,7 @@
 
 (require 'mu4e-vars)
 (require 'mu4e-about)
+(require 'mu4e-lists)
 (require 'doc-view)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -298,7 +299,7 @@ maildirs under `mu4e-maildir'."
 		  mlist ", "))
 	      (kar (read-char (concat prompt fnames))))
 	(if (member kar '(?/ ?o)) ;; user chose 'other'?
-	  (ido-completing-read prompt (mu4e-get-maildirs))
+	  (ido-completing-read prompt (mu4e-get-maildirs) nil nil "/")
 	  (or (car-safe
 		(find-if (lambda (item) (= kar (cdr item))) mu4e-maildir-shortcuts))
 	    (mu4e-warn "Unknown shortcut '%c'" kar)))))))
@@ -467,6 +468,25 @@ that has a live window), and vice versa."
 	(view-mode)))
     (switch-to-buffer buf)))
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defvar mu4e~lists-hash nil
+  "Hashtable of mailing-list-id => shortname, based on
+  `mu4e~mailing-lists' and `mu4e-user-mailing-lists'.")
+
+(defun mu4e-get-mailing-list-shortname (list-id)
+  "Get the shortname for a mailing-list with list-id LIST-ID. based on `mu4e~mailing-lists'
+  and `mu4e-user-mailing-lists'."
+  (unless mu4e~lists-hash
+    (setq mu4e~lists-hash (make-hash-table :test 'equal))
+    (dolist (cell mu4e~mailing-lists) (puthash (car cell) (cdr cell) mu4e~lists-hash))
+    (dolist (cell mu4e-user-mailing-lists) (puthash (car cell) (cdr cell) mu4e~lists-hash)))
+  (or
+    (gethash list-id mu4e~lists-hash)
+    ;; if it's not in the db, take the part until the first dot if there is one;
+    ;; otherwise just return the whole thing
+    (if (string-match "\\([^.]*\\)\\." list-id)
+      (match-string 1 list-id)
+      list-id)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -650,19 +670,23 @@ successful, call FUNC (if non-nil) afterwards."
 Currently the filter only checks if the command asks for a password
 by matching the output against `mu4e~get-mail-password-regexp'.
 The messages are inserted into the process buffer."
-  (save-current-buffer
-    (when (process-buffer proc)
-      (set-buffer (process-buffer proc)))
-    (let ((inhibit-read-only t))
-      ;; Check whether process asks for a password and query user
-      (when (string-match mu4e~get-mail-password-regexp msg)
-        (if (process-get proc 'x-interactive)
-            (process-send-string proc
-	      (concat (read-passwd mu4e~get-mail-ask-password) "\n"))
-	  ;; TODO kill process?
-          (mu4e-error "Unrecognized password request")))
-      (when (process-buffer proc)
-        (insert msg)))))
+  (when (string-match mu4e~get-mail-password-regexp msg)
+    (if (process-get proc 'x-interactive)
+        (process-send-string proc
+                             (concat (read-passwd mu4e~get-mail-ask-password) "\n"))
+      ;; TODO kill process?
+      (mu4e-error "Unrecognized password request")))
+  (when (process-buffer proc)
+    (let ((inhibit-read-only t)
+          (process-window (get-buffer-window (process-buffer proc))))
+      ;; Insert at end of buffer. Leave point alone.
+      (with-current-buffer (process-buffer proc)
+        (goto-char (point-max))
+        (insert msg))
+      ;; Auto-scroll unless user is interacting with the window.
+      (when (not (eq (selected-window) process-window))
+        (with-selected-window process-window
+          (goto-char (point-max)))))))
 
 (defun  mu4e-update-index ()
   "Update the mu4e index."
@@ -763,8 +787,6 @@ either 'to-server, 'from-server or 'misc. This function is meant for debugging."
 	      (forward-line (- mu4e~log-max-lines lines))
 	      (beginning-of-line)
 	      (delete-region (point-min) (point)))))))))
-
-
 
 (defun mu4e-toggle-logging ()
   "Toggle between enabling/disabling debug-mode (in debug-mode,

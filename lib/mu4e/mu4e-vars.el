@@ -105,15 +105,6 @@ personal message. This is used when indexing messages."
   :type 'string
   :group 'mu4e)
 
-(defcustom mu4e-search-results-limit 500
-  "Maximum number of search results.
-Use -1 for no limit.  Since limiting search results speeds up
-searches significantly, it's useful to limit this. Note, to
-ignore the limit, use a prefix argument (C-u) before invoking the
-search."
-  :type '(choice (const :tag "Unlimited" -1)
-                 (integer :tag "Limit"))
-  :group 'mu4e)
 
 (defvar mu4e-debug nil
   "When set to non-nil, log debug information to the *mu4e-log* buffer.")
@@ -148,11 +139,14 @@ and `mu4e-headers-visible-columns'."
                  (const :tag "Don't split" nil))
   :group 'mu4e-headers)
 
-(defcustom mu4e-show-images nil
+(defcustom mu4e-view-show-images nil
   "Whether to automatically display attached images in the message
 view buffer."
   :type 'boolean
   :group 'mu4e-view)
+
+(make-obsolete-variable 'mu4e-show-images
+  'mu4e-view-show-images "0.9.9.x")
 
 (defcustom mu4e-confirm-quit t
   "Whether to confirm to quit mu4e."
@@ -222,8 +216,8 @@ the From: address.)"
   :group 'mu4e-compose)
 
 ;; backward compatibility
-(defalias 'mu4e-reply-to-address 'mu4e-compose-reply-to-address
-  "The old name for `mu4e-compose-reply-to-address'.")
+(make-obsolete-variable 'mu4e-reply-to-address 'mu4e-compose-reply-to-address
+  "v0.9.9")
 
 (defcustom mu4e-compose-keep-self-cc nil
   "Non-nil means your e-mail address is kept on the CC list when
@@ -516,6 +510,11 @@ I.e. a message with the draft flag set."
 	 :shortname "Maildir"
 	 :help "Maildir for this message"
 	 :sortable t))
+     (:mailing-list .
+       ( :name "List"
+	 :shortname "List"
+	 :help "Mailing list for this message"
+	 :sortable nil))
      (:path .
        ( :name "Path"
 	 :shortname "Path"
