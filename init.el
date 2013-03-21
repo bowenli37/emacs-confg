@@ -507,6 +507,11 @@
 
 
 ;;;;
+;;;;    fill-column-indicator
+;;;;
+(require 'fill-column-indicator)
+
+;;;;
 ;;  That Thing from that time
 ;;;;
 ;;
