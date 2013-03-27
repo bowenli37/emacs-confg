@@ -168,6 +168,9 @@
  mu4e-get-mail-command "offlineimap"   ;; or fetchmail, or ...
  mu4e-update-interval 180)              ;; update every 3 minutes
 
+(setq smtpmail-queue-mail  nil  ;; start in non-queuing mode
+      smtpmail-queue-dir   "~/mail/queue/cur")
+
 
 (defun gmail ()
   (interactive)
@@ -517,7 +520,7 @@
 (autoload 'python-mode "python-init" "init python" t)
 (add-to-list 'auto-mode-alist '("\\.py\\'" . python-mode))
 
-(require 'ipython)
+;(require 'ipython)
 
 (defun py-execute-buffer-return-to-window-config ()
   (interactive)
@@ -528,7 +531,7 @@
          (select-window (get-buffer-window "*IPython*"))
          (end-of-buffer))))
 
-(define-key python-mode-map (kbd "C-c C-c") 'py-execute-buffer-return-to-window-config)
+;(define-key python-mode-map (kbd "C-c C-c") 'py-execute-buffer-return-to-window-config)
 
 ;;;;
 ;;;;   Manage Autosave
@@ -557,6 +560,7 @@
  '(org-export-odt-preferred-output-format "docx")
  '(org-export-odt-styles-file nil)
  '(org-file-apps (quote ((auto-mode . emacs) ("\\.mm\\'" . default) ("\\.x?html?\\'" . default) ("\\.pdf\\'" . "/usr/bin/evince"))))
+ '(py-shell-name "ipython")
  '(safe-local-variable-values (quote ((org-clock-into-drawer . t) (org-use-property-inheritance . t))))
  '(send-mail-function (quote smtpmail-send-it)))
 
