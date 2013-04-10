@@ -7,3 +7,6 @@
 [submodule "lib/mu4e"]
 	path = lib/mu4e
 	url = git@github.com:emacsmirror/mu4e.git
+[submodule "lib/twittering-mode"]
+	path = lib/twittering-mode
+	url = git://github.com/hayamiz/twittering-mode.git

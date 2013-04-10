@@ -15,6 +15,13 @@
 
 
 
+;;;;
+;;;;   Twittering Mode
+;;;;
+(add-to-list 'load-path "~/.emacs.d/lib/twittering-mode")
+(require 'twittering-mode)
+
+
 
 ;;;;
 ;;;;   Refmanager Mode
@@ -433,6 +440,24 @@
   (let ((pw (read-passwd "Password:")))
     (erc :server "96.126.106.68" :port 6667 :nick "kotfic"
          :password pw )))
+
+
+;;;;
+;;;;   ERC
+;;;;
+
+(defun stumpwm-notify(msg)
+  (shell-command (format "/usr/bin/stumpish echo \"%s\"" msg)))
+
+(setq erc-keywords  '("@ChristopherKotfila" "@all" "ChristopherKotfila"))
+(erc-match-mode 1)
+
+(defun erc-global-notify (matched-type nick msg)
+  (stumpwm-notify (format "%s:%s::  %s" matched-type nick msg)))
+
+(add-hook 'erc-text-matched-hook 'erc-global-notify)
+
+
 
 ;;;;
 ;;;;   Geben support
