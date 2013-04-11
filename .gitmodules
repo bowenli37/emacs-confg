@@ -10,3 +10,6 @@
 [submodule "lib/twittering-mode"]
 	path = lib/twittering-mode
 	url = git://github.com/hayamiz/twittering-mode.git
+[submodule "lib/virtualenv"]
+	path = lib/virtualenv
+	url = git@github.com:aculich/virtualenv.el.git

@@ -21,6 +21,7 @@
 (add-to-list 'load-path "~/.emacs.d/lib/twittering-mode")
 (require 'twittering-mode)
 
+(setq twittering-use-master-password t)
 
 
 ;;;;
@@ -149,9 +150,9 @@
 ;;;;   Emacs-Ipython-Notebook
 ;;;;
 
-(add-to-list 'load-path "~/.emacs.d/lib/ein")
-(add-to-list 'load-path "~/.emacs.d/lib/ein/lisp")
-(require 'ein)
+;(add-to-list 'load-path "~/.emacs.d/lib/ein")
+;(add-to-list 'load-path "~/.emacs.d/lib/ein/lisp")
+;(require 'ein)
 
 ;;;;
 ;;;;   Mu4e
@@ -540,23 +541,48 @@
 ;;;;   Python Support
 ;;;;
 
-(add-to-list 'load-path "~/.emacs.d/lib/python/")
+(setq
+ python-shell-interpreter "ipython"
+ python-shell-interpreter-args ""
+ python-shell-prompt-regexp "In \\[[0-9]+\\]: "
+ python-shell-prompt-output-regexp "Out\\[[0-9]+\\]: "
+ python-shell-completion-setup-code
+   "from IPython.core.completerlib import module_completion"
+ python-shell-completion-module-string-code
+   "';'.join(module_completion('''%s'''))\n"
+ python-shell-completion-string-code
+   "';'.join(get_ipython().Completer.all_completions('''%s'''))\n")
 
-(autoload 'python-mode "python-init" "init python" t)
-(add-to-list 'auto-mode-alist '("\\.py\\'" . python-mode))
+;(setq python-shell-completion-string-code
+;      "';'.join(__IP.complete('''%s'''))\n"
+;      python-shell-completion-module-string-code "")
+
+
+;(add-to-list 'load-path "~/.emacs.d/lib/python/")
+
+;(autoload 'python-mode "python-init" "init python" t)
+;(add-to-list 'auto-mode-alist '("\\.py\\'" . python-mode))
 
 ;(require 'ipython)
 
-(defun py-execute-buffer-return-to-window-config ()
-  (interactive)
-  (window-configuration-to-register :pre-py-execute-buffer)
-  (py-execute-buffer py-shell-name t 'switch)
-  (jump-to-register :pre-py-execute-buffer)
-  (cond ((get-buffer-window "*IPython*")
-         (select-window (get-buffer-window "*IPython*"))
-         (end-of-buffer))))
+;(defun py-execute-buffer-return-to-window-config ()
+;  (interactive)
+;  (window-configuration-to-register :pre-py-execute-buffer)
+;  (py-execute-buffer py-shell-name t 'switch)
+;  (jump-to-register :pre-py-execute-buffer)
+;  (cond ((get-buffer-window "*IPython*")
+;         (select-window (get-buffer-window "*IPython*"))
+;         (end-of-buffer))))
 
 ;(define-key python-mode-map (kbd "C-c C-c") 'py-execute-buffer-return-to-window-config)
+
+;;;;
+;;;;   Virtualenv Support
+;;;;
+
+(add-to-list 'load-path "~/.emacs.d/lib/virtualenv/")
+(require 'virtualenv)
+
 
 ;;;;
 ;;;;   Manage Autosave
