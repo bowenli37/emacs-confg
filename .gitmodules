@@ -5,11 +5,14 @@
         path = lib/php
         url = https://github.com/ejmr/php-mode.git
 [submodule "lib/mu4e"]
-	path = lib/mu4e
-	url = git@github.com:emacsmirror/mu4e.git
+        path = lib/mu4e
+        url = git@github.com:emacsmirror/mu4e.git
 [submodule "lib/twittering-mode"]
-	path = lib/twittering-mode
-	url = git://github.com/hayamiz/twittering-mode.git
+        path = lib/twittering-mode
+        url = git://github.com/hayamiz/twittering-mode.git
 [submodule "lib/virtualenv"]
-	path = lib/virtualenv
-	url = git@github.com:aculich/virtualenv.el.git
+        path = lib/virtualenv
+        url = git@github.com:aculich/virtualenv.el.git
+[submodule "lib/emacs-eclim"]
+        path = lib/emacs-eclim
+        url = git@github.com:senny/emacs-eclim.git

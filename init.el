@@ -14,6 +14,15 @@
 (setq indent-tabs-mode nil)
 
 
+;;;;
+;;;;   Java/Eclim Support
+;;;;
+
+(add-to-list 'load-path "~/.emacs.d/lib/emacs-eclim")
+(require 'eclim)
+(global-eclim-mode)
+
+(require 'eclimd)
 
 ;;;;
 ;;;;   Twittering Mode
@@ -169,7 +178,7 @@
 ; see: https://github.com/djcb/mu/issues/73
 (setq mu4e-html2text-command "html2text -width 72")
 ;(setq mu4e-view-prefer-html t)              ;; prefer html
-
+(setq mu4e-msg2pdf "/usr/bin/msg2pdf")
 
 (setq
  mu4e-use-fancy-chars t
@@ -417,6 +426,15 @@
 ;
 ;(require 'color-theme)
 ;(require 'color-theme-sanityinc-tomorrow-autoloads)
+
+;;;;
+;;;;   Python & Elpy Support
+;;;;
+
+
+(elpy-enable)
+(elpy-use-ipython)
+
 
 
 ;;;;
