@@ -13,3 +13,9 @@
 [submodule "lib/emacs-eclim"]
         path = lib/emacs-eclim
         url = git@github.com:senny/emacs-eclim.git
+[submodule "lib/mu4e"]
+	path = lib/mu4e
+	url = https://github.com/emacsmirror/mu4e.git
+[submodule "origin"]
+	path = lib/mu4e
+	url = https://github.com/emacsmirror/mu4e.git
