@@ -167,7 +167,7 @@
 ;;;;   Mu4e
 ;;;;
 
-(add-to-list 'load-path "~/.emacs.d/lib/mu4e/mu4e)
+(add-to-list 'load-path "~/.emacs.d/lib/mu4e/mu4e")
 
 (require 'mu4e)
 (require 'org-mu4e)
