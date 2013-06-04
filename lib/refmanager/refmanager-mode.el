@@ -23,12 +23,19 @@
 
 ;;; Code:
 
+;; (require 's)
+;; (require 'bibtex)
+
+(bibtex-set-dialect "biblatex")
+
 (define-minor-mode refmanager-mode
   "Refmanager mode provides some basic functions for managing
 an org-mode file of citations based on org entry properties. "
   nil
   " RefMan"
-  `((,(kbd "C-c r o") . refmanager-open-entry-file))
+  `((,(kbd "C-c r o") . refmanager-open-entry-file)
+    (,(kbd "C-c r c") . refmanager-bibtext-to-org))
+
   :group 'refman)
 
 
@@ -52,12 +59,93 @@ an org-mode file of citations based on org entry properties. "
                "}")
        )))
 
+
+; Depricated
+; (defun refmanager-bibtext-line-to-property ()
+;  "Given a line in the format of a bibtex turn it into the format for an org-property"
+;   (let ((line (thing-at-point 'line)))
+;     (save-excursion
+;       (let ((key (s-trim (car (s-split "=" line))))
+;             ;; probably a much better regexie sort of way to do this
+;             ;; than the chop-prefix/chop-suffix
+;             (value (s-with (car (cdr (s-split "=" line))) s-trim (s-chop-suffix "},") (s-chop-prefix "{" ))))
+;         (kill-line)
+;         (insert (s-lex-format ":${key}: ${value}"))))))
+
+
+(defun refmanager-bibtext-generate-org-header ( &optional indent)
+  (interactive)
+  (save-excursion
+    (let ((title (or (bibtex-text-in-field "title")  "[TITLE]"))
+          (author (or (bibtex-text-in-field "author")  "[AUTHOR]"))
+          (year (or (bibtex-text-in-field "year")  "[YEAR]")))
+      (bibtex-beginning-of-entry)
+      (previous-line)
+      ;; TODO use indent to determin number of stars
+      (insert (s-lex-format "** ${author} :: ${title} (${year})" ))
+      (org-set-tags-to ":unread:citation:")
+      )))
+
+(defun refmanager-generate-id ()
+  "Add an 'id' property to an org entity based on author/year/title properties"
+  (interactive)
+  (let ((author (car (s-split-words (org-entry-get (point) "author"))))
+        (year (org-entry-get (point) "year"))
+        ;; NOTE - this should probably gracefully handle titles that start with "A" or "The"
+        (title-frag (car (s-split-words (org-entry-get (point) "title")))))
+    (org-entry-put (point) "id" (format "%s%s%s" author year title-frag  ))))
+
+(defun refmanager-bibtext-to-org ()
+  "Convert a bibtex entry to an org entry with properties from the
+bibtex entry. Mark the new org entry with tags 'unread' and 'citation'"
+  (interactive)
+  (save-excursion
+    ;; generate the header of the org-mode file
+    (refmanager-bibtext-generate-org-header)
+
+    (let ((fields (bibtex-parse-entry))
+          (beg (bibtex-beginning-of-entry))
+          (end (bibtex-end-of-entry)))
+
+      ;; remove the bibtex entry
+      (delete-region beg end)
+      (org-insert-drawer nil "PROPERTIES")
+
+      (while fields
+        (let ((key (car (car fields)))
+              (value (s-with (cdr (car fields)) (s-chop-prefix "{") (s-chop-suffix "}"))))
+          (cond ((s-equals? key "=type=")
+                 (org-entry-put (point) "type" value))
+                ((s-equals? key "=key=")
+                 (org-entry-put (point) "id" value))
+                (t
+                 (org-entry-put (point) key value)))
+        (setq fields (cdr fields))))
+      (org-entry-put (point) "file" "")
+      (org-entry-put (point) "KEYWORDS" ""))))
+
+
+;; TODO - Write functions that allow you to see a set of all keywords in a seperate buffer
+;;        Make it so you can select those keywords and add them to an org entry "KEYWORDS" property
+;;        Allow you to create a new Keyword on the fly
+
+(defun refmanager-list-keywords ()
+  "return the set of current keywords"
+  (remove-duplicates
+   (apply 'append
+          (org-map-entries (lambda () (org-entry-get-multivalued-property (point) "KEYWORDS")) "citation"))
+   :test (lambda (s1 s2) (s-equals? s1 s2))))
+
+
 (defun refmanager-open-entry-file ()
   (interactive)
   (let ((f (org-entry-get (point) "file")))
          (if (stringp f)
              (find-file-other-window f)
            (message (format "Unable to locate file: %s" f)))))
+
+
+
 
 ;; FROM - org-sparse-tree
 ;;       (setq kwd (org-icompleting-read "Property: "

@@ -19,3 +19,6 @@
 [submodule "origin"]
 	path = lib/mu4e
 	url = https://github.com/emacsmirror/mu4e.git
+[submodule "lib/s"]
+	path = lib/s
+	url = https://github.com/magnars/s.el.git

@@ -33,11 +33,6 @@
 (setq twittering-use-master-password t)
 
 
-;;;;
-;;;;   Refmanager Mode
-;;;;
-(add-to-list 'load-path "~/.emacs.d/lib/refmanager")
-(require 'refmanager-mode)
 
 ;;;;
 ;;;;   Transparency
@@ -121,6 +116,22 @@
 
 
 ;;;;
+;;;;   BibTeX
+;;;;
+(require 'bibtex)
+
+
+;;;;
+;;;;   Refmanager Mode
+;;;;
+
+(add-to-list 'load-path "~/.emacs.d/lib/refmanager")
+(require 'refmanager-mode)
+
+
+
+
+;;;;
 ;;;;   Tidy Integration
 ;;;;
 (add-to-list 'load-path "~/.emacs.d/lib/tidy")
@@ -164,6 +175,12 @@
 ;(require 'ein)
 
 ;;;;
+;;;;   S string library
+;;;;
+(add-to-list 'load-path "~/.emacs.d/lib/s")
+(require 's)
+
+;;;;
 ;;;;   Mu4e
 ;;;;
 
@@ -172,11 +189,11 @@
 (require 'mu4e)
 (require 'org-mu4e)
 
-(setq mu4e-mu-binary "/usr/bin/mu")
+(setq mu4e-mu-binary "/usr/local/bin/mu")
 
 ; fix weird html2text is out of range error 'error in process filter: Args out of range: "Email\"", 7, 6'
 ; see: https://github.com/djcb/mu/issues/73
-(setq mu4e-html2text-command "html2text -width 72")
+(setq mu4e-html2text-command "html2text -nobs -width 72")
 (setq mu4e-view-prefer-html t)              ;; prefer html
 (setq mu4e-msg2pdf "/usr/bin/msg2pdf")
 
@@ -222,14 +239,15 @@
            ((mu4e-message-contact-field-matches msg :to
                                                 "@listserv.albany.edu")
             "/ualbany/IST-L")
-           ;; messages sent directly to me go to /archive
-           ;; also `mu4e-user-mail-address-regexp' can be used
-           ((mu4e-message-contact-field-matches msg :to "me@example.com")
-            "/private")
-
+           ((mu4e-message-contact-field-matches msg :to
+                                                "@csail.mit.edu")
+            "/ualbany/CSAIL")
+           ((mu4e-message-contact-field-matches msg :from
+                                                "@csail.mit.edu")
+            "/ualbany/CSAIL")
            ;; everything else goes to /archive
            ;; important to have a catch-all at the end!
-           (t "/ualbany/Archives"))))    )
+           (t "/ualbany/Archives")))) )
 
 
 (setq mu4e-maildir-shortcuts
@@ -368,6 +386,28 @@
       org-use-tag-inheritance nil
       org-agenda-todo-ignore-with-date t
       )
+
+; capture stuff
+
+(setq org-default-notes-file (concat org-directory "/unfiled.org"))
+(define-key global-map "\C-cr" 'org-capture)
+
+
+(setq org-refile-targets '((org-agenda-files . (:maxlevel . 3))))
+(setq org-refile-use-outline-path 'file)
+(setq org-refile-path-complete-in-steps t)
+
+;; preserve source when editing org source
+(setq org-src-preserve-indentation t)
+(setq org-src-fontify-natively t)
+
+(org-babel-do-load-languages
+ 'org-babel-load-languages
+ '((emacs-lisp . t)
+   (python . t)
+   (R . t)
+   (latex . t)))
+
 
 (if (file-exists-p (expand-file-name "~/org/.agenda-files"))
     (setq org-agenda-files "~/org/.agenda-files" ))
