@@ -14,11 +14,11 @@
         path = lib/emacs-eclim
         url = git@github.com:senny/emacs-eclim.git
 [submodule "lib/mu4e"]
-	path = lib/mu4e
-	url = https://github.com/emacsmirror/mu4e.git
-[submodule "origin"]
-	path = lib/mu4e
-	url = https://github.com/emacsmirror/mu4e.git
+        path = lib/mu4e
+        url = https://github.com/emacsmirror/mu4e.git
 [submodule "lib/s"]
-	path = lib/s
-	url = https://github.com/magnars/s.el.git
+        path = lib/s
+        url = https://github.com/magnars/s.el.git
+[submodule "lib/org"]
+        path = lib/org
+        url = git://orgmode.org/org-mode.git
