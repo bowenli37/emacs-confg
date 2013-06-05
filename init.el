@@ -362,59 +362,6 @@
 (add-to-list 'load-path "~/.emacs.d/lib/pandoc")
 (require 'pandoc-mode)
 
-;;;;
-;;;;    Org-Mode Configs
-;;;;
-
-(add-to-list 'load-path "~/.emacs.d/lib/org/")
-(add-to-list 'load-path "~/.emacs.d/lib/org/contrib/lisp/")
-(require 'org)
-
-(setq org-clock-persist 'history)
-(org-clock-persistence-insinuate)
-
-
-(add-to-list 'auto-mode-alist '("\\.org\\'" . org-mode))
-
-(global-set-key "\C-cl" 'org-store-link)
-(global-set-key "\C-cc" 'org-capture)
-(global-set-key "\C-ca" 'org-agenda)
-(global-set-key "\C-cb" 'org-iswitchb)
-
-; log when we mark a todo as DONE
-(setq org-log-done 'time
-      org-use-tag-inheritance nil
-      org-agenda-todo-ignore-with-date t
-      )
-
-; capture stuff
-
-(setq org-default-notes-file (concat org-directory "/unfiled.org"))
-(define-key global-map "\C-cr" 'org-capture)
-
-
-(setq org-refile-targets '((org-agenda-files . (:maxlevel . 3))))
-(setq org-refile-use-outline-path 'file)
-(setq org-refile-path-complete-in-steps t)
-
-;; preserve source when editing org source
-(setq org-src-preserve-indentation t)
-(setq org-src-fontify-natively t)
-
-(org-babel-do-load-languages
- 'org-babel-load-languages
- '((emacs-lisp . t)
-   (python . t)
-   (R . t)
-   (latex . t)))
-
-
-(if (file-exists-p (expand-file-name "~/org/.agenda-files"))
-    (setq org-agenda-files "~/org/.agenda-files" ))
-
-;(setq org-feed-alist '(( "Got Emacs?" "http://feeds.feedburner.com/GotEmacs" "~/org/feed.org" "Emacs")
-;                       ( "Emacs-Fu" "http://emacs-fu.blogspot.com/feeds/posts/default" "~/org/feed.org" "Emacs-Fu")))
-
 
 ;;;;
 ;;;;  Uniqueify
@@ -640,6 +587,70 @@
 
 (add-to-list 'load-path "~/.emacs.d/lib/virtualenv/")
 (require 'virtualenv)
+
+
+
+;;;;
+;;;;    Org-Mode Configs
+;;;;
+
+(add-to-list 'load-path "~/.emacs.d/lib/org/")
+(add-to-list 'load-path "~/.emacs.d/lib/org/contrib/lisp/")
+(require 'org)
+
+(setq org-clock-persist 'history)
+(org-clock-persistence-insinuate)
+
+
+(add-to-list 'auto-mode-alist '("\\.org\\'" . org-mode))
+
+(global-set-key "\C-cl" 'org-store-link)
+(global-set-key "\C-cc" 'org-capture)
+(global-set-key "\C-ca" 'org-agenda)
+(global-set-key "\C-cb" 'org-iswitchb)
+
+; log when we mark a todo as DONE
+(setq org-log-done 'time
+      org-use-tag-inheritance nil
+      org-agenda-todo-ignore-with-date t
+      )
+
+; capture stuff
+
+(setq org-default-notes-file (concat org-directory "/unfiled.org"))
+(define-key global-map "\C-cr" 'org-capture)
+
+
+(setq org-refile-targets '((org-agenda-files . (:maxlevel . 3))))
+(setq org-refile-use-outline-path 'file)
+(setq org-refile-path-complete-in-steps t)
+
+;; preserve source when editing org source
+(setq org-src-preserve-indentation t)
+(setq org-src-fontify-natively t)
+
+(org-babel-do-load-languages
+ 'org-babel-load-languages
+ '((emacs-lisp . t)
+   (python . t)
+   (R . t)
+   (latex . t)))
+
+
+(if (file-exists-p (expand-file-name "~/org/.agenda-files"))
+    (setq org-agenda-files "~/org/.agenda-files" ))
+
+;(setq org-feed-alist '(( "Got Emacs?" "http://feeds.feedburner.com/GotEmacs" "~/org/feed.org" "Emacs")
+;                       ( "Emacs-Fu" "http://emacs-fu.blogspot.com/feeds/posts/default" "~/org/feed.org" "Emacs-Fu")))
+
+
+
+
+
+
+
+
+
 
 
 ;;;;

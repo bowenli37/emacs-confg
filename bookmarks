@@ -2,7 +2,17 @@
 ;;; This format is meant to be slightly human-readable;
 ;;; nevertheless, you probably don't want to edit it.
 ;;; -*- End Of Bookmark File Format Version Stamp -*-
-(("a"
+(("org-refile-last-stored"
+ (filename . "~/org/work/traffic.org")
+ (front-context-string . "*** Traffic \"Web")
+ (rear-context-string . "ickets Huddle]]\n")
+ (position . 1007))
+("org-capture-last-stored"
+ (filename . "~/org/unfiled.org")
+ (front-context-string . "** Traffic \"Web ")
+ (rear-context-string . "ickets Huddle]]\n")
+ (position . 8545))
+("a"
  (filename . "~/org/school/references/notes.org")
  (front-context-string . "@InProceedings{s")
  (rear-context-string . "r(Year)\n:END:\n\n\n")
