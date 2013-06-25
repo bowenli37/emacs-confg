@@ -10,3 +10,8 @@ eshell
 *~
 *#
 .#*
+.Rhistory
+.org-id-locations
+_init.el
+ac-comphist.dat
+emacs.el

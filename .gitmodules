@@ -22,3 +22,9 @@
 [submodule "lib/org"]
         path = lib/org
         url = git://orgmode.org/org-mode.git
+[submodule "/home/kotfic/.emacs.d/lib/ESS"]
+	path = /home/kotfic/.emacs.d/lib/ESS
+	url = git@github.com:emacs-ess/ESS.git
+[submodule "lib/jabber"]
+	path = lib/jabber
+	url = git://emacs-jabber.git.sourceforge.net/gitroot/emacs-jabber/emacs-jabber

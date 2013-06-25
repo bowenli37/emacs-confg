@@ -4,14 +4,14 @@
 ;;; -*- End Of Bookmark File Format Version Stamp -*-
 (("org-refile-last-stored"
  (filename . "~/org/work/traffic.org")
- (front-context-string . "*** Traffic \"Web")
- (rear-context-string . "ickets Huddle]]\n")
- (position . 1007))
+ (front-context-string . "*** Capture \"tou")
+ (rear-context-string . "traffic live?]]\n")
+ (position . 1057))
 ("org-capture-last-stored"
  (filename . "~/org/unfiled.org")
- (front-context-string . "** Traffic \"Web ")
- (rear-context-string . "ickets Huddle]]\n")
- (position . 8545))
+ (front-context-string . "** TODO Ask Ozle")
+ (rear-context-string . "traffic live?]]\n")
+ (position . 5580))
 ("a"
  (filename . "~/org/school/references/notes.org")
  (front-context-string . "@InProceedings{s")

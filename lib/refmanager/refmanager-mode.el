@@ -23,8 +23,8 @@
 
 ;;; Code:
 
-;; (require 's)
-;; (require 'bibtex)
+(require 's)
+(require 'bibtex)
 
 (bibtex-set-dialect "biblatex")
 
