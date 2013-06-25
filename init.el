@@ -25,5 +25,6 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- )
+ '(jabber-roster-user-away ((t (:foreground "cornflower blue" :slant italic :weight normal))))
+ '(jabber-roster-user-online ((t (:foreground "deep sky blue" :slant normal :weight bold)))))
 (put 'downcase-region 'disabled nil)

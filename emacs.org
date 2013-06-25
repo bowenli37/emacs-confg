@@ -423,7 +423,7 @@ n#+BEGIN_SRC emacs-lisp
 ; see: https://github.com/djcb/mu/issues/73
 (setq mu4e-html2text-command "html2text -nobs -width 72")
 (setq mu4e-view-prefer-html t)              ;; prefer html
-(setq mu4e-msg2pdf "/usr/bin/msg2pdf")
+(setq mu4e-msg2pdf "~/.emacs.d/lib/mu4e/toys/msg2pdf/msg2pdf")
 
 (setq
  mu4e-use-fancy-chars t
@@ -490,25 +490,25 @@ n#+BEGIN_SRC emacs-lisp
 ;; stuff from the internet,  yay!
 
 (setq mu4e-account-alist
-        ("gmail"
-         (mu4e-sent-folder "/gmail/[Gmail].Sent")
-         (mu4e-drafts-folder "/gmail/[Gmail].Draft")
-         (mu4e-trash-folder "/gmail/[Gmail].Trash")
-         (user-mail-address "kotfic@gmail.com")
-         (smtpmail-smtp-user "kotfic@gmail.com")
-         (smtpmail-smtp-server "smtp.gmail.com")
-         (mu4e-sent-messages-behavior delete)
-         ;; add other variables here
-         )
-        ("ualbany"
-         (mu4e-sent-folder "/ualbany/Sent Items")
-         (mu4e-drafts-folder "/ualbany/Drafts")
-         (mu4e-trash-folder "/ualbany/Trash")
-         (user-mail-address "ckotfila@albany.edu")
-         (smtpmail-smtp-user "ckotfila@albany.edu")
-;         (smtpmail-local-domain "pod51009.outlook.com")
-         (smtpmail-smtp-server "pod51009.outlook.com")
-         ;; add other variables here
+        '(("gmail"
+	   (mu4e-sent-folder "/gmail/[Gmail].Sent")
+	   (mu4e-drafts-folder "/gmail/[Gmail].Draft")
+	   (mu4e-trash-folder "/gmail/[Gmail].Trash")
+	   (user-mail-address "kotfic@gmail.com")
+	   (smtpmail-smtp-user "kotfic@gmail.com")
+	   (smtpmail-smtp-server "smtp.gmail.com")
+	   (mu4e-sent-messages-behavior delete)
+	   ;; add other variables here
+	   )
+	  ("ualbany"
+	   (mu4e-sent-folder "/ualbany/Sent Items")
+	   (mu4e-drafts-folder "/ualbany/Drafts")
+	   (mu4e-trash-folder "/ualbany/Trash")
+	   (user-mail-address "ckotfila@albany.edu")
+	   (smtpmail-smtp-user "ckotfila@albany.edu")
+;          (smtpmail-local-domain "pod51009.outlook.com")
+	   (smtpmail-smtp-server "pod51009.outlook.com")
+	   ;; add other variables here
          )))
 
 (defun mu4e-set-account ()
