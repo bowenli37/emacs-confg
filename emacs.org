@@ -596,7 +596,7 @@ n#+BEGIN_SRC emacs-lisp
 (add-to-list 'load-path "~/.emacs.d/lib/ESS/lisp/")
 (require 'ess-site)
 #+END_SRC
-* Jabber							  :SUBMODULE:
+* Jabber 							  :SUBMODULE:
 #+BEGIN_SRC emacs-lisp
 (add-to-list 'load-path "~/.emacs.d/lib/jabber/")
 (require 'jabber)
@@ -628,4 +628,29 @@ n#+BEGIN_SRC emacs-lisp
   (jabber-muc-join "170_26772@chat.hipchat.com" "170_dev@conf.hipchat.com" "Christopher Kotfila"))
 
 
+#+END_SRC
+* Github & Gists
+** Dependencies
+*** logito 							  :SUBMODULE:
+#+BEGIN_SRC emacs-lisp
+(add-to-list 'load-path "~/.emacs.d/lib/logito/")
+(require 'logito)
+#+END_SRC
+
+*** pcache 							  :SUBMODULE:
+#+BEGIN_SRC emacs-lisp
+(add-to-list 'load-path "~/.emacs.d/lib/pcache/")
+(require 'pcache)
+
+#+END_SRC
+
+** Github 							  :SUBMODULE:
+#+BEGIN_SRC emacs-lisp
+(add-to-list 'load-path "~/.emacs.d/lib/gh/")
+(require 'gh)
+#+END_SRC
+** Gist								  :SUBMODULE:
+#+BEGIN_SRC emacs-lisp
+(add-to-list 'load-path "~/.emacs.d/lib/gist/")
+(require 'gist)
 #+END_SRC

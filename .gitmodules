@@ -28,3 +28,15 @@
 [submodule "lib/jabber"]
 	path = lib/jabber
 	url = git://emacs-jabber.git.sourceforge.net/gitroot/emacs-jabber/emacs-jabber
+[submodule "lib/logito"]
+	path = lib/logito
+	url = https://github.com/sigma/logito
+[submodule "lib/pcache"]
+	path = lib/pcache
+	url = https://github.com/sigma/pcache
+[submodule "lib/gh"]
+	path = lib/gh
+	url = https://github.com/sigma/gh.el
+[submodule "lib/gist"]
+	path = lib/gist
+	url = https://github.com/defunkt/gist.el
