@@ -1,6 +1,6 @@
 #+TAGS: EXPERIMENTAL(e) DEPRECATED(d) SUBMODULE(s)
 #+EXCLUDE_TAGS: DEPRECATED
-* Open [1/6]
+* Open [1/7]
   + [ ] For long Variable initializations can we keep an org-table somewhere and just noweb it in?
   + [ ] Review [[*Org%20Capture][Org Capture]] functionality
   + [ ] Is [[*Org%20Export][Org Export]] functionality still valid given 8.0.3?
@@ -8,6 +8,10 @@
   + [ ] Is [[*Virtualenv][Virtualenv]] section relevant given inclusion of elpy library?
   + [ ] Need to revisit [[*IDO][IDO]] configs and see if we can cook up something better
   + [X] Make theme only load if we are in XEmacs
+
+* TODO Install Skewer
+  github: https://github.com/skeeto/skewer-mode
+
 
 * Initialization
 ** Header
@@ -467,7 +471,7 @@ n#+BEGIN_SRC emacs-lisp
            ((or (mu4e-message-contact-field-matches msg :to "@LIST.NIH.GOV")
 		(mu4e-message-contact-field-matches msg :from "@LIST.NIH.GOV")
 		(mu4e-message-contact-field-matches msg :cc "@LIST.NIH.GOV"))
-            "/ualbany/CSAIL")
+            "/ualbany/UMLSUSERS-L")
            ;; everything else goes to /archive
            ;; important to have a catch-all at the end!
            (t "/ualbany/Archives")))) )
