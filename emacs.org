@@ -1,6 +1,7 @@
 #+TAGS: EXPERIMENTAL(e) DEPRECATED(d) SUBMODULE(s)
 #+EXCLUDE_TAGS: DEPRECATED
 * Open [1/7]
+  + [ ] Can we move ~/.gnus into this file and tangle it out to .gnus on load?
   + [ ] For long Variable initializations can we keep an org-table somewhere and just noweb it in?
   + [ ] Review [[*Org%20Capture][Org Capture]] functionality
   + [ ] Is [[*Org%20Export][Org Export]] functionality still valid given 8.0.3?
@@ -12,7 +13,7 @@
 * TODO Install Skewer
   github: https://github.com/skeeto/skewer-mode
 
-
+* TODO Add IDO ubiquitous
 * Initialization
 ** Header
 #+BEGIN_SRC emacs-lisp
@@ -134,10 +135,21 @@ n#+BEGIN_SRC emacs-lisp
 *** General
 #+BEGIN_SRC emacs-lisp
 (setq org-log-done 'time
-      org-use-tag-inheritance nil)
+      org-use-tag-inheritance nil
+      org-hide-leading-stars t
+      org-startup-indented t)
+
 #+END_SRC
 
 *** Org Agenda
+#+NAME recursively-include-all-org-files 
+#+BEGIN_SRC emacs-lisp :tangle no
+(add-hook 'org-agenda-mode-hook
+    (lambda ()
+        (setq org-agenda-files
+            (find-lisp-find-files "~/org" "\.org$"))))
+#+END_SRC
+
 #+BEGIN_SRC emacs-lisp
 (setq org-agenda-todo-ignore-with-date t)
 (if (file-exists-p (expand-file-name "~/org/.agenda-files"))
@@ -181,6 +193,7 @@ n#+BEGIN_SRC emacs-lisp
 
 #+END_SRC
 
+
 * IDO
 #+BEGIN_SRC emacs-lisp
 (require 'ido)
@@ -213,7 +226,7 @@ n#+BEGIN_SRC emacs-lisp
 
 * Java/Eclim Support                                             :DEPRECATED:
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :tangle no
 (add-to-list 'load-path "~/.emacs.d/lib/emacs-eclim")
 (require 'eclim)
 (global-eclim-mode)
@@ -372,38 +385,35 @@ n#+BEGIN_SRC emacs-lisp
 * Python
 ** General
    + Is this still nessisary?
+
 #+BEGIN_SRC emacs-lisp
 (setq
  python-shell-interpreter "ipython"
  python-shell-interpreter-args ""
  python-shell-prompt-regexp "In \\[[0-9]+\\]: "
  python-shell-prompt-output-regexp "Out\\[[0-9]+\\]: "
- python-shell-completion-setup-code
-   "from IPython.core.completerlib import module_completion"
- python-shell-completion-module-string-code
-   "';'.join(module_completion('''%s'''))\n"
- python-shell-completion-string-code
-   "';'.join(get_ipython().Completer.all_completions('''%s'''))\n")
+ python-shell-completion-setup-code   "from IPython.core.completerlib import module_completion"
+ python-shell-completion-module-string-code "';'.join(module_completion('''%s'''))\n"
+ python-shell-completion-string-code "';'.join(get_ipython().Completer.all_completions('''%s'''))\n"
+)
 #+END_SRC
-** Elpy
+
+** Elpy								 :DEPRECATED:
    + Note,  this is an ELPA install I believe,  should we look at moving
      this into a fully compiled/updated submodule?
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :tangle no
 (elpy-enable)
 (elpy-use-ipython)
 #+END_SRC
 ** Virtualenv
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :tangle no
 
 (add-to-list 'load-path "~/.emacs.d/lib/virtualenv/")
 (require 'virtualenv)
 
 #+END_SRC
 ** Emacs-IPython-Notebook                                        :DEPRECATED:
-:PROPERTIES:
-:tangle: no
-:END:
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :tangle no
 (add-to-list 'load-path "~/.emacs.d/lib/ein")
 (add-to-list 'load-path "~/.emacs.d/lib/ein/lisp")
 (require 'ein)
@@ -535,6 +545,23 @@ n#+BEGIN_SRC emacs-lisp
 (add-hook 'mu4e-compose-pre-hook 'mu4e-set-account)
 
 #+END_SRC
+* GNUS
+  It begins...
+#+BEGIN_SRC emacs-lisp
+(require 'gnus)
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp :tangle ~/.gnus.el
+(setq user-mail-address "kotfic@gmail.com")
+(setq user-full-name "Christopher Kotfila")
+
+(setq gnus-select-method '(nntp "news.gmane.org"))
+(setq gnus-secondary-select-method '((nntp "news.gwene.org")))
+
+(setq gnus-save-newsrc-file nil)
+
+#+END_SRC
+
 * PHP								  :SUBMODULE:
 #+BEGIN_SRC emacs-lisp
 
