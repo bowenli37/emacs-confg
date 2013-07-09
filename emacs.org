@@ -14,6 +14,7 @@
   github: https://github.com/skeeto/skewer-mode
 
 * TODO Add IDO ubiquitous
+* TODO Emacs UNDO tree
 * Initialization
 ** Header
 #+BEGIN_SRC emacs-lisp
@@ -167,6 +168,17 @@ n#+BEGIN_SRC emacs-lisp
 (setq org-refile-path-complete-in-steps t)
 #+END_SRC
 
+*** Org Export
+#+BEGIN_SRC emacs-lisp
+(setq org-export-odt-preferred-output-format "docx"
+      org-export-odt-styles-file nil
+      org-file-apps '((auto-mode . emacs)
+                      ("\\.mm\\'" . default)
+                      ("\\.x?html?\\'" . default)
+                      ("\\.pdf\\'" . default)))
+
+#+END_SRC
+
 *** Org Babel
 #+BEGIN_SRC emacs-lisp
 (setq org-src-preserve-indentation t)
@@ -181,18 +193,6 @@ n#+BEGIN_SRC emacs-lisp
    (sh . t )))
 
 #+END_SRC
-
-*** Org Export
-#+BEGIN_SRC emacs-lisp
-(setq org-export-odt-preferred-output-format "docx"
-      org-export-odt-styles-file nil
-      org-file-apps '((auto-mode . emacs)
-                      ("\\.mm\\'" . default)
-                      ("\\.x?html?\\'" . default)
-                      ("\\.pdf\\'" . default)))
-
-#+END_SRC
-
 
 * IDO
 #+BEGIN_SRC emacs-lisp
@@ -383,10 +383,10 @@ n#+BEGIN_SRC emacs-lisp
 
 #+END_SRC
 * Python
-** General
-   + Is this still nessisary?
+** General                                                      :DEPRECATED:
++ Depricating this,  elpy-use-ipython calls this
 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :tangle no
 (setq
  python-shell-interpreter "ipython"
  python-shell-interpreter-args ""
@@ -398,10 +398,12 @@ n#+BEGIN_SRC emacs-lisp
 )
 #+END_SRC
 
-** Elpy								 :DEPRECATED:
+** Elpy
    + Note,  this is an ELPA install I believe,  should we look at moving
      this into a fully compiled/updated submodule?
-#+BEGIN_SRC emacs-lisp :tangle no
+#+BEGIN_SRC emacs-lisp
+(require 'elpy)
+
 (elpy-enable)
 (elpy-use-ipython)
 #+END_SRC
@@ -470,6 +472,10 @@ n#+BEGIN_SRC emacs-lisp
         (lambda (msg)
           (cond
            ;; messages to the mu mailing list go to the /mu folder
+           ((or (mu4e-message-contact-field-matches msg :to "PROJPETITION@listserv.albany.edu")
+	       (mu4e-message-contact-field-matches msg :from "PROJPETITION@listserv.albany.edu")
+	       (mu4e-message-contact-field-matches msg :cc "PROJPETITION@listserv.albany.edu"))
+            "/ualbany/ProjectPetition")
            ((or (mu4e-message-contact-field-matches msg :to "@listserv.albany.edu")
 	       (mu4e-message-contact-field-matches msg :from "@listserv.albany.edu")
 	       (mu4e-message-contact-field-matches msg :cc "@listserv.albany.edu"))
