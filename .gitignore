@@ -16,3 +16,4 @@ _init.el
 ac-comphist.dat
 emacs.el
 var
+/lib/ob-bibtex.el
