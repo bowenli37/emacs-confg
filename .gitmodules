@@ -40,3 +40,6 @@
 [submodule "lib/gist"]
 	path = lib/gist
 	url = https://github.com/defunkt/gist.el
+[submodule "lib/org-bullets"]
+	path = lib/org-bullets
+	url = git@github.com:sabof/org-bullets.git

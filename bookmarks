@@ -9,9 +9,9 @@
  (position . 1057))
 ("org-capture-last-stored"
  (filename . "~/org/unfiled.org")
- (front-context-string . "** TODO Ask Ozle")
- (rear-context-string . "traffic live?]]\n")
- (position . 5580))
+ (front-context-string . "** TODO Convert ")
+ (rear-context-string . "tics in Emacs]]\n")
+ (position . 6714))
 ("a"
  (filename . "~/org/school/references/notes.org")
  (front-context-string . "@InProceedings{s")
