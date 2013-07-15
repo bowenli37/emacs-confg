@@ -43,3 +43,6 @@
 [submodule "lib/org-bullets"]
 	path = lib/org-bullets
 	url = git@github.com:sabof/org-bullets.git
+[submodule "lib/ido-ubiquitous"]
+	path = lib/ido-ubiquitous
+	url = git@github.com:technomancy/ido-ubiquitous.git
