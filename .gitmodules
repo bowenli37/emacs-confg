@@ -46,3 +46,15 @@
 [submodule "lib/ido-ubiquitous"]
 	path = lib/ido-ubiquitous
 	url = git@github.com:technomancy/ido-ubiquitous.git
+[submodule "lib/themes/zenburn"]
+	path = lib/themes/zenburn
+	url = git@github.com:bbatsov/zenburn-emacs.git
+[submodule "lib/themes/noctilux"]
+	path = lib/themes/noctilux
+	url = git@github.com:stafu/noctilux-theme.git
+[submodule "lib/themes/solarized"]
+	path = lib/themes/solarized
+	url = git@github.com:sellout/emacs-color-theme-solarized.git
+[submodule "lib/themes/base16"]
+	path = lib/themes/base16
+	url = git@github.com:neil477/base16-emacs.git

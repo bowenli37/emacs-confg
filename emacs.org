@@ -130,7 +130,23 @@ n#+BEGIN_SRC emacs-lisp
 (when (> (display-color-cells) 256)
        (load-theme 'wombat t))
 #+END_SRC
-  
+** Color Themes
+*** Zenburn                                                     :SUBMODULE:
+#+BEGIN_SRC emacs-lisp
+(add-to-list 'custom-theme-load-path "~/.emacs.d/lib/themes/zenburn/")
+#+END_SRC
+*** Noctilux                                                    :SUBMODULE:
+#+BEGIN_SRC emacs-lisp
+(add-to-list 'custom-theme-load-path "~/.emacs.d/lib/themes/noctilux/")
+#+END_SRC
+*** Solarized                                                   :SUBMODULE:
+#+BEGIN_SRC emacs-lisp
+(add-to-list 'custom-theme-load-path "~/.emacs.d/lib/themes/solarized/")
+#+END_SRC
+*** Base16                                                      :SUBMODULE:
+#+BEGIN_SRC emacs-lisp
+(add-to-list 'custom-theme-load-path "~/.emacs.d/lib/themes/base16/") 
+#+END_SRC
 * Org Mode                                                        :SUBMODULE:
   :PROPERTIES:
   :LAST-UPDATED: [2013-06-05 Wed]
@@ -206,9 +222,9 @@ bibtex does not support sessions."
 **** Capture Templates
 #+BEGIN_SRC emacs-lisp
 (setq org-capture-templates 
-'(("t" "Todo" entry (file+headline "~/org/gtd.org" "Tasks")
+'(("t" "Todo" entry (file+headline "~/org2/unfiled.org" "Tasks")
    "* TODO %?\n  %i\n  %a")
-  ("m" "Migration" entry (file+headline "~/org/unfiled.org" "Migration")
+  ("m" "Migration" entry (file+headline "~/org2/unfiled.org" "Migration")
    "* MIGRATION %?\n %i\n %a ")))
 
 #+END_SRC
@@ -246,7 +262,7 @@ bibtex does not support sessions."
 #+BEGIN_SRC emacs-lisp
 (add-to-list 'load-path "~/.emacs.d/lib/org-bullets/")
 (require 'org-bullets)
-(add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
+;(add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
 #+END_SRC*
 * IDO
 #+BEGIN_SRC emacs-lisp
@@ -281,6 +297,10 @@ bibtex does not support sessions."
      '(defadvice ,cmd (around ido-ubiquitous-new activate)
         (let ((ido-ubiquitous-enable-compatibility nil))
           ad-do-it))))
+
+
+(ido-ubiquitous-disable-in org-insert-link)
+(ido-ubiquitous-disable-in org-refile)
 
 (ido-ubiquitous-use-new-completing-read geben-find-file 'geben)
 ;(ido-ubiquitous-use-new-completing-read webjump 'webjump)
@@ -516,6 +536,9 @@ SCHEDULED: <2013-07-07 Sun +1m>
 (require 'org-mu4e)
 
 (setq send-mail-function 'smtpmail-send-it)
+
+; do not enable fill-column on message compose
+(setq message-fill-column nil)
 
 (setq mu4e-mu-binary "/usr/local/bin/mu")
 
@@ -771,3 +794,4 @@ SCHEDULED: <2013-07-07 Sun +1m>
 (add-to-list 'load-path "~/.emacs.d/lib/gist/")
 (require 'gist)
 #+END_SRC
+
