@@ -1,6 +1,13 @@
 #+TAGS: EXPERIMENTAL(e) DEPRECATED(d) SUBMODULE(s)
 #+EXCLUDE_TAGS: DEPRECATED
 * Tasks
+** Archive                                                         :ARCHIVE:
+*** DONE Problem with reftext org-mode-hook keeping bullets from loading   
+CLOSED: [2013-07-17 Wed 18:45]
+:PROPERTIES:
+:ARCHIVE_TIME: 2013-07-17 Wed 18:47
+:END:
+  [[file:~/org/work/time.org::*Traffic%20Content%20scripts][Traffic Content scripts]]
 ** TODO Open issues with move to org tangle for initialization [3/7]
   + [X] Can we move ~/.gnus into this file and tangle it out to .gnus on load?
   + [ ] For long Variable initializations can we keep an org-table somewhere and just noweb it in?
@@ -12,33 +19,39 @@
   + [ ] loading theme with emacsclient?
 ** TODO Re-enable/fix org-mode and reftex mode hook
 [[*Bibtex][See Code Block]]
-** Archive                                                         :ARCHIVE:
-*** DONE Problem with reftext org-mode-hook keeping bullets from loading   
-CLOSED: [2013-07-17 Wed 18:45]
-:PROPERTIES:
-:ARCHIVE_TIME: 2013-07-17 Wed 18:47
-:END:
-  [[file:~/org/work/time.org::*Traffic%20Content%20scripts][Traffic Content scripts]]
 
+** TODO Add guide-key bindings for Gnus** TODO   
+  [[file:~/.emacs.d/emacs.org::*Guide%20Key][Guide Key]]
+** TODO Figure out auto-login with twittering mode 
 * Opportunities for Improvement
-** TODO Install Skewer
-  github: https://github.com/skeeto/skewer-mode
-
-** TODO Emacs UNDO tree
-** TODO Mu4e disable auto-fill
-  
-  [[file:~/mail/ualbany/Drafts/cur/20130715-ccc6fe-carasgaladon:2,DS]]
-** TODO Install View Large File Improved
-  [[https://github.com/m00natic/vlfi][On Github]]
-  [[file:~/org2/research.org::*Meeting%20with%20Project%20Petition][Meeting with Project Petition]]
-** TODO Set up guide-key for helping learn org-mode etc
-[[https://github.com/kbkbkbkb1/guide-key][Github here]]
 ** Archive                                                         :ARCHIVE:
 *** DONE Add IDO ubiquitous
 CLOSED: [2013-07-17 Wed 18:40]
 :PROPERTIES:
 :ARCHIVE_TIME: 2013-07-17 Wed 18:40
 :END:
+*** DONE Set up guide-key for helping learn org-mode etc
+CLOSED: [2013-07-17 Wed 19:09]
+:PROPERTIES:
+:ARCHIVE_TIME: 2013-07-17 Wed 19:10
+:END:
+[[https://github.com/kbkbkbkb1/guide-key][Github here]]
+*** DONE Mu4e disable auto-fill
+CLOSED: [2013-07-17 Wed 19:10]
+:PROPERTIES:
+:ARCHIVE_TIME: 2013-07-17 Wed 19:10
+:END:
+  
+  [[file:~/mail/ualbany/Drafts/cur/20130715-ccc6fe-carasgaladon:2,DS]]
+** TODO Install Skewer
+  github: https://github.com/skeeto/skewer-mode
+
+** TODO Emacs UNDO tree
+** TODO Install View Large File Improved
+  [[https://github.com/m00natic/vlfi][On Github]]
+  [[file:~/org2/research.org::*Meeting%20with%20Project%20Petition][Meeting with Project Petition]]
+** TODO Finally get on top of dired
+
 * Things I Often Forget
 ** Diacritic marks in emacs
   [2013-07-12 Fri]
@@ -810,6 +823,28 @@ SCHEDULED: <2013-07-07 Sun +1m>
 #+END_SRC
 
 * Guide Key
+** Dependencies
+*** Popwin                                                      :SUBMODULE:
 #+BEGIN_SRC emacs-lisp
-
+(add-to-list 'load-path "~/.emacs.d/lib/popwin")
+(require 'popwin)
 #+END_SRC
+** Code                                                          :SUBMODULE:
+#+BEGIN_SRC emacs-lisp
+(add-to-list 'load-path "~/.emacs.d/lib/guide-key")
+(require 'guide-key)
+
+; Rectangles
+(setq guide-key/guide-key-sequence '("C-x r" "C-x 4"))
+
+(guide-key-mode 1)
+#+END_SRC
+*** Org-mode 
+#+BEGIN_SRC emacs-lisp
+(defun guide-key/my-hook-function-for-org-mode ()
+  (guide-key/add-local-guide-key-sequence "C-c")
+  (guide-key/add-local-guide-key-sequence "C-c C-x")
+  (guide-key/add-local-highlight-command-regexp "org-"))
+(add-hook 'org-mode-hook 'guide-key/my-hook-function-for-org-mode)
+#+END_SRC
+

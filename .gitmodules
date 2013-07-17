@@ -58,3 +58,9 @@
 [submodule "lib/themes/base16"]
 	path = lib/themes/base16
 	url = git@github.com:neil477/base16-emacs.git
+[submodule "lib/guide-key"]
+	path = lib/guide-key
+	url = git@github.com:kbkbkbkb1/guide-key.git
+[submodule "lib/popwin"]
+	path = lib/popwin
+	url = git@github.com:m2ym/popwin-el.git
