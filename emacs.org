@@ -1,6 +1,7 @@
 #+TAGS: EXPERIMENTAL(e) DEPRECATED(d) SUBMODULE(s)
 #+EXCLUDE_TAGS: DEPRECATED
-* Open issues with move to org tangle for initialization [3/7]
+* Tasks
+** TODO Open issues with move to org tangle for initialization [3/7]
   + [X] Can we move ~/.gnus into this file and tangle it out to .gnus on load?
   + [ ] For long Variable initializations can we keep an org-table somewhere and just noweb it in?
   + [X] Review [[*Org%20Capture][Org Capture]] functionality
@@ -9,11 +10,20 @@
   + [ ] Is [[*Virtualenv][Virtualenv]] section relevant given inclusion of elpy library?
   + [X] Make theme only load if we are in XEmacs
   + [ ] loading theme with emacsclient?
+** TODO Re-enable/fix org-mode and reftex mode hook
+[[*Bibtex][See Code Block]]
+** Archive                                                         :ARCHIVE:
+*** DONE Problem with reftext org-mode-hook keeping bullets from loading   
+CLOSED: [2013-07-17 Wed 18:45]
+:PROPERTIES:
+:ARCHIVE_TIME: 2013-07-17 Wed 18:47
+:END:
+  [[file:~/org/work/time.org::*Traffic%20Content%20scripts][Traffic Content scripts]]
+
 * Opportunities for Improvement
 ** TODO Install Skewer
   github: https://github.com/skeeto/skewer-mode
 
-** TODO Add IDO ubiquitous
 ** TODO Emacs UNDO tree
 ** TODO Mu4e disable auto-fill
   
@@ -23,6 +33,12 @@
   [[file:~/org2/research.org::*Meeting%20with%20Project%20Petition][Meeting with Project Petition]]
 ** TODO Set up guide-key for helping learn org-mode etc
 [[https://github.com/kbkbkbkb1/guide-key][Github here]]
+** Archive                                                         :ARCHIVE:
+*** DONE Add IDO ubiquitous
+CLOSED: [2013-07-17 Wed 18:40]
+:PROPERTIES:
+:ARCHIVE_TIME: 2013-07-17 Wed 18:40
+:END:
 * Things I Often Forget
 ** Diacritic marks in emacs
   [2013-07-12 Fri]
@@ -262,7 +278,7 @@ bibtex does not support sessions."
 #+BEGIN_SRC emacs-lisp
 (add-to-list 'load-path "~/.emacs.d/lib/org-bullets/")
 (require 'org-bullets)
-;(add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
+(add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
 #+END_SRC*
 * IDO
 #+BEGIN_SRC emacs-lisp
@@ -431,17 +447,15 @@ bibtex does not support sessions."
 #+END_SRC
 ** Bibtex
 #+BEGIN_SRC emacs-lisp
-
 (require 'bibtex)
 (defun org-mode-reftex-setup ()
   (load-library "reftex")
   (and (buffer-file-name)
-       (file-exists-p (buffer-file-name))
-       (reftex-parse-all))
-  (define-key org-mode-map (kbd "C-c )") 'reftex-citation)
-  )
-
-(add-hook 'org-mode-hook 'org-mode-reftex-setup)
+	   (file-exists-p (buffer-file-name))
+	   (reftex-parse-all))
+  (define-key org-mode-map (kbd "C-c )") 'reftex-citation))
+; DISABLED - org-mode-reftex-setup throwing errors (to fix)
+; (add-hook 'org-mode-hook 'org-mode-reftex-setup)
 #+END_SRC
 * DocView
 #+BEGIN_SRC emacs-lisp
@@ -795,3 +809,7 @@ SCHEDULED: <2013-07-07 Sun +1m>
 (require 'gist)
 #+END_SRC
 
+* Guide Key
+#+BEGIN_SRC emacs-lisp
+
+#+END_SRC
