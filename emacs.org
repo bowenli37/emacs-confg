@@ -19,10 +19,22 @@ CLOSED: [2013-07-17 Wed 18:45]
   + [ ] loading theme with emacsclient?
 ** TODO Re-enable/fix org-mode and reftex mode hook
 [[*Bibtex][See Code Block]]
-
-** TODO Add guide-key bindings for Gnus** TODO   
+See FAQ (search "reftex") - http://orgmode.org/worg/org-faq.html
+** TODO Add guide-key bindings for Gnus
   [[file:~/.emacs.d/emacs.org::*Guide%20Key][Guide Key]]
 ** TODO Figure out auto-login with twittering mode 
+** TODO Update Swank
+** TODO Create stripped down LATEX subtree export template
+  [[file:~/org2/research.org::*PHI%20Validator%20install%20and%20description][PHI Validator install and description]]
+
+  #+BEGIN_EXAMPLE
+  
+  :EXPORT_FILE_NAME: .research/assistantship/phi_validator_tex/phi_validator
+  :EXPORT_OPTIONS: toc:nil ^:nil author:nil timestamp:nil
+
+  #+END_EXAMPLE
+
+  C-c C-e #  - what does this run/where are the docs?
 * Opportunities for Improvement
 ** Archive                                                         :ARCHIVE:
 *** DONE Add IDO ubiquitous
@@ -52,6 +64,8 @@ CLOSED: [2013-07-17 Wed 19:10]
   [[file:~/org2/research.org::*Meeting%20with%20Project%20Petition][Meeting with Project Petition]]
 ** TODO Finally get on top of dired
 
+** TODO Install Web-mode
+correct php/html indentation (get from master)
 * Things I Often Forget
 ** Diacritic marks in emacs
   [2013-07-12 Fri]
@@ -59,6 +73,22 @@ CLOSED: [2013-07-17 Wed 19:10]
 + Also:     C-x 8 C-h  -- gives list of 
 + See:      [[http://www.masteringemacs.org/articles/2010/10/13/diacritics-in-emacs/][Diacritics in Emacs]]
 
+** Subtree export - specify file name/location
+* Utility Functions
+** toggle-frame-split
+#+BEGIN_SRC emacs-lisp
+(defun toggle-frame-split ()
+  "If the frame is split vertically, split it horizontally or vice versa.
+Assumes that the frame is only split into two."
+  (interactive)
+  (unless (= (length (window-list)) 2) (error "Can only toggle a frame split in two"))
+  (let ((split-vertically-p (window-combined-p)))
+    (delete-window) ; closes current window
+    (if split-vertically-p
+        (split-window-horizontally)
+      (split-window-vertically)) ; gives us a split with the other window twice
+    (switch-to-buffer nil)))
+#+END_SRC
 * Initialization
 ** Header
 #+BEGIN_SRC emacs-lisp
@@ -72,13 +102,15 @@ CLOSED: [2013-07-17 Wed 19:10]
 #+END_SRC
 ** Default Settings
 *** General
-n#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp
 (setq inhibit-startup-message t)
 (show-paren-mode t)
 (column-number-mode t)
 (global-auto-revert-mode t)
 (setq indent-tabs-mode nil)
 (put 'downcase-region 'disabled nil)
+(fset 'yes-or-no-p 'y-or-n-p)
+(setq enable-recursive-minibuffers t)
 #+END_SRC
 *** Autosave
 #+BEGIN_SRC emacs-lisp
@@ -86,6 +118,16 @@ n#+BEGIN_SRC emacs-lisp
       `((".*" . ,temporary-file-directory)))
 (setq auto-save-file-name-transforms
       `((".*" ,temporary-file-directory t)))
+#+END_SRC
+*** Grep
+#+BEGIN_SRC emacs-lisp
+(define-key global-map (kbd "C-c g") 'grep)
+
+(define-key minibuffer-local-map (kbd "M-i") 'minibuffer-insert-ido-filename)
+(defun minibuffer-insert-ido-filename()
+  (interactive)
+  (insert (ido-read-file-name "File: ")))
+
 #+END_SRC
 ** XEmacs related
 #+BEGIN_SRC emacs-lisp
@@ -151,6 +193,10 @@ n#+BEGIN_SRC emacs-lisp
   (winner-mode 1))
 #+END_SRC
 
+** Keybindings
+#+BEGIN_SRC emacs-lisp
+(global-set-key (kbd "C-x |") 'toggle-frame-split)
+#+END_SRC
 * Theme
   Only load themes if we have the color depth to support it
   ie.  Only load theme if we're running xemacs
@@ -181,8 +227,13 @@ n#+BEGIN_SRC emacs-lisp
   :LAST-UPDATED: [2013-06-05 Wed]
   :VERSION: 8.0.3
   :END:
-** Review Org Mode Version
-   SCHEDULED: <2013-06-05 Wed +1m>
+** TODO Review Org Mode Version
+SCHEDULED: <2013-08-05 Mon +1m>
+- State "DONE"       from "TODO"       [2013-07-26 Fri 08:34]
+- State "DONE"       from "TODO"       [2013-07-22 Mon 15:21]
+:PROPERTIES:
+:LAST_REPEAT: [2013-07-26 Fri 08:34]
+:END:
 
 ** Org Babel Bibtex
 Ripped wholesale from [[file:lib/org/lisp/ob-css.el][ob-css.el]]
@@ -237,6 +288,17 @@ bibtex does not support sessions."
 (setq org-agenda-todo-ignore-with-date t)
 (if (file-exists-p (expand-file-name "~/org/.agenda-files"))
     (setq org-agenda-files "~/org/.agenda-files" ))
+#+END_SRC
+
+#+BEGIN_SRC emacs-lisp
+
+(setq org-agenda-custom-commands '(("n" "Agenda and all TODO's"
+				    ((agenda "")
+				     (alltodo "")))
+				   ("R" "Research Standup" 
+				    ((tags (format "+RA&CLOSED>=\"<%s>\"" (org-read-date)))
+				     (tags "+RA&CLOCKSUM={[:digit:]*:[:digit:]*}"))
+				    )))
 #+END_SRC
 
 *** Org Capture
@@ -312,7 +374,7 @@ bibtex does not support sessions."
 
                                         ; when using ido, the confirmation is rather annoying...
 (setq confirm-nonexistent-file-or-buffer nil)
-
+(fset 'dired 'ido-dired)
 #+END_SRC
 ** IDO Ubiquitous                                                :SUBMODULE:
 #+BEGIN_SRC emacs-lisp
@@ -376,7 +438,7 @@ bibtex does not support sessions."
 
 #+END_SRC
 
-* Magit
+* Magit                                                           :SUBMODULE:
 
 #+BEGIN_SRC emacs-lisp
 (add-to-list 'load-path "~/.emacs.d/lib/magit")
@@ -830,7 +892,7 @@ SCHEDULED: <2013-07-07 Sun +1m>
 (require 'popwin)
 #+END_SRC
 ** Code                                                          :SUBMODULE:
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :tangle no
 (add-to-list 'load-path "~/.emacs.d/lib/guide-key")
 (require 'guide-key)
 
@@ -840,7 +902,7 @@ SCHEDULED: <2013-07-07 Sun +1m>
 (guide-key-mode 1)
 #+END_SRC
 *** Org-mode 
-#+BEGIN_SRC emacs-lisp
+#+BEGIN_SRC emacs-lisp :tangle no
 (defun guide-key/my-hook-function-for-org-mode ()
   (guide-key/add-local-guide-key-sequence "C-c")
   (guide-key/add-local-guide-key-sequence "C-c C-x")

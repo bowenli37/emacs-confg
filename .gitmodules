@@ -64,3 +64,6 @@
 [submodule "lib/popwin"]
 	path = lib/popwin
 	url = git@github.com:m2ym/popwin-el.git
+[submodule "lib/magit"]
+	path = lib/magit
+	url = git@github.com:magit/magit.git
