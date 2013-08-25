@@ -8,6 +8,22 @@ CLOSED: [2013-07-17 Wed 18:45]
 :ARCHIVE_TIME: 2013-07-17 Wed 18:47
 :END:
   [[file:~/org/work/time.org::*Traffic%20Content%20scripts][Traffic Content scripts]]
+*** DONE Add guide-key bindings for Gnus
+CLOSED: [2013-08-12 Mon 16:41]
+:PROPERTIES:
+:ARCHIVE_TIME: 2013-08-12 Mon 16:41
+:END:
+  [[file:~/.emacs.d/emacs.org::*Guide%20Key][Guide Key]]
+*** DONE Figure out auto-login with twittering mode 
+CLOSED: [2013-08-07 Wed 13:44]
+:PROPERTIES:
+:ARCHIVE_TIME: 2013-08-12 Mon 16:41
+:END:
+*** DONE Figure out/Fix EMMS playlist support
+CLOSED: [2013-08-07 Wed 13:44]
+:PROPERTIES:
+:ARCHIVE_TIME: 2013-08-12 Mon 16:42
+:END:
 ** TODO Open issues with move to org tangle for initialization [3/7]
   + [X] Can we move ~/.gnus into this file and tangle it out to .gnus on load?
   + [ ] For long Variable initializations can we keep an org-table somewhere and just noweb it in?
@@ -20,9 +36,9 @@ CLOSED: [2013-07-17 Wed 18:45]
 ** TODO Re-enable/fix org-mode and reftex mode hook
 [[*Bibtex][See Code Block]]
 See FAQ (search "reftex") - http://orgmode.org/worg/org-faq.html
-** TODO Add guide-key bindings for Gnus
+** TODO Get guide-key bindings properly hooked into gnus
   [[file:~/.emacs.d/emacs.org::*Guide%20Key][Guide Key]]
-** TODO Figure out auto-login with twittering mode 
+
 ** TODO Update Swank
 ** TODO Create stripped down LATEX subtree export template
   [[file:~/org2/research.org::*PHI%20Validator%20install%20and%20description][PHI Validator install and description]]
@@ -35,6 +51,20 @@ See FAQ (search "reftex") - http://orgmode.org/worg/org-faq.html
   #+END_EXAMPLE
 
   C-c C-e #  - what does this run/where are the docs?
+** TODO Emacs-Jedi - possibly easier than elpy?
+git@github.com:tkf/emacs-jedi.git  
+[[file:~/.emacs.d/emacs.org::*Opportunities%20for%20Improvement][Opportunities for Improvement]]
+** TODO Read widget documentation for KEYWORD selection in refmanager-mode
+  [[info:widget#Introduction]]
+** TODO File Bug report - contents in this function might be empty if line item is blank
+  
+  [[file:~/.emacs.d/lib/org/lisp/ox-md.el::(org-trim%20(replace-regexp-in-string%20"^"%20"%20"%20contents)))))][file:~/.emacs.d/lib/org/lisp/ox-md.el::(org-trim (replace-regexp-in-string "^" " " contents)))))]]
+
+*** Eg:
++ A list
++ of items
++ that has a trailing
++ 
 * Opportunities for Improvement
 ** Archive                                                         :ARCHIVE:
 *** DONE Add IDO ubiquitous
@@ -66,6 +96,14 @@ CLOSED: [2013-07-17 Wed 19:10]
 
 ** TODO Install Web-mode
 correct php/html indentation (get from master)
+** TODO Must learn Prop/TODO matching language
+  [[info:org#Matching%20tags%20and%20properties][info:org#Matching tags and properties]]
+  + eg: TODO="COMPLETE"&CLOSED>="<-7d>" for last seven days of completed tags
+  + can we store these searches?
+** TODO Potential Slide presentation module for emacs
+  git@github.com:dengste/doc-present.git
+** TODO Light weight Java (does not require eclipse)
+https://github.com/baohaojun/ajoke
 * Things I Often Forget
 ** Diacritic marks in emacs
   [2013-07-12 Fri]
@@ -74,6 +112,26 @@ correct php/html indentation (get from master)
 + See:      [[http://www.masteringemacs.org/articles/2010/10/13/diacritics-in-emacs/][Diacritics in Emacs]]
 
 ** Subtree export - specify file name/location
+*** EXAMPLE :: PHI Validator install and description
+:PROPERTIES:
+:EXPORT_FILE_NAME: .research/assistantship/phi_validator_tex/phi_validator
+:EXPORT_OPTIONS: toc:nil ^:nil author:nil timestamp:nil
+:END:
+
+** Export org-mode to docx (with bibliography)
+*** to .docx                                                     :noexport:
+#+NAME: tex-file
+#+BEGIN_SRC elisp
+(file-truename (org-latex-export-to-latex))
+#+END_SRC
+
+#+NAME: export-to-docx
+#+BEGIN_SRC sh :results silent :var INFILE=tex-file
+/usr/bin/pandoc -f latex -t docx --bibliography=references.bib --csl=iso690-numeric-en.csl -i $INFILE -o $(echo $INFILE | sed -e "s/tex$/docx/")
+#+END_SRC
+
+
+
 * Utility Functions
 ** toggle-frame-split
 #+BEGIN_SRC emacs-lisp
@@ -173,7 +231,7 @@ Assumes that the frame is only split into two."
   (interactive "nTransparency Value 0 - 100 opaque:")
   (set-frame-parameter (selected-frame) 'alpha value))
 
-(add-to-list 'default-frame-alist '(alpha  . 85))
+; (add-to-list 'default-frame-alist '(alpha  . 85))
 
 #+END_SRC
 
@@ -228,11 +286,14 @@ Assumes that the frame is only split into two."
   :VERSION: 8.0.3
   :END:
 ** TODO Review Org Mode Version
-SCHEDULED: <2013-08-05 Mon +1m>
+SCHEDULED: <2013-11-05 Tue +1m>
+- State "DONE"       from "TODO"       [2013-08-07 Wed 12:57]
+- State "DONE"       from "TODO"       [2013-08-07 Wed 12:57]
+- State "DONE"       from "TODO"       [2013-08-07 Wed 12:57]
 - State "DONE"       from "TODO"       [2013-07-26 Fri 08:34]
 - State "DONE"       from "TODO"       [2013-07-22 Mon 15:21]
 :PROPERTIES:
-:LAST_REPEAT: [2013-07-26 Fri 08:34]
+:LAST_REPEAT: [2013-08-07 Wed 12:57]
 :END:
 
 ** Org Babel Bibtex
@@ -295,9 +356,15 @@ bibtex does not support sessions."
 (setq org-agenda-custom-commands '(("n" "Agenda and all TODO's"
 				    ((agenda "")
 				     (alltodo "")))
-				   ("R" "Research Standup" 
+				   ("R" 
+				    ; descripition
+				    "Research Standup" 
+				    ; tags
 				    ((tags (format "+RA&CLOSED>=\"<%s>\"" (org-read-date)))
 				     (tags "+RA&CLOCKSUM={[:digit:]*:[:digit:]*}"))
+				    ; settings
+				    ((org-agenda-files '("~/org2/research.org"))
+				     (org-agenda-compact-blocks t))
 				    )))
 #+END_SRC
 
@@ -334,8 +401,15 @@ bibtex does not support sessions."
 #+BEGIN_SRC emacs-lisp
 (setq org-src-preserve-indentation t)
 (setq org-src-fontify-natively t)
+(setq org-confirm-babel-evaluate nil)
 
 (add-to-list 'load-path "~/.emacs.d/lib/")
+
+; Add advice to org-babel-python-evaluate to use ipython's %cpaste magic
+(defadvice org-babel-python-evaluate (before org-babel-ipython-evaluate 
+					     (session body &optional result-type result-params preamble) activate)
+  (if session
+      (setq body (concat "\n%cpaste\n" body "\n--\n"))))
 
 (org-babel-do-load-languages
  'org-babel-load-languages
@@ -344,7 +418,8 @@ bibtex does not support sessions."
    (R . t)
    (latex . t)
    (sh . t )
-   (bibtex . t)))
+   (bibtex . t)
+   (sql . t)))
 
 #+END_SRC
 
@@ -548,6 +623,7 @@ bibtex does not support sessions."
 (require 'refmanager-mode)
 
 #+END_SRC
+** TODO fix refmanager-bibtex-to-org to also create bibtex src block
 * Lorem Ipsum
 
 * Twittering Mode                                                 :SUBMODULE:
@@ -561,13 +637,16 @@ bibtex does not support sessions."
 (require 'twittering-mode)
 
 (setq twittering-use-master-password t)
+
+(setq twittering-cert-file "/etc/ssl/certs/ca-certificates.crt")
 #+END_SRC
 
 ** TODO Review Twittering Mode Version
-SCHEDULED: <2013-07-07 Sun +1m>
+SCHEDULED: <2013-08-07 Wed +1m>
+- State "DONE"       from "TODO"       [2013-08-07 Wed 13:44]
 - State "DONE"       from "TODO"       [2013-07-15 Mon 12:09]
 :PROPERTIES:
-:LAST_REPEAT: [2013-07-15 Mon 12:09]
+:LAST_REPEAT: [2013-08-07 Wed 13:44]
 :END:
 
 * Lorem Ipsum
@@ -664,6 +743,15 @@ SCHEDULED: <2013-07-07 Sun +1m>
    mu4e-trash-folder  "/ualbany/Trash"      ;; trashed messages
    )
 
+(defun ftc ()
+  (interactive)
+	   (mu4e-sent-folder "/ftc/Sent Items")
+	   (mu4e-drafts-folder "/ftc/Drafts")
+	   (mu4e-trash-folder "/ftc/Trash")
+	   (smtpmail-smtp-user "chris@fearthecloud.net")
+	   (smtpmail-smtp-server "fearthecloud.net")
+)
+
   (setq mu4e-refile-folder
         (lambda (msg)
           (cond
@@ -691,7 +779,8 @@ SCHEDULED: <2013-07-07 Sun +1m>
 
 (setq mu4e-maildir-shortcuts
       '( ("/ualbany/INBOX"     . ?a)
-         ("/gmail/INBOX"     . ?g)) )
+         ("/gmail/INBOX"     . ?g)
+         ("/ftc/INBOX"     . ?f)))
 
       ;; these are actually the defaults
 (setq
@@ -725,7 +814,19 @@ SCHEDULED: <2013-07-07 Sun +1m>
 ;          (smtpmail-local-domain "pod51009.outlook.com")
 	   (smtpmail-smtp-server "pod51009.outlook.com")
 	   ;; add other variables here
+         )
+	  ("ftc"
+	   (mu4e-sent-folder "/ftc/Sent Items")
+	   (mu4e-drafts-folder "/ftc/Drafts")
+	   (mu4e-trash-folder "/ftc/Trash")
+	   (user-mail-address "chris@fearthecloud.net")
+	   (smtpmail-smtp-user "chris@fearthecloud.net")
+;          (smtpmail-local-domain "pod51009.outlook.com")
+	   (smtpmail-smtp-server "fearthecloud.net")
+	   ;; add other variables here
          )))
+
+
 
 (defun mu4e-set-account ()
   "Set the account for composing a message."
@@ -761,6 +862,9 @@ SCHEDULED: <2013-07-07 Sun +1m>
 (setq gnus-secondary-select-method '((nntp "news.gwene.org")))
 
 (setq gnus-save-newsrc-file nil)
+
+; set all groups permanently visible
+(setq gnus-permanently-visible-groups ".*")
 
 #+END_SRC
 
@@ -892,14 +996,29 @@ SCHEDULED: <2013-07-07 Sun +1m>
 (require 'popwin)
 #+END_SRC
 ** Code                                                          :SUBMODULE:
-#+BEGIN_SRC emacs-lisp :tangle no
+#+BEGIN_SRC emacs-lisp
 (add-to-list 'load-path "~/.emacs.d/lib/guide-key")
 (require 'guide-key)
 
 ; Rectangles
-(setq guide-key/guide-key-sequence '("C-x r" "C-x 4"))
+; (setq guide-key/guide-key-sequence '("C-x r" "C-x 4"))
 
 (guide-key-mode 1)
+#+END_SRC
+*** Gnus 
+#+BEGIN_SRC emacs-lisp
+(defun guide-key/hook-function-for-guns ()
+  (guide-key/add-local-guide-key-sequence "T")
+  (guide-key/add-local-guide-key-sequence "A")
+  (guide-key/add-local-guide-key-sequence "G")
+  (guide-key/add-local-guide-key-sequence "S")
+  (guide-key/add-local-guide-key-sequence "M")
+  (guide-key/add-local-guide-key-sequence "J")
+  (guide-key/add-local-guide-key-sequence "K")
+  (guide-key/add-local-guide-key-sequence "W"))
+
+; (add-hook 'gnus-group-mode-hook 'guide-key/hook-function-for-gnus)
+
 #+END_SRC
 *** Org-mode 
 #+BEGIN_SRC emacs-lisp :tangle no
@@ -910,3 +1029,39 @@ SCHEDULED: <2013-07-07 Sun +1m>
 (add-hook 'org-mode-hook 'guide-key/my-hook-function-for-org-mode)
 #+END_SRC
 
+* Emacs Multi-Media System                                        :SUBMODULE:
+#+BEGIN_SRC emacs-lisp
+(add-to-list 'load-path "~/.emacs.d/lib/emms/lisp/")
+(require 'emms-setup)
+(emms-all)
+(add-to-list 'emms-player-mplayer-parameters "-novideo")
+(emms-default-players)
+
+(setq emms-source-playlist-default-format 'm3u)
+(setq emms-source-file-default-directory "~/music/")
+
+(defun dubstep-go ()
+  (interactive)  
+  (emms-add-playlist "~/music/dubstep.m3u")
+  (emms-shuffle)
+  (emms-start)
+  (emms-show))
+
+(global-set-key (kbd "s-<f10>") 'emms-previous)
+(global-set-key (kbd "s-<f11>") 'emms-pause)
+(global-set-key (kbd "s-<f12>") 'emms-next)
+
+#+END_SRC
+* Metamap Mode                                                    :SUBMODULE:
+#+BEGIN_SRC emacs-lisp
+(add-to-list 'load-path "~/.emacs.d/lib/metamap/")
+(require 'metamap-mode)
+
+#+END_SRC
+** TODO add documentation help for tags from 2012 output explained
+http://metamap.nlm.nih.gov/MM12_XML_Info.shtml
+* MySQL
+#+BEGIN_SRC emacs-lisp 
+(add-hook 'sql-mode-hook
+	  (lambda () (sql-highlight-mysql-keywords)))
+#+END_SRC

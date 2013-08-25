@@ -49,7 +49,7 @@ an org-mode file of citations based on org entry properties. "
   (reverse (cons (car (reverse lst)) (mapcar (lambda (str) (concat str "," ) ) (cdr (reverse lst))))))
 
 (defun refmanager-entry-to-bibtex-string (pom)
-  (let ((property-blacklist '("CATEGORY" "FILE" "BLOCKED" "id" "type" "KEYWORDS" "file")))
+  (let ((property-blacklist '("CATEGORY" "FILE" "BLOCKED" "id" "type" "KEYWORDS" "file" "TAGS" "ALLTAGS" "CLOCK")))
     (let ((id (org-entry-get pom "id"))
           (type (org-entry-get pom "type" t))
           (properties (mapfilter (lambda (e) (not (member (car e) property-blacklist)))
@@ -58,7 +58,9 @@ an org-mode file of citations based on org entry properties. "
                (apply 'concat (mapcar (lambda (str) (concat str "\n")) (commafy (mapcar (lambda (prop) (format "%s = { %s }" (car prop) (cdr prop))) properties))))
                "}")
        )))
-
+(defun refmanager-insert-bibtext-from-properties ()
+  (interactive)
+  (insert (refmanager-entry-to-bibtex-string (point))))
 
 ; Depricated
 ; (defun refmanager-bibtext-line-to-property ()

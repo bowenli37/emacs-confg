@@ -67,3 +67,9 @@
 [submodule "lib/magit"]
 	path = lib/magit
 	url = git@github.com:magit/magit.git
+[submodule "lib/emms"]
+	path = lib/emms
+	url = git://git.sv.gnu.org/emms.git
+[submodule "lib/metamap"]
+	path = lib/metamap
+	url = git@github.com:kotfic/emacs-metamap.git
