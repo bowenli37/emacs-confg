@@ -8,15 +8,15 @@
  (rear-context-string . "ue 12:00-13:00>\n")
  (position . 8114))
 ("org-refile-last-stored"
- (filename . "~/org2/unfiled.org")
- (front-context-string . "** TODO Lunch & ")
- (rear-context-string . "ue 12:00-13:00>\n")
- (position . 8114))
+ (filename . "~/.emacs.d/emacs.org")
+ (front-context-string . "** TODO File Bug")
+ (rear-context-string . "#Introduction]]\n")
+ (position . 2476))
 ("org-capture-last-stored"
  (filename . "~/org2/unfiled.org")
- (front-context-string . "** TODO Dinner w")
- (rear-context-string . "Server update]]\n")
- (position . 8768))
+ (front-context-string . "** TODO Read sen")
+ (rear-context-string . "ion Students!]]\n")
+ (position . 10813))
 ("a"
  (filename . "~/org/school/references/notes.org")
  (front-context-string . "@InProceedings{s")

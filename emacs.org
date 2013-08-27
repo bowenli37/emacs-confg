@@ -66,6 +66,9 @@ git@github.com:tkf/emacs-jedi.git
 + that has a trailing
 + 
 * Opportunities for Improvement
+:PROPERTIES:
+:CATEGORY: Process
+:END:
 ** Archive                                                         :ARCHIVE:
 *** DONE Add IDO ubiquitous
 CLOSED: [2013-07-17 Wed 18:40]
@@ -85,24 +88,24 @@ CLOSED: [2013-07-17 Wed 19:10]
 :END:
   
   [[file:~/mail/ualbany/Drafts/cur/20130715-ccc6fe-carasgaladon:2,DS]]
-** TODO Install Skewer
+** TODO Install Skewer                                          :backburner:
   github: https://github.com/skeeto/skewer-mode
 
-** TODO Emacs UNDO tree
-** TODO Install View Large File Improved
+** TODO Emacs UNDO tree                                         :backburner:
+** TODO Install View Large File Improved                        :backburner:
   [[https://github.com/m00natic/vlfi][On Github]]
   [[file:~/org2/research.org::*Meeting%20with%20Project%20Petition][Meeting with Project Petition]]
-** TODO Finally get on top of dired
+** TODO Finally get on top of dired                             :backburner:
 
-** TODO Install Web-mode
+** TODO Install Web-mode                                        :backburner:
 correct php/html indentation (get from master)
-** TODO Must learn Prop/TODO matching language
+** TODO Must learn Prop/TODO matching language                  :backburner:
   [[info:org#Matching%20tags%20and%20properties][info:org#Matching tags and properties]]
   + eg: TODO="COMPLETE"&CLOSED>="<-7d>" for last seven days of completed tags
   + can we store these searches?
-** TODO Potential Slide presentation module for emacs
+** TODO Potential Slide presentation module for emacs           :backburner:
   git@github.com:dengste/doc-present.git
-** TODO Light weight Java (does not require eclipse)
+** TODO Light weight Java (does not require eclipse)            :backburner:
 https://github.com/baohaojun/ajoke
 * Things I Often Forget
 ** Diacritic marks in emacs
@@ -168,7 +171,7 @@ Assumes that the frame is only split into two."
 (setq indent-tabs-mode nil)
 (put 'downcase-region 'disabled nil)
 (fset 'yes-or-no-p 'y-or-n-p)
-(setq enable-recursive-minibuffers t)
+; (setq enable-recursive-minibuffers t)
 #+END_SRC
 *** Autosave
 #+BEGIN_SRC emacs-lisp
@@ -337,7 +340,7 @@ bibtex does not support sessions."
 #+END_SRC
 
 *** Org Agenda
-#+NAME recursively-include-all-org-files 
+#+NAME: recursively-include-all-org-files 
 #+BEGIN_SRC emacs-lisp :tangle no
 (add-hook 'org-agenda-mode-hook
     (lambda ()
@@ -345,29 +348,52 @@ bibtex does not support sessions."
             (find-lisp-find-files "~/org" "\.org$"))))
 #+END_SRC
 
+#+NAME: set-agenda-file
 #+BEGIN_SRC emacs-lisp
 (setq org-agenda-todo-ignore-with-date t)
 (if (file-exists-p (expand-file-name "~/org/.agenda-files"))
     (setq org-agenda-files "~/org/.agenda-files" ))
 #+END_SRC
 
+
+#+NAME: org-agenda-custom-commands
 #+BEGIN_SRC emacs-lisp
+; First attempt at "research standup" still needs work
+; ("R" 
+; 					; descripition
+;  "Research Standup" 
+; 					; tags
+;  ((tags (format "+RA&CLOSED>=\"<%s>\"" (org-read-date)))
+;   (tags "+RA&CLOCKSUM={[:digit:]*:[:digit:]*}"))
+; 					; settings
+;  ((org-agenda-files '("~/org2/research.org"))
+;   (org-agenda-compact-blocks t))
+;  
 
-(setq org-agenda-custom-commands '(("n" "Agenda and all TODO's"
+(setq org-agenda-custom-commands '(
+				   ("n" "Agenda and TODO's"
 				    ((agenda "")
-				     (alltodo "")))
-				   ("R" 
-				    ; descripition
-				    "Research Standup" 
-				    ; tags
-				    ((tags (format "+RA&CLOSED>=\"<%s>\"" (org-read-date)))
-				     (tags "+RA&CLOCKSUM={[:digit:]*:[:digit:]*}"))
-				    ; settings
-				    ((org-agenda-files '("~/org2/research.org"))
-				     (org-agenda-compact-blocks t))
-				    )))
+				     (tags-todo "+urgent")
+				     (tags-todo "CATEGORY=\"RPAD705\"-backburner")
+				     (tags-todo "CATEGORY=\"INF711\"-backburner")
+				     (tags-todo "CATEGORY=\"RA\"-backburner")
+				     (tags-todo "CATEGORY=\"INFPHD\"-backburner")
+				     (tags-todo "CATEGORY=\"PP\"-backburner")
+				     (tags-todo "CATEGORY=\"OJS\"-backburner")
+				     (tags-todo "CATEGORY=\"Pub\"-backburner")
+				     (tags "+backburner")
+				     ))
+				   ("P" "Process Improvements"
+				     ((tags-todo "CATEGORY=\"Process\"-backburner")
+				      (tags-todo "CATEGORY=\"Process\"+backburner")
+				     ))
+				    ))
 #+END_SRC
-
+**** TODO Fix "Research Standup" org-agenda-custom-command
+:PROPERTIES:
+:CATEGORY: Process
+:END:
+http://orgmode.org/worg/org-tutorials/org-custom-agenda-commands.html
 *** Org Capture
 #+BEGIN_SRC emacs-lisp
 (setq org-default-notes-file (concat org-directory "/unfiled.org"))
@@ -641,12 +667,13 @@ bibtex does not support sessions."
 (setq twittering-cert-file "/etc/ssl/certs/ca-certificates.crt")
 #+END_SRC
 
-** TODO Review Twittering Mode Version
-SCHEDULED: <2013-08-07 Wed +1m>
+** Review Twittering Mode Version
+SCHEDULED: <2013-09-07 Sat +1m>
+- State "DONE"       from "TODO"       [2013-08-26 Mon 20:03]
 - State "DONE"       from "TODO"       [2013-08-07 Wed 13:44]
 - State "DONE"       from "TODO"       [2013-07-15 Mon 12:09]
 :PROPERTIES:
-:LAST_REPEAT: [2013-08-07 Wed 13:44]
+:LAST_REPEAT: [2013-08-26 Mon 20:03]
 :END:
 
 * Lorem Ipsum
@@ -745,12 +772,13 @@ SCHEDULED: <2013-08-07 Wed +1m>
 
 (defun ftc ()
   (interactive)
-	   (mu4e-sent-folder "/ftc/Sent Items")
-	   (mu4e-drafts-folder "/ftc/Drafts")
-	   (mu4e-trash-folder "/ftc/Trash")
-	   (smtpmail-smtp-user "chris@fearthecloud.net")
-	   (smtpmail-smtp-server "fearthecloud.net")
-)
+  (setq 
+   mu4e-sent-folder "/ftc/Sent Items"
+   mu4e-drafts-folder "/ftc/Drafts"
+   mu4e-trash-folder "/ftc/Trash"
+   user-mail-address "chris@fearthecloud.net"
+   smtpmail-smtp-user "chris@fearthecloud.net"
+   smtpmail-smtp-server "fearthecloud.net"))
 
   (setq mu4e-refile-folder
         (lambda (msg)
@@ -763,8 +791,7 @@ SCHEDULED: <2013-08-07 Wed +1m>
            ((or (mu4e-message-contact-field-matches msg :to "@listserv.albany.edu")
 	       (mu4e-message-contact-field-matches msg :from "@listserv.albany.edu")
 	       (mu4e-message-contact-field-matches msg :cc "@listserv.albany.edu"))
-            "/ualbany/IST-L")
-           ((or (mu4e-message-contact-field-matches msg :to "@csail.mit.edu")
+            "/ualbany/IST-L")           ((or (mu4e-message-contact-field-matches msg :to "@csail.mit.edu")
 	       (mu4e-message-contact-field-matches msg :from "@csail.mit.edu")
 	       (mu4e-message-contact-field-matches msg :cc "@csail.mit.edu"))
             "/ualbany/CSAIL")
@@ -1057,6 +1084,7 @@ SCHEDULED: <2013-08-07 Wed +1m>
 (add-to-list 'load-path "~/.emacs.d/lib/metamap/")
 (require 'metamap-mode)
 
+(setq metamap-cli-arguments '("--XMLf" "--restrict_to_sts patf,dsyn,mobd,comd,cgab,acab,inpo,anab,neop,virs,bact,sosy,topp,medd,strd,phsu,bodm,antb,clnd,drdd,lbpr,lbtr,diap" ))
 #+END_SRC
 ** TODO add documentation help for tags from 2012 output explained
 http://metamap.nlm.nih.gov/MM12_XML_Info.shtml
