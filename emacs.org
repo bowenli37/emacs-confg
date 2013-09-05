@@ -1,5 +1,6 @@
 #+TAGS: EXPERIMENTAL(e) DEPRECATED(d) SUBMODULE(s)
 #+EXCLUDE_TAGS: DEPRECATED
+
 * Tasks
 ** Archive                                                         :ARCHIVE:
 *** DONE Problem with reftext org-mode-hook keeping bullets from loading   
@@ -132,7 +133,6 @@ https://github.com/baohaojun/ajoke
 #+BEGIN_SRC sh :results silent :var INFILE=tex-file
 /usr/bin/pandoc -f latex -t docx --bibliography=references.bib --csl=iso690-numeric-en.csl -i $INFILE -o $(echo $INFILE | sed -e "s/tex$/docx/")
 #+END_SRC
-
 
 
 * Utility Functions
@@ -370,12 +370,17 @@ bibtex does not support sessions."
 ;   (org-agenda-compact-blocks t))
 ;  
 
+; ensure that tags-todo do not show scheduled items
+(setq org-agenda-tags-todo-honor-ignore-options t)
+
 (setq org-agenda-custom-commands '(
 				   ("n" "Agenda and TODO's"
 				    ((agenda "")
 				     (tags-todo "+urgent")
-				     (tags-todo "CATEGORY=\"RPAD705\"-backburner")
+;				     (tags-todo "CATEGORY=\"RPAD705\"&-backburner&DEADLINE<\"<+1w>\"|CATEGORY=\"RPAD705\"&-backburner&SCHEDULED<\"<+1w>\"")
+				     (tags-todo "CATEGORY=\"RPAD705\"&-backburner")
 				     (tags-todo "CATEGORY=\"INF711\"-backburner")
+				     (tags-todo "CATEGORY=\"INF595\"-backburner")
 				     (tags-todo "CATEGORY=\"RA\"-backburner")
 				     (tags-todo "CATEGORY=\"INFPHD\"-backburner")
 				     (tags-todo "CATEGORY=\"PP\"-backburner")
@@ -409,7 +414,9 @@ http://orgmode.org/worg/org-tutorials/org-custom-agenda-commands.html
 '(("t" "Todo" entry (file+headline "~/org2/unfiled.org" "Tasks")
    "* TODO %?\n  %i\n  %a")
   ("m" "Migration" entry (file+headline "~/org2/unfiled.org" "Migration")
-   "* MIGRATION %?\n %i\n %a ")))
+   "* MIGRATION %?\n %i\n %a ")
+  ("q" "Question" entry (file+headline "~/org2/unfiled.org" "Migration")
+   "* QUESTION %?\n %i\n %a ")))
 
 #+END_SRC
 *** Org Export
@@ -633,6 +640,70 @@ http://orgmode.org/worg/org-tutorials/org-custom-agenda-commands.html
 ; DISABLED - org-mode-reftex-setup throwing errors (to fix)
 ; (add-hook 'org-mode-hook 'org-mode-reftex-setup)
 #+END_SRC
+* Yasnippet                                                       :SUBMODULE:
+#+BEGIN_SRC emacs-lisp
+(add-to-list 'load-path "~/.emacs.d/lib/yasnippet")
+(require 'yasnippet)
+
+(setq yas-snippet-dirs '("~/.emacs.d/custom-snippets" "~/.emacs.d/lib/yasnippet/snippets"))
+
+
+; This could probably be more sophisticated
+(defun preview-fragment ()
+  (if (looking-back "$$ ")
+      (org-preview-latex-fragment)))
+
+(add-hook 'org-mode-hook
+          (lambda ()
+	    (yas-minor-mode-on)
+	    (yas-reload-all)
+	    (set (make-local-variable 'yas-after-exit-snippet-hook) '(preview-fragment))
+	    ))
+
+(setq yas-triggers-in-field t)
+
+#+END_SRC
+
+** Org-Mode Snippets
+#+TBLNAME: snippets
+| name  | key | file | command              |
+|-------+-----+------+----------------------|
+| alpha | \a  | a    | \alpha_{$1}^{$2}$0   |
+| beta  | \b  | b    | \beta_{$1}^{$2}$0    |
+| y hat | \yh | yh   | \hat{y_{$1}^{$2}}$0  |
+
+
+#+NAME: export-snippet-table  
+#+BEGIN_SRC emacs-lisp :results silent :var snippets=snippets
+
+(require 's)
+
+(defvar org-mode-snippet-template "\
+# -*- mode: snippet -*-
+# name: $0
+# key: $1
+# --
+$3")
+
+(defvar snippet-basedir "~/.emacs.d/custom-snippets/org-mode/")
+
+(defun save-snippet (snip)
+  (let ((file_path (concat snippet-basedir (nth 2 snip)))
+	(contents (s-format org-mode-snippet-template 'elt snip)))
+    
+    (with-temp-file file_path
+      (insert contents))
+   
+    ))
+
+(mapcar #'save-snippet (cdr (cdr snippets)))
+(yas-reload-all)
+(message "Snippet export complete")
+#+END_SRC
+*** TODO Move existing latex/org-mode snippets into table
+:PROPERTIES:
+:CATEGORY: Process
+:END:
 * DocView
 #+BEGIN_SRC emacs-lisp
 
@@ -730,7 +801,17 @@ SCHEDULED: <2013-09-07 Sat +1m>
 (require 'mu4e)
 (require 'org-mu4e)
 
-(setq send-mail-function 'smtpmail-send-it)
+;(setq send-mail-function 'smtpmail-send-it)
+(setq message-send-mail-function 'message-send-mail-with-msmtp)
+(setq sendmail-program "/usr/bin/msmtp")
+
+;;need to tell msmtp which account we're using
+; (setq message-sendmail-extra-arguments '("-a" "anderson"))
+;; you might want to set the following too
+; (setq mail-host-address "gmail.com")
+; (setq user-full-name "Anderson Guy")
+; (setq user-mail-address "sivaram.notthere@gmail.com")
+
 
 ; do not enable fill-column on message compose
 (setq message-fill-column nil)
@@ -746,7 +827,7 @@ SCHEDULED: <2013-09-07 Sat +1m>
 (setq
  mu4e-use-fancy-chars t
  mu4e-get-mail-command "offlineimap"   ;; or fetchmail, or ...
- mu4e-update-interval 180)              ;; update every 3 minutes
+ mu4e-update-interval 900)              ;; update every 3 minutes
 
 (setq smtpmail-queue-mail  nil  ;; start in non-queuing mode
       smtpmail-queue-dir   "~/mail/queue/cur")
@@ -768,7 +849,11 @@ SCHEDULED: <2013-09-07 Sat +1m>
    mu4e-sent-folder   "/ualbany/Sent"       ;; folder for sent messages
    mu4e-drafts-folder "/ualbany/Drafts"     ;; unfinished messages
    mu4e-trash-folder  "/ualbany/Trash"      ;; trashed messages
-   )
+   message-sendmail-extra-arguments '("-a" "ualbany" "-X" "/home/kotfic/.msmtp.log" "-t")
+   mail-host-address "albany.edu"
+   user-full-name "Christopher Kotfila"
+   user-mail-address "ckotfila@albany.edu"
+   ))
 
 (defun ftc ()
   (interactive)
@@ -801,7 +886,7 @@ SCHEDULED: <2013-09-07 Sat +1m>
             "/ualbany/UMLSUSERS-L")
            ;; everything else goes to /archive
            ;; important to have a catch-all at the end!
-           (t "/ualbany/Archives")))) )
+           (t "/ualbany/Archives"))))
 
 
 (setq mu4e-maildir-shortcuts
@@ -838,8 +923,9 @@ SCHEDULED: <2013-09-07 Sat +1m>
 	   (mu4e-trash-folder "/ualbany/Trash")
 	   (user-mail-address "ckotfila@albany.edu")
 	   (smtpmail-smtp-user "ckotfila@albany.edu")
-;          (smtpmail-local-domain "pod51009.outlook.com")
+	   (smtpmail-local-domain "pod51009.outlook.com")
 	   (smtpmail-smtp-server "pod51009.outlook.com")
+
 	   ;; add other variables here
          )
 	  ("ftc"
@@ -873,6 +959,70 @@ SCHEDULED: <2013-09-07 Sat +1m>
               account-vars))))
 
 (add-hook 'mu4e-compose-pre-hook 'mu4e-set-account)
+
+#+END_SRC
+#+BEGIN_SRC emacs-lisp
+(defun message-send-mail-with-msmtp ()
+  "Send off the prepared buffer with msmtp."
+  (require 'sendmail)
+  (let ((errbuf (if message-interactive
+		    (message-generate-new-buffer-clone-locals
+		     " sendmail errors")
+		  0))
+	resend-to-addresses delimline)
+    (unwind-protect
+	(progn
+	  (let ((case-fold-search t))
+	    (save-restriction
+	      (message-narrow-to-headers)
+	      (setq resend-to-addresses (message-fetch-field "resent-to")))
+	    ;; Change header-delimiter to be what sendmail expects.
+	    (goto-char (point-min))
+	    (re-search-forward
+	     (concat "^" (regexp-quote mail-header-separator) "\n"))
+	    (replace-match "\n")
+	    (backward-char 1)
+	    (setq delimline (point-marker))
+	    (run-hooks 'message-send-mail-hook)
+	    ;; Insert an extra newline if we need it to work around
+	    ;; Sun's bug that swallows newlines.
+	    (goto-char (1+ delimline))
+	    (when (eval message-mailer-swallows-blank-line)
+	      (newline))
+	    (when message-interactive
+	      (with-current-buffer errbuf
+		(erase-buffer))))
+	  (let* ((default-directory "/")
+		 (coding-system-for-write message-send-coding-system)
+		 (cpr (apply
+		       'call-process-region
+		       (append
+			(list (point-min) (point-max) sendmail-program
+			      nil errbuf nil )
+			message-sendmail-extra-arguments
+			
+			(list "-t")
+
+		;	(if (listp (assoc 'message-recipients message-options))
+		;	    (car (cdr (assoc 'message-recipients message-options)))
+		;	  (list (car (cdr (assoc 'message-recipients message-options)))))
+			)
+		       )))
+	    (unless (or (null cpr) (and (numberp cpr) (zerop cpr)))
+              (if errbuf (pop-to-buffer errbuf))
+	      (error "Sending...failed with exit value %d" cpr)))
+	  (when message-interactive
+	    (with-current-buffer errbuf
+	      (goto-char (point-min))
+	      (while (re-search-forward "\n+ *" nil t)
+		(replace-match "; "))
+	      (if (not (zerop (buffer-size)))
+		  (error "Sending...failed to %s"
+			 (buffer-string))))))
+;      (when (bufferp errbuf)
+;	(kill-buffer errbuf))
+)))
+
 
 #+END_SRC
 * GNUS
@@ -1086,8 +1236,10 @@ SCHEDULED: <2013-09-07 Sat +1m>
 
 (setq metamap-cli-arguments '("--XMLf" "--restrict_to_sts patf,dsyn,mobd,comd,cgab,acab,inpo,anab,neop,virs,bact,sosy,topp,medd,strd,phsu,bodm,antb,clnd,drdd,lbpr,lbtr,diap" ))
 #+END_SRC
-** TODO add documentation help for tags from 2012 output explained
+** DONE add documentation help for tags from 2012 output explained
+CLOSED: [2013-09-03 Tue 10:51]
 http://metamap.nlm.nih.gov/MM12_XML_Info.shtml
+
 * MySQL
 #+BEGIN_SRC emacs-lisp 
 (add-hook 'sql-mode-hook

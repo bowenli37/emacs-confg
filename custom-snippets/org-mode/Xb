@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: X bar
+# key: \Xb
+# --
+\overline{X_{$1}^{$2}}$0

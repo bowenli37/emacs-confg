@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: e bar
+# key: eb
+# --
+\overline{\epsilon_{$1}^{$2}} $0

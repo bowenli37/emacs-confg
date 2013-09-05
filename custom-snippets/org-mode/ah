@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: alpha hat
+# key: \ah
+# --
+\hat{\alpha_{$1}^{$2}}$0

@@ -17,3 +17,4 @@ ac-comphist.dat
 emacs.el
 var
 /lib/ob-bibtex.el
+/emms/cache

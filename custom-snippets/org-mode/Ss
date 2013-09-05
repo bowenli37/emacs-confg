@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: Simple Sum
+# key: \Ss
+# --
+\sum{$1}$0
+

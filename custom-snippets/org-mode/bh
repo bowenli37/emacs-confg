@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: beta hat
+# key: \bh
+# --
+\hat{\beta_{$1}^{$2}}$0

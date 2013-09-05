@@ -14,9 +14,9 @@
  (position . 2476))
 ("org-capture-last-stored"
  (filename . "~/org2/unfiled.org")
- (front-context-string . "** TODO Read sen")
- (rear-context-string . "ion Students!]]\n")
- (position . 10813))
+ (front-context-string . "** TODO Figure o")
+ (rear-context-string . "ure Center 3A  \n")
+ (position . 10913))
 ("a"
  (filename . "~/org/school/references/notes.org")
  (front-context-string . "@InProceedings{s")

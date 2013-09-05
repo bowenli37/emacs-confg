@@ -30,7 +30,9 @@
  '(grep-command "grep -rin -e ")
  '(ido-default-buffer-method (quote selected-window))
  '(org-export-backends (quote (ascii html icalendar latex md odt)))
+ '(org-format-latex-options (quote (:foreground default :background default :scale 1.4 :html-foreground "Black" :html-background "Transparent" :html-scale 1.0 :matchers ("begin" "$1" "$" "$$" "\\(" "\\["))))
  '(safe-local-variable-values (quote ((python-shell-interpreter . "ipython") (python-shell-virtualenv-path . "~/.envs/nltk/") (org-clock-into-drawer . t))))
+ '(smtpmail-stream-type nil)
  '(vc-annotate-background "#2B2B2B")
  '(vc-annotate-color-map (quote ((20 . "#BC8383") (40 . "#CC9393") (60 . "#DFAF8F") (80 . "#D0BF8F") (100 . "#E0CF9F") (120 . "#F0DFAF") (140 . "#5F7F5F") (160 . "#7F9F7F") (180 . "#8FB28F") (200 . "#9FC59F") (220 . "#AFD8AF") (240 . "#BFEBBF") (260 . "#93E0E3") (280 . "#6CA0A3") (300 . "#7CB8BB") (320 . "#8CD0D3") (340 . "#94BFF3") (360 . "#DC8CC3"))))
  '(vc-annotate-very-old-color "#DC8CC3"))
@@ -39,12 +41,12 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(erc-input-face ((t (:foreground "light gray"))))
- '(erc-my-nick-face ((t (:foreground "light gray" :weight bold))))
+ '(erc-input-face ((t (:foreground "light gray"))) t)
+ '(erc-my-nick-face ((t (:foreground "light gray" :weight bold))) t)
  '(highlight-indentation-face ((t (:inherit org-hide))))
  '(jabber-roster-user-away ((t (:foreground "cornflower blue" :slant italic :weight normal))))
  '(jabber-roster-user-online ((t (:foreground "deep sky blue" :slant normal :weight bold))))
  '(mu4e-header-highlight-face ((t (:inherit default :underline t :weight bold))))
- '(term-color-blue ((t (:background "deep sky blue" :foreground "deep sky blue")))))
+ '(term-color-blue ((t (:background "deep sky blue" :foreground "deep sky blue"))) t))
 (put 'downcase-region 'disabled nil)
 (put 'narrow-to-region 'disabled nil)

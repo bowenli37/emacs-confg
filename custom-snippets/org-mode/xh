@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: x hat
+# key: \xh
+# --
+\hat{x_{$1}^{$2}}$0

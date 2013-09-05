@@ -73,3 +73,6 @@
 [submodule "lib/metamap"]
 	path = lib/metamap
 	url = git@github.com:kotfic/emacs-metamap.git
+[submodule "lib/yasnippet"]
+	path = lib/yasnippet
+	url = git@github.com:capitaomorte/yasnippet.git

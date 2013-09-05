@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: Y bar
+# key: \Yb
+# --
+\overline{Y_{$1}^{$2}}$0
