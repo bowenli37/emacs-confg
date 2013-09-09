@@ -47,6 +47,7 @@
  '(jabber-roster-user-away ((t (:foreground "cornflower blue" :slant italic :weight normal))))
  '(jabber-roster-user-online ((t (:foreground "deep sky blue" :slant normal :weight bold))))
  '(mu4e-header-highlight-face ((t (:inherit default :underline t :weight bold))))
- '(term-color-blue ((t (:background "deep sky blue" :foreground "deep sky blue"))) t))
+ '(term-color-blue ((t (:background "deep sky blue" :foreground "deep sky blue"))) t)
+ '(yas-field-highlight-face ((t (:inherit (quote region))))))
 (put 'downcase-region 'disabled nil)
 (put 'narrow-to-region 'disabled nil)

@@ -66,6 +66,12 @@ git@github.com:tkf/emacs-jedi.git
 + of items
 + that has a trailing
 + 
+** TODO Fix refmanager-bibtex-to-org to include bibtex src
+:PROPERTIES:
+:CATEGORY: Process
+:END:  
+  [[file:~/org2/references.org::*Card,%20David%20and%20Krueger,%20Alan%20B.%20::%20Minimum%20Wages%20and%20Employment:%20A%20Case%20Study%20of%20the%20Fast-Food%20Industry%20in%20New%20Jersey%20and%20Pennsylvania.%20(2007)][Card, David and Krueger, Alan B. :: Minimum Wages and Employment: A Case Study of the Fast-Food Industry in New Jersey and Pennsylvania. (2007)]]
+** TODO Add an end-of-buffer or whatever statement to ipython defadvice so we don't try to paste in the middle of the buffer
 * Opportunities for Improvement
 :PROPERTIES:
 :CATEGORY: Process
@@ -133,7 +139,6 @@ https://github.com/baohaojun/ajoke
 #+BEGIN_SRC sh :results silent :var INFILE=tex-file
 /usr/bin/pandoc -f latex -t docx --bibliography=references.bib --csl=iso690-numeric-en.csl -i $INFILE -o $(echo $INFILE | sed -e "s/tex$/docx/")
 #+END_SRC
-
 
 * Utility Functions
 ** toggle-frame-split
@@ -666,11 +671,42 @@ http://orgmode.org/worg/org-tutorials/org-custom-agenda-commands.html
 
 ** Org-Mode Snippets
 #+TBLNAME: snippets
-| name  | key | file | command              |
-|-------+-----+------+----------------------|
-| alpha | \a  | a    | \alpha_{$1}^{$2}$0   |
-| beta  | \b  | b    | \beta_{$1}^{$2}$0    |
-| y hat | \yh | yh   | \hat{y_{$1}^{$2}}$0  |
+| name        | key  | file | command                            |
+|-------------+------+------+------------------------------------|
+| Embed Latex | $$   | $$   | $$ $1 $$ $0                        |
+| Sum         | \S   | S    | \sum\limits_{${1:i=N}}^{${2:N}}$0  |
+| Simple Sum  | \Ss  | Ss   | \sum{$1}$0                         |
+| Product     | \P   | P    | \prod\limits_{${1:i=n}}^{${2:n}}$0 |
+| Fraction    | \f   | f    | \frac{$1}{$2} $0                   |
+| alpha       | \a   | a    | \alpha_{$1}^{$2}$0                 |
+| alpha hat   | \ah  | ah   | \hat{\alpha}_{$1}^{$2}$0           |
+| alpha bar   | \ab  | ab   | \overline{\alpha}_{$1}^{$2}$0      |
+| beta        | \b   | b    | \beta_{$1}^{$2}$0                  |
+| beta hat    | \bh  | bh   | \hat{\beta}_{$1}^{2}$0             |
+| beta bar    | \bb  | bb   | \overline{\beta}_{$1}^{2}$0        |
+| epsilon     | \e   | e    | \epsilon_{$1}^{$2}$0               |
+| epsilon hat | \eh  | eh   | \hat{\epsilon}_{$1}^{$2}$0         |
+| epsilon bar | \eb  | eb   | \overline{\epsilon}_{$1}^{$2}$0    |
+| sigma       | \s   | s    | \sigma_{$1}^{$2}$0                 |
+| sigma hat   | \sh  | sh   | \hat{\sigma}_{$1}^{$2}$0           |
+| sigma bar   | \sb  | sb   | \overline{\sigma}_{$1}^{$2}$0      |
+| y           | \y   | y    | y_{$1}^{$2}$0                      |
+| y hat       | \yh  | yh   | \hat{y}_{$1}^{$2}$0                |
+| y bar       | \yb  | yb   | \overline{y}_{$1}^{$2}$0           |
+| Y           | \Y   | Y    | Y_{$1}^{$2}$0                      |
+| Y hat       | \Yh  | Yh   | \hat{Y}_{$1}^{$2}$0                |
+| Y bar       | \Yb  | Yb   | \overline{Y}_{$1}^{$2}$0           |
+| x           | \x   | x    | x_{$1}^{$2}$0                      |
+| x hat       | \xh  | xh   | \hat{x}_{$1}^{$2}$0                |
+| x bar       | \xb  | xb   | \overline{x}_{$1}^{$2}$0           |
+| X           | \X   | X    | X_{$1}^{$2}$0                      |
+| X hat       | \Xh  | Xh   | \hat{X}_{$1}^{$2}$0                |
+| X bar       | \Xb  | Xb   | \overline{X}_{$1}^{$2}$0           |
+| p           | \p   | p    | p_{$1}^{$2}$0                      |
+| p hat       | \ph  | ph   | \hat{p}_{$1}^{$2}$0                |
+| p bar       | \pb  | pb   | \overline{p}_{$1}^{$2}$0           |
+| hat         | \hat | hat  | \hat{$1}_{$2}^{$3}$0               |
+| bar         | \bar | bar  | \overline{$1}_{$2}^{$3}$0          |
 
 
 #+NAME: export-snippet-table  
@@ -700,7 +736,8 @@ $3")
 (yas-reload-all)
 (message "Snippet export complete")
 #+END_SRC
-*** TODO Move existing latex/org-mode snippets into table
+*** DONE Move existing latex/org-mode snippets into table
+CLOSED: [2013-09-06 Fri 11:51]
 :PROPERTIES:
 :CATEGORY: Process
 :END:
@@ -853,6 +890,29 @@ SCHEDULED: <2013-09-07 Sat +1m>
    mail-host-address "albany.edu"
    user-full-name "Christopher Kotfila"
    user-mail-address "ckotfila@albany.edu"
+   mu4e-refile-folder
+   (lambda (msg)
+          (cond
+           ;; messages to the mu mailing list go to the /mu folder
+           ((or (mu4e-message-contact-field-matches msg :to "PROJPETITION@listserv.albany.edu")
+		(mu4e-message-contact-field-matches msg :from "PROJPETITION@listserv.albany.edu")
+		(mu4e-message-contact-field-matches msg :cc "PROJPETITION@listserv.albany.edu"))
+            "/ualbany/ProjectPetition")
+           ((or (mu4e-message-contact-field-matches msg :to "@listserv.albany.edu")
+		(mu4e-message-contact-field-matches msg :from "@listserv.albany.edu")
+		(mu4e-message-contact-field-matches msg :cc "@listserv.albany.edu"))
+            "/ualbany/IST-L")           
+	   ((or (mu4e-message-contact-field-matches msg :to "@csail.mit.edu")
+		(mu4e-message-contact-field-matches msg :from "@csail.mit.edu")
+		(mu4e-message-contact-field-matches msg :cc "@csail.mit.edu"))
+					 "/ualbany/CSAIL")
+	    ((or (mu4e-message-contact-field-matches msg :to "@LIST.NIH.GOV")
+		 (mu4e-message-contact-field-matches msg :from "@LIST.NIH.GOV")
+		 (mu4e-message-contact-field-matches msg :cc "@LIST.NIH.GOV"))
+	     "/ualbany/UMLSUSERS-L")
+	    ;; everything else goes to /archive
+	    ;; important to have a catch-all at the end!
+	    (t "/ualbany/Archives")))
    ))
 
 (defun ftc ()
@@ -865,28 +925,6 @@ SCHEDULED: <2013-09-07 Sat +1m>
    smtpmail-smtp-user "chris@fearthecloud.net"
    smtpmail-smtp-server "fearthecloud.net"))
 
-  (setq mu4e-refile-folder
-        (lambda (msg)
-          (cond
-           ;; messages to the mu mailing list go to the /mu folder
-           ((or (mu4e-message-contact-field-matches msg :to "PROJPETITION@listserv.albany.edu")
-	       (mu4e-message-contact-field-matches msg :from "PROJPETITION@listserv.albany.edu")
-	       (mu4e-message-contact-field-matches msg :cc "PROJPETITION@listserv.albany.edu"))
-            "/ualbany/ProjectPetition")
-           ((or (mu4e-message-contact-field-matches msg :to "@listserv.albany.edu")
-	       (mu4e-message-contact-field-matches msg :from "@listserv.albany.edu")
-	       (mu4e-message-contact-field-matches msg :cc "@listserv.albany.edu"))
-            "/ualbany/IST-L")           ((or (mu4e-message-contact-field-matches msg :to "@csail.mit.edu")
-	       (mu4e-message-contact-field-matches msg :from "@csail.mit.edu")
-	       (mu4e-message-contact-field-matches msg :cc "@csail.mit.edu"))
-            "/ualbany/CSAIL")
-           ((or (mu4e-message-contact-field-matches msg :to "@LIST.NIH.GOV")
-		(mu4e-message-contact-field-matches msg :from "@LIST.NIH.GOV")
-		(mu4e-message-contact-field-matches msg :cc "@LIST.NIH.GOV"))
-            "/ualbany/UMLSUSERS-L")
-           ;; everything else goes to /archive
-           ;; important to have a catch-all at the end!
-           (t "/ualbany/Archives"))))
 
 
 (setq mu4e-maildir-shortcuts

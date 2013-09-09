@@ -1,5 +1,5 @@
 # -*- mode: snippet -*-
-# name: e bar
-# key: eb
+# name: epsilon bar
+# key: \eb
 # --
-\overline{\epsilon_{$1}^{$2}} $0
+\overline{\epsilon}_{$1}^{$2}$0

@@ -1,5 +1,5 @@
 # -*- mode: snippet -*-
-# name: e hat
+# name: epsilon hat
 # key: \eh
 # --
-\hat{\epsilon_{$1}^{$2}} $0
+\hat{\epsilon}_{$1}^{$2}$0

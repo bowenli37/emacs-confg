@@ -2,4 +2,4 @@
 # name: X bar
 # key: \Xb
 # --
-\overline{X_{$1}^{$2}}$0
+\overline{X}_{$1}^{$2}$0

@@ -2,4 +2,4 @@
 # name: alpha hat
 # key: \ah
 # --
-\hat{\alpha_{$1}^{$2}}$0
+\hat{\alpha}_{$1}^{$2}$0

@@ -2,4 +2,4 @@
 # name: Y bar
 # key: \Yb
 # --
-\overline{Y_{$1}^{$2}}$0
+\overline{Y}_{$1}^{$2}$0
