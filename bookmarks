@@ -3,20 +3,20 @@
 ;;; nevertheless, you probably don't want to edit it.
 ;;; -*- End Of Bookmark File Format Version Stamp -*-
 (("org-capture-last-stored-marker"
- (filename . "~/org2/unfiled.org")
- (front-context-string . "** TODO Lunch & ")
- (rear-context-string . "ue 12:00-13:00>\n")
- (position . 8114))
+ (filename . "~/org2/rpad705.org")
+ (front-context-string . "** QUESTION need")
+ (rear-context-string . "andouts {2/4}]]\n")
+ (position . 3916))
 ("org-refile-last-stored"
- (filename . "~/.emacs.d/emacs.org")
- (front-context-string . "** TODO File Bug")
- (rear-context-string . "#Introduction]]\n")
- (position . 2476))
+ (filename . "~/org2/rpad705.org")
+ (front-context-string . "** Next classes ")
+ (rear-context-string . " 518-422-3875\n\n\n")
+ (position . 309))
 ("org-capture-last-stored"
  (filename . "~/org2/unfiled.org")
- (front-context-string . "** TODO Figure o")
- (rear-context-string . "ure Center 3A  \n")
- (position . 10913))
+ (front-context-string . "** TODO Call tux")
+ (rear-context-string . "albany/INBOX\"]]\n")
+ (position . 11855))
 ("a"
  (filename . "~/org/school/references/notes.org")
  (front-context-string . "@InProceedings{s")

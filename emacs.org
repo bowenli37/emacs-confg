@@ -72,6 +72,9 @@ git@github.com:tkf/emacs-jedi.git
 :END:  
   [[file:~/org2/references.org::*Card,%20David%20and%20Krueger,%20Alan%20B.%20::%20Minimum%20Wages%20and%20Employment:%20A%20Case%20Study%20of%20the%20Fast-Food%20Industry%20in%20New%20Jersey%20and%20Pennsylvania.%20(2007)][Card, David and Krueger, Alan B. :: Minimum Wages and Employment: A Case Study of the Fast-Food Industry in New Jersey and Pennsylvania. (2007)]]
 ** TODO Add an end-of-buffer or whatever statement to ipython defadvice so we don't try to paste in the middle of the buffer
+** TODO Set up mathjax config as a noweb call into the emacs lisp so we can edit the JS in native mode 
+  
+  [[file:~/.emacs.d/emacs.org::*org-html-mathjax-template][org-html-mathjax-template]]
 * Opportunities for Improvement
 :PROPERTIES:
 :CATEGORY: Process
@@ -420,7 +423,7 @@ http://orgmode.org/worg/org-tutorials/org-custom-agenda-commands.html
    "* TODO %?\n  %i\n  %a")
   ("m" "Migration" entry (file+headline "~/org2/unfiled.org" "Migration")
    "* MIGRATION %?\n %i\n %a ")
-  ("q" "Question" entry (file+headline "~/org2/unfiled.org" "Migration")
+  ("q" "Question" entry (file+headline "~/org2/rpad705.org" "Questions")
    "* QUESTION %?\n %i\n %a ")))
 
 #+END_SRC
@@ -461,13 +464,79 @@ http://orgmode.org/worg/org-tutorials/org-custom-agenda-commands.html
 
 #+END_SRC
 
+*** Org Publish
+#+BEGIN_SRC emacs-lisp
+     (setq org-publish-project-alist
+           '(("org"
+              :base-directory "~/org2/"
+              :publishing-directory "/ssh:root@fearthecloud.net:/var/www/org/httpdocs/"
+	            :publishing-function org-html-publish-to-html
+	            :exclude "personal.org"
+              :section-numbers nil
+              :with-toc nil
+              :html-head "")))
+
+#+END_SRC
+**** Mathjax Options
+#+BEGIN_SRC emacs-lisp
+(setq org-html-mathjax-options
+  '((path  "http://orgmode.org/mathjax/MathJax.js")
+    (scale "100")
+    (align "left")
+    (indent "0em")
+    (mathml nil)))
+
+(setq org-html-mathjax-template
+      "<script type=\"text/javascript\" src=\"%PATH\"></script>
+<script type=\"text/javascript\">
+<!--/*--><![CDATA[/*><!--*/
+    MathJax.Hub.Config({
+        // Only one of the two following lines, depending on user settings
+        // First allows browser-native MathML display, second forces HTML/CSS
+        :MMLYES: config: [\"MMLorHTML.js\"], jax: [\"input/TeX\"],
+        :MMLNO: jax: [\"input/TeX\", \"output/HTML-CSS\"],
+        extensions: [\"tex2jax.js\",\"TeX/AMSmath.js\",\"TeX/AMSsymbols.js\",
+                     \"TeX/noUndefined.js\"],
+        tex2jax: {
+            inlineMath: [ [\"\\\\(\",\"\\\\)\"], ['$$','$$'] ],
+            displayMath: [ [\"\\\\[\",\"\\\\]\"], [\"\\\\begin{displaymath}\",\"\\\\end{displaymath}\"] ],
+            skipTags: [\"script\",\"noscript\",\"style\",\"textarea\",\"pre\",\"code\"],
+            ignoreClass: \"tex2jax_ignore\",
+            processEscapes: false,
+            processEnvironments: true,
+            preview: \"TeX\"
+        },
+        showProcessingMessages: true,
+        displayAlign: \"%ALIGN\",
+        displayIndent: \"%INDENT\",
+
+        \"HTML-CSS\": {
+             scale: %SCALE,
+             availableFonts: [\"STIX\",\"TeX\"],
+             preferredFont: \"TeX\",
+             webFont: \"TeX\",
+             imageFont: \"TeX\",
+             showMathMenu: true,
+        },
+        MMLorHTML: {
+             prefer: {
+                 MSIE:    \"MML\",
+                 Firefox: \"MML\",
+                 Opera:   \"HTML\",
+                 other:   \"HTML\"
+             }
+        }
+    });
+/*]]>*///-->
+</script>")
+#+END_SRC
 ** Contrib
 *** Org Mode Bullets                                            :SUBMODULE:
 #+BEGIN_SRC emacs-lisp
 (add-to-list 'load-path "~/.emacs.d/lib/org-bullets/")
 (require 'org-bullets)
 (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
-#+END_SRC*
+#+END_SRC
 * IDO
 #+BEGIN_SRC emacs-lisp
 (require 'ido)
@@ -655,7 +724,7 @@ http://orgmode.org/worg/org-tutorials/org-custom-agenda-commands.html
 
 ; This could probably be more sophisticated
 (defun preview-fragment ()
-  (if (looking-back "$$ ")
+  (if (looking-back "\) ")
       (org-preview-latex-fragment)))
 
 (add-hook 'org-mode-hook
@@ -673,7 +742,7 @@ http://orgmode.org/worg/org-tutorials/org-custom-agenda-commands.html
 #+TBLNAME: snippets
 | name        | key  | file | command                            |
 |-------------+------+------+------------------------------------|
-| Embed Latex | $$   | $$   | $$ $1 $$ $0                        |
+| Embed Latex | $$   | $$   | \\( $1 \\) $0                      |
 | Sum         | \S   | S    | \sum\limits_{${1:i=N}}^{${2:N}}$0  |
 | Simple Sum  | \Ss  | Ss   | \sum{$1}$0                         |
 | Product     | \P   | P    | \prod\limits_{${1:i=n}}^{${2:n}}$0 |
@@ -682,10 +751,10 @@ http://orgmode.org/worg/org-tutorials/org-custom-agenda-commands.html
 | alpha hat   | \ah  | ah   | \hat{\alpha}_{$1}^{$2}$0           |
 | alpha bar   | \ab  | ab   | \overline{\alpha}_{$1}^{$2}$0      |
 | beta        | \b   | b    | \beta_{$1}^{$2}$0                  |
-| beta hat    | \bh  | bh   | \hat{\beta}_{$1}^{2}$0             |
+| beta hat    | \bh  | bh   | \hat{\beta}_{$1}^{$2}$0            |
 | beta bar    | \bb  | bb   | \overline{\beta}_{$1}^{2}$0        |
-| epsilon     | \e   | e    | \epsilon_{$1}^{$2}$0               |
 | epsilon hat | \eh  | eh   | \hat{\epsilon}_{$1}^{$2}$0         |
+| epsilon     | \e   | e    | \epsilon_{$1}^{$2}$0               |
 | epsilon bar | \eb  | eb   | \overline{\epsilon}_{$1}^{$2}$0    |
 | sigma       | \s   | s    | \sigma_{$1}^{$2}$0                 |
 | sigma hat   | \sh  | sh   | \hat{\sigma}_{$1}^{$2}$0           |
@@ -883,7 +952,7 @@ SCHEDULED: <2013-09-07 Sat +1m>
 (defun ualbany ()
   (interactive)
   (setq
-   mu4e-sent-folder   "/ualbany/Sent"       ;; folder for sent messages
+   mu4e-sent-folder   "/ualbany/Sent Items"       ;; folder for sent messages
    mu4e-drafts-folder "/ualbany/Drafts"     ;; unfinished messages
    mu4e-trash-folder  "/ualbany/Trash"      ;; trashed messages
    message-sendmail-extra-arguments '("-a" "ualbany" "-X" "/home/kotfic/.msmtp.log" "-t")

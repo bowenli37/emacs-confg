@@ -2,4 +2,4 @@
 # name: beta hat
 # key: \bh
 # --
-\hat{\beta}_{$1}^{2}$0
+\hat{\beta}_{$1}^{$2}$0
