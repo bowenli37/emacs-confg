@@ -76,3 +76,6 @@
 [submodule "lib/yasnippet"]
 	path = lib/yasnippet
 	url = git@github.com:capitaomorte/yasnippet.git
+[submodule "lib/mumps"]
+	path = lib/mumps
+	url = git@github.com:kotfic/emacs-mumps.git

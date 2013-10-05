@@ -29,6 +29,7 @@
  '(foreground-color "#cccccc")
  '(grep-command "grep -rin -e ")
  '(ido-default-buffer-method (quote selected-window))
+ '(inferior-STA-program-name "/usr/local/stata13/stata")
  '(org-export-backends (quote (ascii html icalendar latex md odt)))
  '(org-format-latex-options (quote (:foreground default :background default :scale 1.4 :html-foreground "Black" :html-background "Transparent" :html-scale 1.0 :matchers ("begin" "$1" "$" "$$" "\\(" "\\["))))
  '(safe-local-variable-values (quote ((python-shell-interpreter . "ipython") (python-shell-virtualenv-path . "~/.envs/nltk/") (org-clock-into-drawer . t))))

@@ -3,20 +3,20 @@
 ;;; nevertheless, you probably don't want to edit it.
 ;;; -*- End Of Bookmark File Format Version Stamp -*-
 (("org-capture-last-stored-marker"
- (filename . "~/org2/rpad705.org")
- (front-context-string . "** QUESTION need")
- (rear-context-string . "andouts {2/4}]]\n")
- (position . 3916))
+ (filename . "~/org2/infphd.org")
+ (front-context-string . "*** MEETING ASIS")
+ (rear-context-string . "m 12:00 to 1:00\n")
+ (position . 29262))
 ("org-refile-last-stored"
- (filename . "~/org2/rpad705.org")
- (front-context-string . "** Next classes ")
- (rear-context-string . " 518-422-3875\n\n\n")
- (position . 309))
+ (filename . "~/org2/infphd.org")
+ (front-context-string . "*** MEETING ASIS")
+ (rear-context-string . "m 12:00 to 1:00\n")
+ (position . 29262))
 ("org-capture-last-stored"
  (filename . "~/org2/unfiled.org")
- (front-context-string . "** TODO Call tux")
- (rear-context-string . "albany/INBOX\"]]\n")
- (position . 11855))
+ (front-context-string . "** MEETING Hacks")
+ (rear-context-string . "Git Workshop!]]\n")
+ (position . 14940))
 ("a"
  (filename . "~/org/school/references/notes.org")
  (front-context-string . "@InProceedings{s")

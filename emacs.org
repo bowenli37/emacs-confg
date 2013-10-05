@@ -75,6 +75,11 @@ git@github.com:tkf/emacs-jedi.git
 ** TODO Set up mathjax config as a noweb call into the emacs lisp so we can edit the JS in native mode 
   
   [[file:~/.emacs.d/emacs.org::*org-html-mathjax-template][org-html-mathjax-template]]
+** TODO Check out online org-config for other nuggets
+:PROPERTIES:
+:CATEGORY: Process
+:END:
+  http://doc.norang.ca/org-mode.html
 * Opportunities for Improvement
 :PROPERTIES:
 :CATEGORY: Process
@@ -345,6 +350,12 @@ bibtex does not support sessions."
       org-hide-leading-stars t
       org-startup-indented t)
 
+; Create a custom ID on links so you can move them around and they still workf
+(setq org-id-link-to-org-use-id 'create-if-interactive-and-no-custom-id)
+
+(setq org-startup-with-inline-images "inlineimages")
+
+
 #+END_SRC
 
 *** Org Agenda
@@ -387,6 +398,7 @@ bibtex does not support sessions."
 				     (tags-todo "+urgent")
 ;				     (tags-todo "CATEGORY=\"RPAD705\"&-backburner&DEADLINE<\"<+1w>\"|CATEGORY=\"RPAD705\"&-backburner&SCHEDULED<\"<+1w>\"")
 				     (tags-todo "CATEGORY=\"RPAD705\"&-backburner")
+				     (tags-todo "CATEGORY=\"INF722\"-backburner")
 				     (tags-todo "CATEGORY=\"INF711\"-backburner")
 				     (tags-todo "CATEGORY=\"INF595\"-backburner")
 				     (tags-todo "CATEGORY=\"RA\"-backburner")
@@ -476,6 +488,11 @@ http://orgmode.org/worg/org-tutorials/org-custom-agenda-commands.html
               :with-toc nil
               :html-head "")))
 
+(defun org-latex-line-break (line-break contents info)
+  "Transcode a LINE-BREAK object from Org to LaTeX.
+CONTENTS is nil.  INFO is a plist holding contextual information."
+  "\\\\\n")
+
 #+END_SRC
 **** Mathjax Options
 #+BEGIN_SRC emacs-lisp
@@ -530,12 +547,17 @@ http://orgmode.org/worg/org-tutorials/org-custom-agenda-commands.html
 /*]]>*///-->
 </script>")
 #+END_SRC
+
 ** Contrib
 *** Org Mode Bullets                                            :SUBMODULE:
 #+BEGIN_SRC emacs-lisp
 (add-to-list 'load-path "~/.emacs.d/lib/org-bullets/")
 (require 'org-bullets)
 (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1)))
+#+END_SRC
+*** Org Reveal                                                  :SUBMODULE:
+#+BEGIN_SRC emacs-lisp
+
 #+END_SRC
 * IDO
 #+BEGIN_SRC emacs-lisp
@@ -776,6 +798,9 @@ http://orgmode.org/worg/org-tutorials/org-custom-agenda-commands.html
 | p bar       | \pb  | pb   | \overline{p}_{$1}^{$2}$0           |
 | hat         | \hat | hat  | \hat{$1}_{$2}^{$3}$0               |
 | bar         | \bar | bar  | \overline{$1}_{$2}^{$3}$0          |
+| rho         | \r   | r    | \rho_{$1}^{$2}$0                   |
+| rho hat     | \rh  | rh   | \hat{\rho}_{$1}^{$2}$0             |
+| rho bar     | \rb  | rb   | \overline{rho}_{$1}^{$2}$0         |
 
 
 #+NAME: export-snippet-table  
@@ -906,6 +931,24 @@ SCHEDULED: <2013-09-07 Sat +1m>
 
 (require 'mu4e)
 (require 'org-mu4e)
+
+
+(defun mu4e-msgv-action-view-in-browser (msg)
+  "View the body of the message in a web browser."
+  (interactive)
+  (let ((html (mu4e-msg-field (mu4e-message-at-point t) :body-html))
+	(tmpfile (format "%s/%d.html" temporary-file-directory (random))))
+    (unless html (error "No html part for this message"))
+    (with-temp-file tmpfile
+      (insert
+       "<html>"
+       "<head><meta http-equiv=\"content-type\""
+       "content=\"text/html;charset=UTF-8\">"
+       html))
+        (browse-url (concat "file://" tmpfile))))
+
+(add-to-list 'mu4e-view-actions
+	     '("View in browser" . mu4e-msgv-action-view-in-browser) t)
 
 ;(setq send-mail-function 'smtpmail-send-it)
 (setq message-send-mail-function 'message-send-mail-with-msmtp)
