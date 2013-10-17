@@ -32,6 +32,7 @@
  '(inferior-STA-program-name "/usr/local/stata13/stata")
  '(org-export-backends (quote (ascii html icalendar latex md odt)))
  '(org-format-latex-options (quote (:foreground default :background default :scale 1.4 :html-foreground "Black" :html-background "Transparent" :html-scale 1.0 :matchers ("begin" "$1" "$" "$$" "\\(" "\\["))))
+ '(org-id-link-to-org-use-id t)
  '(safe-local-variable-values (quote ((python-shell-interpreter . "ipython") (python-shell-virtualenv-path . "~/.envs/nltk/") (org-clock-into-drawer . t))))
  '(smtpmail-stream-type nil)
  '(vc-annotate-background "#2B2B2B")

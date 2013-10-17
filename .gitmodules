@@ -79,3 +79,6 @@
 [submodule "lib/mumps"]
 	path = lib/mumps
 	url = git@github.com:kotfic/emacs-mumps.git
+[submodule "lib/org-reveal"]
+	path = lib/org-reveal
+	url = git@github.com:yjwen/org-reveal.git
