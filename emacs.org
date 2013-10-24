@@ -780,6 +780,7 @@ CONTENTS is nil.  INFO is a plist holding contextual information."
 (add-to-list 'load-path "~/.emacs.d/lib/yasnippet")
 (require 'yasnippet)
 
+
 (setq yas-snippet-dirs '("~/.emacs.d/custom-snippets" "~/.emacs.d/lib/yasnippet/snippets"))
 
 
@@ -788,14 +789,10 @@ CONTENTS is nil.  INFO is a plist holding contextual information."
   (if (looking-back "\) ")
       (org-preview-latex-fragment)))
 
-(add-hook 'org-mode-hook
-          (lambda ()
-	    (yas-minor-mode-on)
-	    (yas-reload-all)
-	    (set (make-local-variable 'yas-after-exit-snippet-hook) '(preview-fragment))
-	    ))
-
+(add-hook 'yas-after-exit-snippet-hook 'preview-fragment)
 (setq yas-triggers-in-field t)
+
+(yas-reload-all)
 
 #+END_SRC
 
@@ -972,7 +969,7 @@ SCHEDULED: <2013-11-07 Thu +1m>
 :VERSION: master
 :END:
 #+BEGIN_SRC emacs-lisp
-(add-to-list 'load-path "~/.emacs.d/lib/mu4e/mu4e")
+(add-to-list 'load-path "~/.emacs.d/lib/mu/mu4e")
 
 (require 'mu4e)
 (require 'org-mu4e)

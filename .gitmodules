@@ -82,3 +82,6 @@
 [submodule "lib/org-reveal"]
 	path = lib/org-reveal
 	url = git@github.com:yjwen/org-reveal.git
+[submodule "lib/mu"]
+	path = lib/mu
+	url = git@github.com:kotfic/mu.git
