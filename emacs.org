@@ -82,6 +82,10 @@ CLOCK: [2013-10-09 Wed 15:33]--[2013-10-09 Wed 17:23] =>  1:50
 :CATEGORY: Process
 :END:
   http://doc.norang.ca/org-mode.html
+** TODO Fix gmail with mu4e and msmtp                               :urgent:
+:PROPERTIES:
+:CATEGORY: Process
+:END:  
 * Opportunities for Improvement
 :PROPERTIES:
 :CATEGORY: Process
@@ -129,6 +133,11 @@ correct php/html indentation (get from master)
   + can we store these searches?
 ** TODO Light weight Java (does not require eclipse)            :backburner:
 https://github.com/baohaojun/ajoke
+** TODO :comments header argument for org-babel (investigate)
+:PROPERTIES:
+:CATEGORY: Process
+:ID:       f6e1b244-82e6-43e5-8d72-6a578506fbae
+:END:
 * Things I Often Forget
 ** Diacritic marks in emacs
   [2013-07-12 Fri]
@@ -309,14 +318,15 @@ Assumes that the frame is only split into two."
   :VERSION: 8.0.3
   :END:
 ** TODO Review Org Mode Version
-SCHEDULED: <2013-11-05 Tue +1m>
+SCHEDULED: <2013-12-05 Thu +1m>
+- State "DONE"       from "TODO"       [2013-11-05 Tue 09:46]
 - State "DONE"       from "TODO"       [2013-08-07 Wed 12:57]
 - State "DONE"       from "TODO"       [2013-08-07 Wed 12:57]
 - State "DONE"       from "TODO"       [2013-08-07 Wed 12:57]
 - State "DONE"       from "TODO"       [2013-07-26 Fri 08:34]
 - State "DONE"       from "TODO"       [2013-07-22 Mon 15:21]
 :PROPERTIES:
-:LAST_REPEAT: [2013-08-07 Wed 12:57]
+:LAST_REPEAT: [2013-11-05 Tue 09:46]
 :END:
 
 ** Org Babel Bibtex
@@ -780,7 +790,7 @@ CONTENTS is nil.  INFO is a plist holding contextual information."
 (add-to-list 'load-path "~/.emacs.d/lib/yasnippet")
 (require 'yasnippet)
 
-
+(yas-global-mode 1)
 (setq yas-snippet-dirs '("~/.emacs.d/custom-snippets" "~/.emacs.d/lib/yasnippet/snippets"))
 
 
@@ -792,7 +802,7 @@ CONTENTS is nil.  INFO is a plist holding contextual information."
 (add-hook 'yas-after-exit-snippet-hook 'preview-fragment)
 (setq yas-triggers-in-field t)
 
-(yas-reload-all)
+;(yas-reload-all)
 
 #+END_SRC
 
@@ -878,6 +888,28 @@ CLOSED: [2013-09-06 Fri 11:51]
 (add-to-list 'auto-mode-alist '("\\.odt\\'" . doc-view-mode))
 (setq doc-view-continuous t)
 
+(defun doc-view-rotate-current-page ()
+  "Rotate the current page by 90 degrees.
+Requires ImageMagick installation"
+  (interactive)
+  (when (eq major-mode 'doc-view-mode)
+    ;; we are assuming current doc-view internals about cache-names
+    (let ((file-name (expand-file-name (format "page-%d.png" (doc-view-current-page)) (doc-view-current-cache-dir))))
+      ;; assume imagemagick is installed and rotate file in-place and redisplay buffer
+      (call-process-shell-command "convert" nil nil nil "-rotate" "90" file-name file-name)
+      (clear-image-cache)
+      (doc-view-goto-page (doc-view-current-page)))))
+
+(defun pdftotext ()
+  "Run pdftotext on the entire buffer."
+  (interactive)
+  (let ((modified (buffer-modified-p)))
+    (erase-buffer)
+    (shell-command
+     (concat "pdftotext " (buffer-file-name) " -")
+     (current-buffer)
+     t)
+    (set-buffer-modified-p modified)))
 
 #+END_SRC
 * Refmanager Mode
