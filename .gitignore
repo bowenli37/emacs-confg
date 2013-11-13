@@ -18,3 +18,4 @@ emacs.el
 var
 /lib/ob-bibtex.el
 /emms/cache
+/emacs.org.save

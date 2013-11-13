@@ -847,6 +847,8 @@ CONTENTS is nil.  INFO is a plist holding contextual information."
 | rho         | \r   | r    | \rho_{$1}^{$2}$0                   |
 | rho hat     | \rh  | rh   | \hat{\rho}_{$1}^{$2}$0             |
 | rho bar     | \rb  | rb   | \overline{rho}_{$1}^{$2}$0         |
+| likelyhood  | \L   | L    | \cal{L}$0                          |
+|             |      |      |                                    |
 
 
 #+NAME: export-snippet-table  
@@ -942,14 +944,15 @@ CLOCK: [2013-10-14 Mon 13:15]--[2013-10-14 Mon 17:23] =>  4:08
 #+END_SRC
 
 ** TODO Review Twittering Mode Version
-SCHEDULED: <2013-11-07 Thu +1m>
+SCHEDULED: <2013-12-07 Sat +1m>
+- State "DONE"       from "TODO"       [2013-11-12 Tue 17:19]
 - State "DONE"       from "TODO"       [2013-10-15 Tue 07:43]
 - State "DONE"       from "TODO"       [2013-10-10 Thu 09:25]
 - State "DONE"       from "TODO"       [2013-08-26 Mon 20:03]
 - State "DONE"       from "TODO"       [2013-08-07 Wed 13:44]
 - State "DONE"       from "TODO"       [2013-07-15 Mon 12:09]
 :PROPERTIES:
-:LAST_REPEAT: [2013-10-15 Tue 07:43]
+:LAST_REPEAT: [2013-11-12 Tue 17:19]
 :END:
 
 * Lorem Ipsum
@@ -1461,7 +1464,8 @@ SCHEDULED: <2013-11-07 Thu +1m>
 (add-to-list 'load-path "~/.emacs.d/lib/metamap/")
 (require 'metamap-mode)
 
-(setq metamap-cli-arguments '("--XMLf" "--restrict_to_sts patf,dsyn,mobd,comd,cgab,acab,inpo,anab,neop,virs,bact,sosy,topp,medd,strd,phsu,bodm,antb,clnd,drdd,lbpr,lbtr,diap" ))
+(setq metamap-cli-arguments '("--XMLf" )T)
+; (setq metamap-cli-arguments '("--XMLf" "--restrict_to_sts patf,dsyn,mobd,comd,cgab,acab,inpo,anab,neop,virs,bact,sosy,topp,medd,strd,phsu,bodm,antb,clnd,drdd,lbpr,lbtr,diap" ))
 #+END_SRC
 ** DONE add documentation help for tags from 2012 output explained
 CLOSED: [2013-09-03 Tue 10:51]
