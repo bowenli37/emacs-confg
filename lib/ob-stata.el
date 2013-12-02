@@ -46,14 +46,15 @@ nil)
 
 
 (defun org-babel-stata-evaluate-session (session body)
-(mapconcat
-#'org-babel-trim
-(butlast
-  (org-babel-comint-with-output (session org-babel-stata-eoe-output t body)
-    (insert (mapconcat #'org-babel-chomp
-                       (list body org-babel-stata-eoe-indicator)
-                       "\n"))
-    (inferior-ess-send-input)) 2) "\n"))
+  (let ((full-body body))
+    (mapconcat
+     #'org-babel-trim
+     (butlast    
+      (org-babel-comint-with-output (session org-babel-stata-eoe-output t full-body)
+        (insert (mapconcat #'org-babel-chomp
+                           (list body org-babel-stata-eoe-indicator)
+                           "\n"))
+        (inferior-ess-send-input)) 2) "\n")))
 
 (defun org-babel-stata-evaluate
   (session body)

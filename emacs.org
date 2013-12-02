@@ -467,7 +467,7 @@ http://orgmode.org/worg/org-tutorials/org-custom-agenda-commands.html
       org-file-apps '((auto-mode . emacs)
                       ("\\.mm\\'" . default)
                       ("\\.x?html?\\'" . default)
-                      ("\\.pdf\\'" . default)))
+                      ("\\.pdf\\'" . "/usr/bin/xpdf %s")))
 
 #+END_SRC
 
@@ -1338,6 +1338,9 @@ SCHEDULED: <2013-12-07 Sat +1m>
 #+END_SRC
 
 ** ob-stata (maybe)
+:PROPERTIES:
+:ID:       2078280c-1d77-47be-b10b-117313ab946b
+:END:
 
 #+BEGIN_SRC emacs-lisp :tangle ~/.emacs.d/lib/ob-stata.el
 
@@ -1389,14 +1392,15 @@ nil)
 
 
 (defun org-babel-stata-evaluate-session (session body)
-(mapconcat
-#'org-babel-trim
-(butlast
-  (org-babel-comint-with-output (session org-babel-stata-eoe-output t body)
-    (insert (mapconcat #'org-babel-chomp
-		       (list "quietly{\n" body "}\n" org-babel-stata-eoe-indicator)
-		       "\n"))
-    (inferior-ess-send-input)) 2) "\n"))
+  (let ((full-body body))
+    (mapconcat
+     #'org-babel-trim
+     (butlast    
+      (org-babel-comint-with-output (session org-babel-stata-eoe-output t full-body)
+	(insert (mapconcat #'org-babel-chomp
+			   (list body org-babel-stata-eoe-indicator)
+			   "\n"))
+	(inferior-ess-send-input)) 2) "\n")))
 
 (defun org-babel-stata-evaluate
   (session body)
